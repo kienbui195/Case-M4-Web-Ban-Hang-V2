@@ -6,8 +6,15 @@ const router = express.Router();
 const controller = new Controller();
 
 router.get('/', (req, res) => {
-    console.log(req.originalUrl)
     controller.showHomePage(req, res);
+});
+
+router.get('/login', (req, res) => {
+    controller.showLoginPage(req, res);
+});
+
+router.get('/dashboard', (req, res) => {
+    controller.showDashboardPage(req, res);
 })
 
 export default router;
