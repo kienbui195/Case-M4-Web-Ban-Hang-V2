@@ -12,6 +12,10 @@ class Controller {
     showDashboardPage(req:any, res:any) {
         res.render('dashboard');
     }
+
+    showProductsListPage(req: any, res: any) {
+        res.render('productslist');
+    }
 }
 
 export default Controller;

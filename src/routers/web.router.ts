@@ -15,6 +15,10 @@ router.get('/login', (req, res) => {
 
 router.get('/dashboard', (req, res) => {
     controller.showDashboardPage(req, res);
+});
+
+router.get('/products/list', (req, res) => {
+    controller.showProductsListPage(req, res);
 })
 
 export default router;
