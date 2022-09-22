@@ -285,17 +285,18 @@
     <!--Header-->
     <%- include('./header/productHeader')%>
 
-    <% if (messageSuccess.lenght > 0) { %>
-    <div class="alert alert-success">
-        <strong>Success!</strong><%= messageSuccess %>
-    </div>
-    <% } %>
-    <% if (messageFail.lenght > 0) { %>
-        <div class="alert alert-danger">
-            <strong>Fail!</strong><%= messageFail %>
+    <!--Body-->
+
+    <% if(locals.message == 'success'){ %>
+        <div class="alert alert-success" role="alert">
+            <strong>Success!</strong> Registion Success!
+        </div>
+    <% } else if (locals.message == 'fail') { %>
+        <div class="alert alert-danger" role="alert">
+            <strong>Fail!</strong> Registion Fail! Your Accout Existed! Please register a new Accout or Login!
         </div>
     <% } %>
-    <!--Body-->
+
     <div class="formLogin">
         <form method="post" enctype="multipart/form-data" action="/login">
             <div class="cont">

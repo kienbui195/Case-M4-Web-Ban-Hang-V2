@@ -1,6 +1,4 @@
 import { UserModel } from "../schemas/userLogin.model";
-import * as popup from "node-popup";
-import {alert} from 'node-popup';
 
 class Controller {
 
@@ -23,10 +21,15 @@ class Controller {
             const newUser = {
                 name: data.nameRegister,
                 email: data.emailRegister,
-                password: data.passwordRegister
+                password: data.passwordRegister,
+                role: 0,
             }
             await UserModel.create(newUser);
-            res.render('login', {messageSuccess: 'Register Success!'})
+            res.locals.message = 'success';
+            res.render('login');
+        } else {
+            res.locals.message = 'fail';
+            res.render('login');
         }
     }
 
