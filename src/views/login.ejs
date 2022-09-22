@@ -285,16 +285,6 @@
     <!--Header-->
     <%- include('./header/productHeader')%>
 
-    <% if (messageSuccess.lenght > 0) { %>
-    <div class="alert alert-success">
-        <strong>Success!</strong><%= messageSuccess %>
-    </div>
-    <% } %>
-    <% if (messageFail.lenght > 0) { %>
-        <div class="alert alert-danger">
-            <strong>Fail!</strong><%= messageFail %>
-        </div>
-    <% } %>
     <!--Body-->
     <div class="formLogin">
         <form method="post" enctype="multipart/form-data" action="/login">

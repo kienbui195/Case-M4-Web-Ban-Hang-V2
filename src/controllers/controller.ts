@@ -18,6 +18,11 @@ class Controller {
 
     showProductsListPage(req: any, res: any) {
         res.render('productsList');
+    }
+
+    showAddProductsPage(req: any, res: any) {
+        res.render('addProduct');
+    }
         
     async getDataRegister(req: any, res: any) {
         const user = await UserModel.findOne({ email: req.body.emailRegister });
@@ -38,6 +43,8 @@ class Controller {
         res.redirect('/login');
 
     }
+
+
 }
 
 export default Controller;
