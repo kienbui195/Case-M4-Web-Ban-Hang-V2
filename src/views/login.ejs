@@ -284,7 +284,17 @@
 <body>
     <!--Header-->
     <%- include('./header/productHeader')%>
-    
+
+    <% if (messageSuccess.lenght > 0) { %>
+    <div class="alert alert-success">
+        <strong>Success!</strong><%= messageSuccess %>
+    </div>
+    <% } %>
+    <% if (messageFail.lenght > 0) { %>
+        <div class="alert alert-danger">
+            <strong>Fail!</strong><%= messageFail %>
+        </div>
+    <% } %>
     <!--Body-->
     <div class="formLogin">
         <form method="post" enctype="multipart/form-data" action="/login">
@@ -301,7 +311,6 @@
                     </label>
                     <p class="forgot-pass">Forgot password?</p>
                     <button type="submit" class="submit" >Sign In</button>
-                    <a type="button" class="fb-btn" href="/login/facebook" style="margin-left: 35%; border-radius: 30px; width: 30%; text-align: center;">Join with <span>Facebook</span></a>
                     <br>
                     <a type="button" class="fb-btn" href="/login/google" style="margin-top:5px; margin-left: 35%; border-radius: 30px; width: 30%; text-align: center" >Join with <span>Google</span> </a>       
                 </div>
@@ -338,7 +347,6 @@
                         <input type="password" name="passwordRegister" required/>
                     </label>
                     <button type="submit" class="submit" >Sign Up</button>
-                    <a type="button" class="fb-btn" href="/login/facebook" style="margin-left: 35%; border-radius: 30px; width: 30%; text-align: center;">Join with <span>Facebook</span></a>
                     <br>
                     <a type="button" class="fb-btn" href="/login/google" style="margin-top:5px; margin-left: 35%; border-radius: 30px; width: 30%; text-align: center" >Join with <span>Google</span> </a>       
                 </form>                
