@@ -32,7 +32,7 @@ class Controller {
                     name: data.nameRegister,
                     email: data.emailRegister,
                     password: data.passwordRegister,
-                    role: 0,
+                    role: "user",
                 }
                 await UserModel.create(newUser);
                 res.locals.message = 'success';
@@ -48,10 +48,43 @@ class Controller {
         
     }
 
+    async showFormUserManager(req: any, res: any) {
+        let admin = await UserModel.find({ role: 'admin' });
+        let user = await UserModel.find({ role: 'user'})
+        res.render('dashboardUserAccManager', {admin: admin, user: user});
+    }
+
+    async createAdminAccount(req: any, res: any) {
+        if (checkRegisterUser(req.body.adminName, req.body.adminPassword)) {
+            let user = await UserModel.findOne({ email: req.body.adminEmail });
+            if (!user) {
+                const data = req.body;
+                const newUser = {
+                    name: data.adminName,
+                    email: data.adminEmail,
+                    password: data.adminPassword,
+                    role: "admin",
+                }
+                await UserModel.create(newUser);
+                res.locals.message = 'success';
+                res.render('dashboardAdminRegister');
+            } else {
+                res.locals.message = 'fail';
+                res.render('dashboardAdminRegister');
+            }
+        } else {
+            res.locals.message = 'error';
+            res.render('dashboardAdminRegister');
+        }
+    }
+
+    showFormCreateAdminAccount(req: any, res: any) {
+        res.render('dashboardAdminRegister');
+    }
+
     logout(req: any, res: any) {
         req.flash('message', 'You are now logged out.');
         res.redirect('/login');
-
     }
 
 
