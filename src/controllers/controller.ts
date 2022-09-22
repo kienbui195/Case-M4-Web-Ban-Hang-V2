@@ -5,8 +5,12 @@ class Controller {
         res.render('home');
     }
 
-    showAbout(req: any, res: any) {
-        res.render('about');
+    showLoginPage(req: any, res: any) {
+        res.render('login');
+    }
+
+    showDashboardPage(req:any, res:any) {
+        res.render('dashboard');
     }
 }
 
