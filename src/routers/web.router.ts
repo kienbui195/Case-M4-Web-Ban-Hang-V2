@@ -19,7 +19,6 @@ router.get('/dashboard', (req, res) => {
     controller.showDashboardPage(req, res);
 });
 
-
 router.get('/products/list', (req, res) => {
     controller.showProductsListPage(req, res);
 });
@@ -29,11 +28,23 @@ router.get('/products/add', (req, res) => {
 });
 
 router.post('/register', upload.none(), (req, res, next) => {
-        controller.getDataRegister(req, res).catch(err => res.render('error'));
-    })
+    controller.getDataRegister(req, res).catch(err => res.render('404page'));
+})
 
 router.get('/logout', (req, res) => {
-        controller.logout(req, res);
-    });
+    controller.logout(req, res);
+});
+
+router.get('/users/list', (req, res) => {
+    controller.showFormUserManager(req, res).catch(err => res.render('404page'));
+})
+
+router.get('/users/add', (req, res) => {
+    controller.showFormCreateAdminAccount(req, res);
+})
+
+router.post('/users/add', upload.none(), (req, res) => {
+    controller.createAdminAccount(req, res).catch(err => res.render('404page'));
+})
 
 export default router;
