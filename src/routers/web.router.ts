@@ -19,12 +19,17 @@ router.get('/dashboard', (req, res) => {
     controller.showDashboardPage(req, res);
 });
 
+
+router.get('/products/list', (req, res) => {
+    controller.showProductsListPage(req, res);
+
 router.post('/register', upload.none(), (req, res, next) => {
     controller.getDataRegister(req, res).catch(err => res.render('error'));
 })
 
 router.get('/logout', (req, res) => {
     controller.logout(req, res);
+
 })
 
 export default router;

@@ -16,6 +16,9 @@ class Controller {
         res.render('dashboard');
     }
 
+    showProductsListPage(req: any, res: any) {
+        res.render('productsList');
+        
     async getDataRegister(req: any, res: any) {
         const user = await UserModel.findOne({ email: req.body.emailRegister });
         if (!user) {
@@ -33,6 +36,7 @@ class Controller {
     logout(req: any, res: any) {
         req.flash('message', 'You are now logged out.');
         res.redirect('/login');
+
     }
 }
 
