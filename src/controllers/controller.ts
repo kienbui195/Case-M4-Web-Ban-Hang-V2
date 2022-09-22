@@ -14,7 +14,7 @@ class Controller {
     }
 
     showProductsListPage(req: any, res: any) {
-        res.render('productslist');
+        res.render('productsList');
     }
 }
 
