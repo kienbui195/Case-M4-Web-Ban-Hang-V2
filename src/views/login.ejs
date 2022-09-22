@@ -11,27 +11,27 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
-        *, *:before, *:after {
+        div.formLogin *, *:before, *:after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        body {
+        div.formLogin body {
             font-family: 'Open Sans', Helvetica, Arial, sans-serif;
             background: #ededed;
         }
-        input, button {
+        div.formLogin input, button {
             border: none;
             outline: none;
             background: none;
             font-family: 'Open Sans', Helvetica, Arial, sans-serif;
         }
-        .tip {
+        div.formLogin .tip {
             font-size: 20px;
             margin: 40px auto 50px;
             text-align: center;
         }
-        .cont {
+        div.formLogin .cont {
             overflow: hidden;
             position: relative;
             width: 900px;
@@ -39,14 +39,14 @@
             margin: 0 auto 100px;
             background: #fff;
         }
-        .form {
+        div.formLogin .form {
             position: relative;
             width: 640px;
             height: 100%;
             transition: transform 1.2s ease-in-out;
             padding: 50px 30px 0;
         }
-        .sub-cont {
+        div.formLogin .sub-cont {
             overflow: hidden;
             position: absolute;
             left: 640px;
@@ -57,10 +57,10 @@
             background: #fff;
             transition: transform 1.2s ease-in-out;
         }
-        .cont.s--signup .sub-cont {
+        div.formLogin .cont.s--signup .sub-cont {
             transform: translate3d(-640px, 0, 0);
         }
-        button {
+        div.formLogin button {
             display: block;
             margin: 0 auto;
             width: 260px;
@@ -70,7 +70,7 @@
             font-size: 15px;
             cursor: pointer;
         }
-        .img {
+        div.formLogin .img {
             overflow: hidden;
             z-index: 2;
             position: absolute;
@@ -80,7 +80,7 @@
             height: 100%;
             padding-top: 360px;
         }
-        .img:before {
+        div.formLogin .img:before {
             content: '';
             position: absolute;
             right: 0;
@@ -91,7 +91,7 @@
             background-size: cover;
             transition: transform 1.2s ease-in-out;
         }
-        .img:after {
+        div.formLogin .img:after {
             content: '';
             position: absolute;
             left: 0;
@@ -100,10 +100,10 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.6);
         }
-        .cont.s--signup .img:before {
+        div.formLogin .cont.s--signup .img:before {
             transform: translate3d(640px, 0, 0);
         }
-        .img__text {
+        div.formLogin .img__text {
             z-index: 2;
             position: absolute;
             left: 0;
@@ -114,24 +114,24 @@
             color: #fff;
             transition: transform 1.2s ease-in-out;
         }
-        .img__text h2 {
+        div.formLogin .img__text h2 {
             margin-bottom: 10px;
             font-weight: normal;
         }
-        .img__text p {
+        div.formLogin .img__text p {
             font-size: 14px;
             line-height: 1.5;
         }
-        .cont.s--signup .img__text.m--up {
+        div.formLogin .cont.s--signup .img__text.m--up {
             transform: translateX(520px);
         }
-        .img__text.m--in {
+        div.formLogin .img__text.m--in {
             transform: translateX(-520px);
         }
-        .cont.s--signup .img__text.m--in {
+        div.formLogin .cont.s--signup .img__text.m--in {
             transform: translateX(0);
         }
-        .img__btn {
+        div.formLogin .img__btn {
             overflow: hidden;
             z-index: 2;
             position: relative;
@@ -144,7 +144,7 @@
             font-size: 15px;
             cursor: pointer;
         }
-        .img__btn:after {
+        div.formLogin .img__btn:after {
             content: '';
             z-index: 2;
             position: absolute;
@@ -155,7 +155,7 @@
             border: 2px solid #fff;
             border-radius: 30px;
         }
-        .img__btn span {
+        div.formLogin .img__btn span {
             position: absolute;
             left: 0;
             top: 0;
@@ -166,32 +166,32 @@
             height: 100%;
             transition: transform 1.2s;
         }
-        .img__btn span.m--in {
+        div.formLogin .img__btn span.m--in {
             transform: translateY(-72px);
         }
-        .cont.s--signup .img__btn span.m--in {
+        div.formLogin .cont.s--signup .img__btn span.m--in {
             transform: translateY(0);
         }
-        .cont.s--signup .img__btn span.m--up {
+        div.formLogin .cont.s--signup .img__btn span.m--up {
             transform: translateY(72px);
         }
-        h2 {
+        div.formLogin h2 {
             width: 100%;
             font-size: 26px;
             text-align: center;
         }
-        label {
+        div.formLogin label {
             display: block;
             width: 260px;
             margin: 25px auto 0;
             text-align: center;
         }
-        label span {
+        div.formLogin label span {
             font-size: 12px;
             color: #cfcfcf;
             text-transform: uppercase;
         }
-        input {
+        div.formLogin input {
             display: block;
             width: 100%;
             margin-top: 5px;
@@ -200,112 +200,155 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.4);
             text-align: center;
         }
-        .forgot-pass {
+        div.formLogin .forgot-pass {
             margin-top: 15px;
             text-align: center;
             font-size: 12px;
             color: #cfcfcf;
         }
-        .submit {
+        div.formLogin .submit {
             margin-top: 40px;
             margin-bottom: 20px;
             background: #d4af7a;
             text-transform: uppercase;
         }
-        .fb-btn {
+        div.formLogin .fb-btn {
             border: 2px solid #d3dae9;
             color: #8fa1c7;
         }
-        .fb-btn span {
+        div.formLogin .fb-btn span {
             font-weight: bold;
             color: #455a81;
         }
-        .sign-in {
+        div.formLogin .sign-in {
             transition-timing-function: ease-out;
         }
-        .cont.s--signup .sign-in {
+        div.formLogin .cont.s--signup .sign-in {
             transition-timing-function: ease-in-out;
             transition-duration: 1.2s;
             transform: translate3d(640px, 0, 0);
         }
-        .sign-up {
+        div.formLogin .sign-up {
             transform: translate3d(-900px, 0, 0);
         }
-        .cont.s--signup .sign-up {
+        div.formLogin .cont.s--signup .sign-up {
             transform: translate3d(0, 0, 0);
         }
-        .icon-link {
+        div.formLogin .icon-link {
             position: absolute;
             left: 5px;
             bottom: 5px;
             width: 32px;
         }
-        .icon-link img {
+        div.formLogin .icon-link img {
             width: 100%;
             vertical-align: top;
         }
-        .icon-link--twitter {
+        div.formLogin .icon-link--twitter {
             left: auto;
             right: 5px;
         }
 
     </style>
+    <!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <!--===============================================================================================-->	
+        <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->	
+        <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/MagnificPopup/magnific-popup.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="css/util.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--===============================================================================================-->
 </head>
 <body>
-<p class="tip">Click on button in image container</p>
-<div class="cont">
-    <div class="form sign-in">
-        <h2>Welcome back,</h2>
-        <label>
-            <span>Email</span>
-            <input type="email" />
-        </label>
-        <label>
-            <span>Password</span>
-            <input type="password" />
-        </label>
-        <p class="forgot-pass">Forgot password?</p>
-        <button type="button" class="submit">Sign In</button>
-        <button type="button" class="fb-btn">Connect with <span>Facebook</span></button>
-        <button type="button" class="fb-btn">Connect with <span>Google</span></button>
+    <!--Header-->
+    <%- include('./header/productHeader')%>
+    
+    <!--Body-->
+    <div class="formLogin">
+        <form method="post" enctype="multipart/form-data" action="/login">
+            <div class="cont">
+                <div class="form sign-in">
+                    <h2>Welcome back,</h2>
+                    <label>
+                        <span>Email</span>
+                        <input type="email" name="emailLogin"/>
+                    </label>
+                    <label>
+                        <span>Password</span>
+                        <input type="password" name="passwordLogin" />
+                    </label>
+                    <p class="forgot-pass">Forgot password?</p>
+                    <button type="submit" class="submit" >Sign In</button>
+                    <a type="button" class="fb-btn" href="/login/facebook" style="margin-left: 35%; border-radius: 30px; width: 30%; text-align: center;">Join with <span>Facebook</span></a>
+                    <br>
+                    <a type="button" class="fb-btn" href="/login/google" style="margin-top:5px; margin-left: 35%; border-radius: 30px; width: 30%; text-align: center" >Join with <span>Google</span> </a>       
+                </div>
+        </form>
+       
+        <div class="sub-cont">
+            <div class="img">
+                <div class="img__text m--up">
+                    <h2>New here?</h2>
+                    <p>Sign up and discover great amount of new opportunities!</p>
+                </div>
+                <div class="img__text m--in">
+                    <h2>One of us?</h2>
+                    <p>If you already has an account, just sign in. We've missed you!</p>
+                </div>
+                <div class="img__btn">
+                    <span class="m--up">Sign Up</span>
+                    <span class="m--in">Sign In</span>
+                </div>
+            </div>
+            <div class="form sign-up">
+                <h2>Time to feel like home,</h2>
+                <form action="/register" enctype="multipart/form-data" method="post">
+                    <label>
+                        <span>Name</span>
+                        <input type="text" name="nameRegister" required />
+                    </label>
+                    <label>
+                        <span>Email</span>
+                        <input type="email" name="emailRegister" required/>
+                    </label>
+                    <label>
+                        <span>Password</span>
+                        <input type="password" name="passwordRegister" required/>
+                    </label>
+                    <button type="submit" class="submit" >Sign Up</button>
+                    <a type="button" class="fb-btn" href="/login/facebook" style="margin-left: 35%; border-radius: 30px; width: 30%; text-align: center;">Join with <span>Facebook</span></a>
+                    <br>
+                    <a type="button" class="fb-btn" href="/login/google" style="margin-top:5px; margin-left: 35%; border-radius: 30px; width: 30%; text-align: center" >Join with <span>Google</span> </a>       
+                </form>                
+            </div>
+        </div> 
     </div>
-    <div class="sub-cont">
-        <div class="img">
-            <div class="img__text m--up">
-                <h2>New here?</h2>
-                <p>Sign up and discover great amount of new opportunities!</p>
-            </div>
-            <div class="img__text m--in">
-                <h2>One of us?</h2>
-                <p>If you already has an account, just sign in. We've missed you!</p>
-            </div>
-            <div class="img__btn">
-                <span class="m--up">Sign Up</span>
-                <span class="m--in">Sign In</span>
-            </div>
-        </div>
-        <div class="form sign-up">
-            <h2>Time to feel like home,</h2>
-            <label>
-                <span>Name</span>
-                <input type="text" />
-            </label>
-            <label>
-                <span>Email</span>
-                <input type="email" />
-            </label>
-            <label>
-                <span>Password</span>
-                <input type="password" />
-            </label>
-            <button type="button" class="submit">Sign Up</button>
-            <button type="button" class="fb-btn">Join with <span>Facebook</span></button>
-            <button type="button" class="fb-btn">Join with <span>Google</span></button>
-        </div>
-    </div>
-</div>
+     
 
-
+    <!--Footer-->
+    <%- include('./footer/productFooter') %>
 <!-- Optional JavaScript -->
 <script>
     document.querySelector('.img__btn').addEventListener('click', function() {
@@ -322,5 +365,105 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+        <!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="vendor/bootstrap/js/popper.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="vendor/select2/select2.min.js"></script>
+        <script>
+            $(".js-select2").each(function(){
+                $(this).select2({
+                    minimumResultsForSearch: 20,
+                    dropdownParent: $(this).next('.dropDownSelect2')
+                });
+            })
+        </script>
+    <!--===============================================================================================-->
+        <script src="vendor/daterangepicker/moment.min.js"></script>
+        <script src="vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+        <script src="vendor/slick/slick.min.js"></script>
+        <script src="js/slick-custom.js"></script>
+    <!--===============================================================================================-->
+        <script src="vendor/parallax100/parallax100.js"></script>
+        <script>
+            $('.parallax100').parallax100();
+        </script>
+    <!--===============================================================================================-->
+        <script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+        <script>
+            $('.gallery-lb').each(function() { // the containers for all your galleries
+                $(this).magnificPopup({
+                    delegate: 'a', // the selector for gallery item
+                    type: 'image',
+                    gallery: {
+                        enabled:true
+                    },
+                    mainClass: 'mfp-fade'
+                });
+            });
+        </script>
+    <!--===============================================================================================-->
+        <script src="vendor/isotope/isotope.pkgd.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="vendor/sweetalert/sweetalert.min.js"></script>
+        <script>
+            $('.js-addwish-b2').on('click', function(e){
+                e.preventDefault();
+            });
+    
+            $('.js-addwish-b2').each(function(){
+                var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+                $(this).on('click', function(){
+                    swal(nameProduct, "is added to wishlist !", "success");
+    
+                    $(this).addClass('js-addedwish-b2');
+                    $(this).off('click');
+                });
+            });
+    
+            $('.js-addwish-detail').each(function(){
+                var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+    
+                $(this).on('click', function(){
+                    swal(nameProduct, "is added to wishlist !", "success");
+    
+                    $(this).addClass('js-addedwish-detail');
+                    $(this).off('click');
+                });
+            });
+    
+            /*---------------------------------------------*/
+    
+            $('.js-addcart-detail').each(function(){
+                var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+                $(this).on('click', function(){
+                    swal(nameProduct, "is added to cart !", "success");
+                });
+            });
+        </script>
+    <!--===============================================================================================-->
+        <script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <script>
+            $('.js-pscroll').each(function(){
+                $(this).css('position','relative');
+                $(this).css('overflow','hidden');
+                var ps = new PerfectScrollbar(this, {
+                    wheelSpeed: 1,
+                    scrollingThreshold: 1000,
+                    wheelPropagation: false,
+                });
+    
+                $(window).on('resize', function(){
+                    ps.update();
+                })
+            });
+        </script>
+    <!--===============================================================================================-->\
+    <script src="js/main.js"></script>
 </body>
 </html>
