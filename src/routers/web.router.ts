@@ -17,4 +17,8 @@ router.get('/dashboard', (req, res) => {
     controller.showDashboardPage(req, res);
 })
 
+router.get('/about', (req, res) => {
+    controller.showAbout(req, res);
+})
+
 export default router;
