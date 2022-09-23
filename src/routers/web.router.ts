@@ -47,4 +47,12 @@ router.post('/users/add', upload.none(), (req, res) => {
     controller.createAdminAccount(req, res).catch(err => res.render('404page'));
 });
 
+router.get('/user/:id/delete', (req, res) => {
+    controller.deleteUser(req, res).catch(err => res.render('404page'));
+})
+
+router.get('/user/:id/edit', (req, res) => {
+    controller.showEditUserForm(req, res);
+})
+
 export default router;
