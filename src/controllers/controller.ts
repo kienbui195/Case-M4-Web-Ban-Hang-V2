@@ -1,5 +1,6 @@
 import { checkRegisterUser } from "../functions/validateForm";
 import { UserModel } from "../schemas/userLogin.model";
+import {UploadedFile} from "express-fileupload";
 
 class Controller {
 
@@ -21,6 +22,13 @@ class Controller {
 
     showAddProductsPage(req: any, res: any) {
         res.render('addProduct');
+    }
+
+    createProduct(req: any, res: any) {
+        let files = req.files;
+        if(files){
+
+        }
     }
         
     async getDataRegister(req: any, res: any) {
