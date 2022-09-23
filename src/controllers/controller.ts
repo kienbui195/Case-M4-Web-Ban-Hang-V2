@@ -19,6 +19,14 @@ class Controller {
         res.render('dashboard');
     }
 
+    showContactPage(req: any, res: any) {
+        res.render('contact');
+    }
+
+    showAboutPage(req: any, res: any) {
+        res.render('about');
+    }
+
     async showProductsListPage(req: any, res: any) {
         let products = await ProductModel.find();
         res.render('productsList', {products: products});
@@ -34,8 +42,8 @@ class Controller {
         let newProduct = req.body;
         if(newFiles){
             let image = newFiles.image as UploadedFile;
-            await image.mv('./src/public/images/upload' + image.name);
-            newProduct.image = 'image/upload/' + image.name;
+            await image.mv('./src/public/images/upload/' + image.name);
+            newProduct.image = 'images/upload/' + image.name;
             await ProductModel.findOneAndUpdate({_id:newProduct._id}, newProduct);
             res.redirect('/products/list');
         }else{
@@ -54,7 +62,8 @@ class Controller {
     }
 
     async showShopPage(req: any, res: any) {
-        res.render('shop');
+        let products = await ProductModel.find();
+        res.render('shop', {products:products});
     }
 
     async createProduct(req: any, res: any) {
@@ -63,8 +72,8 @@ class Controller {
             let newProduct = req.body;
             if(files.image && newProduct.name){
                 let image = files.image as UploadedFile;
-                await image.mv('./src/public/images/upload' + image.name);
-                newProduct.image = 'image/upload/' + image.name;
+                await image.mv('./src/public/images/upload/' + image.name);
+                newProduct.image = 'images/upload/' + image.name;
                 await ProductModel.create(newProduct);
                 res.redirect('/products/list');
             }else{
