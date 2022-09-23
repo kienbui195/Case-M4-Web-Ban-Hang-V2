@@ -57,8 +57,8 @@
                                                 <th><%= item.name %></th>
                                                 <th><%= item.email %></th>
                                                 <th>******</th>
-                                                <th><a href="/user/<%= item._id %>/delete" class="btn btn-danger">Delete</a></th>
-                                                <th><a href="/user/<%= item._id %>/edit" class="btn btn-primary">Edit</a></th>
+                                                <th><a href="/user/<%= item._id %>/delete" class="btn btn-rounded btn-danger" onclick="return confirm(`Delete: Are U Sure?`)">Delete</a></th>
+                                                <th><a href="/user/<%= item._id %>/edit" class="btn btn-rounded btn-primary">Edit</a></th>
                                             </tr>
                                             <% }) %>
                                             </tbody>
@@ -97,8 +97,8 @@
                                                 <th><%= item.name %></th>
                                                 <th><%= item.email %></th>
                                                 <th>******</th>
-                                                <th><a href="/user/<%= item._id %>/delete" class="btn btn-danger">Delete</a></th>
-                                                <th><a href="/user/<%= item._id %>/edit" class="btn btn-primary">Edit</a></th>
+                                                <th><a href="/user/<%= item._id %>/delete" class="btn btn-rounded btn-danger" onclick="return confirm(`Delete: Are U Sure?`)">Delete</a></th>
+                                                <th><a href="/user/<%= item._id %>/edit" class="btn btn-rounded btn-primary">Edit</a></th>
                                             </tr>
                                             <% }) %>
                                             </tbody>

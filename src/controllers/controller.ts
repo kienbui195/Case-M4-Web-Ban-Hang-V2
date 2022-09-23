@@ -1,7 +1,6 @@
 import { checkRegisterUser } from "../functions/validateForm";
 import { UserModel } from "../schemas/userLogin.model";
 import passport from "passport";
-
 class Controller {
 
     showHomePage(req: any, res: any) {
@@ -81,6 +80,19 @@ class Controller {
 
     showFormCreateAdminAccount(req: any, res: any) {
         res.render('dashboardAdminRegister');
+    }
+
+    async deleteUser(req: any, res: any) {
+        await UserModel.findOneAndDelete({ _id: req.params.id });
+        res.redirect('/users/list')
+    }
+
+    async showEditUserForm(req: any, res: any) {
+        
+    }
+
+    async updateUser(req: any, res: any) {
+        
     }
 
     logout(req: any, res: any, next: any) {
