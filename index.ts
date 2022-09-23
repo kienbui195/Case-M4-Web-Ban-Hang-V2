@@ -2,7 +2,6 @@ import express from "express";
 import router from "./src/routers/web.router";
 import mongoose from "mongoose";
 import session from "express-session";
-import flash from "connect-flash";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 
@@ -17,11 +16,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser('secret'));
 app.use(session({
-    secret: "secret",
     cookie: { maxAge: 60000 },
+    secret: "secret"
 }));
 
-app.use(flash());
 app.use('/', router);
 
 mongoose.connect(DB_URL)

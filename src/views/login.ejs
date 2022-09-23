@@ -286,6 +286,22 @@
     <%- include('./header/productHeader')%>
 
     <!--Body-->
+    
+    <!--Notice-->
+    <% if(locals.message == 'success'){ %>
+        <div class="alert alert-success" role="alert">
+            <strong>Success!</strong> Registion Success!
+        </div>
+    <% } else if (locals.message == 'fail') { %>
+        <div class="alert alert-danger" role="alert">
+            <strong>Fail!</strong> Registion Fail! Your Accout Existed! Please register a new Accout or Login!
+        </div>
+    <% } else if (locals.message == 'error') { %>
+        <div class="alert alert-danger" role="alert">
+            <strong>Fail!</strong> Registion Fail! Enter a name with at least 2 characters. Password must have at least 6 characters with at least 1 special character, 1 uppercase letter and at least 1 number!
+        </div>
+    <% } %>
+
     <div class="formLogin">
         <form method="post" enctype="multipart/form-data" action="/login">
             <div class="cont">
