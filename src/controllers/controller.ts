@@ -19,6 +19,14 @@ class Controller {
         res.render('dashboard');
     }
 
+    showContactPage(req: any, res: any) {
+        res.render('contact');
+    }
+
+    showAboutPage(req: any, res: any) {
+        res.render('about');
+    }
+
     async showProductsListPage(req: any, res: any) {
         let products = await ProductModel.find();
         res.render('productsList', {products: products});

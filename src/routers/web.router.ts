@@ -19,6 +19,14 @@ router.get('/dashboard', (req, res) => {
     controller.showDashboardPage(req, res);
 });
 
+router.get('/contact', (req, res) => {
+    controller.showContactPage(req, res);
+});
+
+router.get('/about', (req, res) => {
+    controller.showAboutPage(req, res);
+})
+
 router.get('/products/list', (req, res) => {
     controller.showProductsListPage(req, res).catch(err => res.render('404page'));
 });
