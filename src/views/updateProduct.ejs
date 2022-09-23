@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Create Product</title>
+    <title>Update Product</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="/vendor/feather/feather.css">
     <link rel="stylesheet" href="/vendor/ti-icons/css/themify-icons.css">
@@ -42,25 +42,27 @@
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Add new Products</h4>
+                                    <h4 class="card-title">Update Product</h4>
                                     <p class="card-description">
-                                        Please enter your product information
+                                        Please update your product new information
                                     </p>
-                                    <form class="forms-sample" method="post" action="/products/add" enctype="multipart/form-data">
+                                    <form class="forms-sample" method="post" action="/products/edit" enctype="multipart/form-data">
+                                        <input style="display: none" type="text" class="form-control" id="exampleInputName1" name="_id"
+                                                value="<%=updateProduct._id%>">
                                         <div class="form-group">
                                             <label for="exampleInputName1">Name</label>
                                             <input type="text" class="form-control" id="exampleInputName1" name="name"
-                                                   placeholder="Product name">
+                                                   value="<%=updateProduct.name%>">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail3">Price</label>
                                             <input type="number" class="form-control" id="exampleInputEmail3" name="price"
-                                                   placeholder="2000$">
+                                                   value="<%=updateProduct.price%>">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword4">Quantity</label>
                                             <input type="number" class="form-control" id="exampleInputPassword4" name="quantity"
-                                                   placeholder="100...">
+                                                   value="<%=updateProduct.quantity%>">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleSelectGender">Category</label>
@@ -74,7 +76,7 @@
                                             <label>File upload</label>
                                             <input type="file" name="image" class="file-upload-default">
                                             <div class="input-group col-xs-12">
-                                                <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                                                <input type="text" class="form-control file-upload-info" disabled placeholder="<%=updateProduct.image%>>">
                                                 <span class="input-group-append">
                                                     <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                                                 </span>
@@ -82,7 +84,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleTextarea1">Description</label>
-                                            <textarea class="form-control" id="exampleTextarea1" rows="4" name="description"></textarea>
+                                            <input type="text" class="form-control" id="exampleTextarea1" name="description"
+                                                   value="<%=updateProduct.description%>">
                                         </div>
                                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                         <a href="/products/list" class="btn btn-light">Cancel</a>
@@ -104,31 +107,31 @@
     </div>
     <!-- container-scroller -->
 </div>
-    <!-- plugins:js -->
-    <script src="/vendor/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="/vendors/typeahead.js/typeahead.bundle.min.js"></script>
-    <script src="/vendors/select2/select2.min.js"></script>
-    <script src="/vendor/chart.js/Chart.min.js"></script>
-    <script src="/vendor/datatables.net/jquery.dataTables.js"></script>
-    <script src="/vendor/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-    <script src="/js/dataTables.select.min.js"></script>
-    <!-- JavaScript Bundle with Popper -->
+<!-- plugins:js -->
+<script src="/vendor/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script src="/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+<script src="/vendors/select2/select2.min.js"></script>
+<script src="/vendor/chart.js/Chart.min.js"></script>
+<script src="/vendor/datatables.net/jquery.dataTables.js"></script>
+<script src="/vendor/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+<script src="/js/dataTables.select.min.js"></script>
+<!-- JavaScript Bundle with Popper -->
 
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="/js/off-canvas.js"></script>
-    <script src="/js/hoverable-collapse.js"></script>
-    <script src="/js/template.js"></script>
-    <script src="/js/settings.js"></script>
-    <script src="/js/todolist.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page-->
-    <script src="/js/file-upload.js"></script>
-    <script src="/js/dashboard.js"></script>
-    <script src="/js/Chart.roundedBarCharts.js"></script>
-    <!-- End custom js for this page-->
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="/js/off-canvas.js"></script>
+<script src="/js/hoverable-collapse.js"></script>
+<script src="/js/template.js"></script>
+<script src="/js/settings.js"></script>
+<script src="/js/todolist.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="/js/file-upload.js"></script>
+<script src="/js/dashboard.js"></script>
+<script src="/js/Chart.roundedBarCharts.js"></script>
+<!-- End custom js for this page-->
 </body>
 
 </html>

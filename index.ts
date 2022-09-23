@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import session from "express-session";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import fileUpload from 'express-fileupload';
 
 const app = express();
 const port = 8000;
@@ -18,6 +19,9 @@ app.use(cookieParser('secret'));
 app.use(session({
     cookie: { maxAge: 60000 },
     secret: "secret"
+}));
+app.use(fileUpload({
+    createParentPath: true
 }));
 
 app.use('/', router);
