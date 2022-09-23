@@ -62,7 +62,8 @@ class Controller {
     }
 
     async showShopPage(req: any, res: any) {
-        res.render('shop');
+        let products = await ProductModel.find();
+        res.render('shop', {products:products});
     }
 
     async createProduct(req: any, res: any) {
@@ -72,7 +73,7 @@ class Controller {
             if(files.image && newProduct.name){
                 let image = files.image as UploadedFile;
                 await image.mv('./src/public/images/upload' + image.name);
-                newProduct.image = 'image/upload/' + image.name;
+                newProduct.image = 'images/upload/' + image.name;
                 await ProductModel.create(newProduct);
                 res.redirect('/products/list');
             }else{
