@@ -60,17 +60,18 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        <% products.forEach((item,index)=>{ %>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Herman Beck</td>
-                                            <td>Men</td>
-                                            <td>$ 77.99</td>
-                                            <td>$ 77.99</td>
-                                            <td>May 15, 2015</td>
-                                            <td><button type="button" class="btn btn-primary btn-rounded btn-fw">Edit</button></td>
-                                            <td><button type="button" class="btn btn-danger btn-rounded btn-fw">Delete</button></td>
+                                            <td><%= index+1%></td>
+                                            <td><%=item.name%></td>
+                                            <td><%=item.category%></td>
+                                            <td><%=item.price%></td>
+                                            <td><%=item.quantity%></td>
+                                            <td><%=item.description%></td>
+                                            <td><a href="/products/edit/<%=item._id%>" type="button" class="btn btn-primary btn-rounded btn-fw">Edit</a></td>
+                                            <td><a href="/products/delete/<%=item._id%>" type="button" class="btn btn-danger btn-rounded btn-fw" onclick="return confirm(`Are you sure delete this item?`)">Delete</a></td>
                                         </tr>
-
+                                        <%})%>
                                         </tbody>
                                     </table>
                                 </div>
