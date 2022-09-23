@@ -1,5 +1,6 @@
 import { checkRegisterUser } from "../functions/validateForm";
 import { UserModel } from "../schemas/userLogin.model";
+import passport from "passport";
 
 class Controller {
 
@@ -24,7 +25,7 @@ class Controller {
     }
         
     async getDataRegister(req: any, res: any) {
-        if (checkRegisterUser(req.body.nameRegister, req.body.passwordRegister)) {
+        if (checkRegisterUser( req.body.passwordRegister )) {
             const user = await UserModel.findOne({ email: req.body.emailRegister });
             if (!user) {
                 const data = req.body;
@@ -55,7 +56,7 @@ class Controller {
     }
 
     async createAdminAccount(req: any, res: any) {
-        if (checkRegisterUser(req.body.adminName, req.body.adminPassword)) {
+        if (checkRegisterUser(req.body.adminPassword)) {
             let user = await UserModel.findOne({ email: req.body.adminEmail });
             if (!user) {
                 const data = req.body;
@@ -82,12 +83,12 @@ class Controller {
         res.render('dashboardAdminRegister');
     }
 
-    logout(req: any, res: any) {
-        req.flash('message', 'You are now logged out.');
-        res.redirect('/login');
+    logout(req: any, res: any, next: any) {
+        req.logout((err: any) =>{
+            if (err) { return next(err); }
+            res.redirect('/login');
+          });
     }
-
-
 }
 
 export default Controller;

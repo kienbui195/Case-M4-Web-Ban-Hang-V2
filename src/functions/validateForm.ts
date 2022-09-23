@@ -1,5 +1,5 @@
 
-export let checkRegisterUser = (name: string, password: string) => {
+export let checkRegisterUser = (password: string) => {
     let checkPassword1: RegExp = /^(?=.{6,}).*$/; //it nhat 6 ki tu
     let result1 = checkPassword1.test(password);
 
@@ -11,11 +11,8 @@ export let checkRegisterUser = (name: string, password: string) => {
 
     let checkPassword4: RegExp = /^(?=.*[^a-zA-Z0-9])[ -~]+$/ //chua it nhat 1 ki tu dac biet, bao gom ca dau cach
     let result4 = checkPassword4.test(password);
-
-    let checkName: RegExp = /^([A-Z a-z]{2,})$/;
-    let result5 = checkName.test(name);
     
-    if (result1 && result2 && result3 && result4 && result5)
+    if (result1 && result2 && result3 && result4)
         return true;
     else
         return false;
