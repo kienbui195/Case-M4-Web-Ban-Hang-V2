@@ -42,8 +42,8 @@ class Controller {
         let newProduct = req.body;
         if(newFiles){
             let image = newFiles.image as UploadedFile;
-            await image.mv('./src/public/images/upload' + image.name);
-            newProduct.image = 'image/upload/' + image.name;
+            await image.mv('./src/public/images/upload/' + image.name);
+            newProduct.image = 'images/upload/' + image.name;
             await ProductModel.findOneAndUpdate({_id:newProduct._id}, newProduct);
             res.redirect('/products/list');
         }else{
@@ -72,7 +72,7 @@ class Controller {
             let newProduct = req.body;
             if(files.image && newProduct.name){
                 let image = files.image as UploadedFile;
-                await image.mv('./src/public/images/upload' + image.name);
+                await image.mv('./src/public/images/upload/' + image.name);
                 newProduct.image = 'images/upload/' + image.name;
                 await ProductModel.create(newProduct);
                 res.redirect('/products/list');
