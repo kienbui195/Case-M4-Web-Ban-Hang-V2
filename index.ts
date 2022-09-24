@@ -4,7 +4,9 @@ import mongoose from "mongoose";
 import session from "express-session";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import flush from "connect-flash";
 import fileUpload from 'express-fileupload';
+
 
 const app = express();
 const port = 8000;
@@ -17,9 +19,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser('secret'));
 app.use(session({
+    secret: "secret",
     cookie: { maxAge: 60000 },
-    secret: "secret"
+    resave: false,
+    saveUninitialized: false
 }));
+app.use(flush());
 app.use(fileUpload({
     createParentPath: true
 }));

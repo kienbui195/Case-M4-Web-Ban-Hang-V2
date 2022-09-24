@@ -1,9 +1,11 @@
 import { checkRegisterUser } from "../functions/validateForm";
 import { UserModel } from "../schemas/userLogin.model";
+import flash from "connect-flash";
 import {UploadedFile} from "express-fileupload";
 import passport from "passport";
 import { resolve } from "path";
 import {ProductModel} from "../schemas/product.model";
+
 
 class Controller {
 
@@ -112,7 +114,7 @@ class Controller {
     async showFormUserManager(req: any, res: any) {
         let admin = await UserModel.find({ role: 'admin' });
         let user = await UserModel.find({ role: 'user'})
-        res.render('dashboardUserAccManager', {admin: admin, user: user});
+        res.render('dashboardUserAccManager', {admin: admin, user: user, message: req.flash('message')});
     }
 
     async createAdminAccount(req: any, res: any) {
@@ -127,8 +129,8 @@ class Controller {
                     role: "admin",
                 }
                 await UserModel.create(newUser);
-                res.locals.message = 'success';
-                res.render('dashboardAdminRegister');
+                req.flash('message','successRegister');
+                res.redirect('/users/list');
             } else {
                 res.locals.message = 'fail';
                 res.render('dashboardAdminRegister');
@@ -145,12 +147,13 @@ class Controller {
 
     async deleteUser(req: any, res: any) {
         await UserModel.findOneAndDelete({ _id: req.params.id });
+        req.flash('message', 'successDelete');
         res.redirect('/users/list');
     }
 
-    async showEditUserForm(req: any, res: any) {
+    async showUpdateUserForm(req: any, res: any) {
         let user = await UserModel.findOne({ _id: req.params.id });
-        res.render('updateUser', {data: user});
+        res.render('updateUser', {data: user, message: req.flash('message')});
     }
 
     async updateUser(req: any, res: any) {
@@ -161,7 +164,11 @@ class Controller {
                 password: data.passwordUpdate,
                 role: data.roleUpdate
             });
-            res.redirect('/users/list')
+            req.flash('message', 'successUpdate')
+            res.redirect('/users/list');
+        } else {
+            req.flash('message','errorUpdate')
+            res.redirect(`/user/${data.id}/edit`);
         }
     }
 
