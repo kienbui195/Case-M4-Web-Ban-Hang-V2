@@ -2,8 +2,8 @@ import { checkRegisterUser } from "../functions/validateForm";
 import { UserModel } from "../schemas/userLogin.model";
 import {UploadedFile} from "express-fileupload";
 import passport from "passport";
+import { resolve } from "path";
 import {ProductModel} from "../schemas/product.model";
-
 
 class Controller {
 
@@ -145,15 +145,24 @@ class Controller {
 
     async deleteUser(req: any, res: any) {
         await UserModel.findOneAndDelete({ _id: req.params.id });
-        res.redirect('/users/list')
+        res.redirect('/users/list');
     }
 
     async showEditUserForm(req: any, res: any) {
-        
+        let user = await UserModel.findOne({ _id: req.params.id });
+        res.render('updateUser', {data: user});
     }
 
     async updateUser(req: any, res: any) {
-        
+        const data = req.body;
+        if (checkRegisterUser(data.passwordUpdate)) {
+            await UserModel.findOneAndUpdate({ _id: data.id }, {
+                name: data.nameUpdate,
+                password: data.passwordUpdate,
+                role: data.roleUpdate
+            });
+            res.redirect('/users/list')
+        }
     }
 
     logout(req: any, res: any, next: any) {

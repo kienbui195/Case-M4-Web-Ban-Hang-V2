@@ -83,4 +83,8 @@ router.get('/user/:id/edit', (req, res) => {
     controller.showEditUserForm(req, res);
 })
 
+router.post('/user/edit', upload.none() , (req, res) => {
+    controller.updateUser(req, res);
+})
+
 export default router;
