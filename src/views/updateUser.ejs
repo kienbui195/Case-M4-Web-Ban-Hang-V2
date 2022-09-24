@@ -47,7 +47,14 @@
                                     <p class="card-description">
                                         Please enter your account information
                                     </p>
-                                    <form class="forms-sample" enctype="multipart/form-data" method="post" action="">
+
+                                    <% if (message == 'errorUpdate') { %>
+                                        <div class="alert alert-danger">
+                                            <strong>Error!</strong> Enter password must have at least 6 characters with at least 1 special character, 1 uppercase letter and at least 1 number!
+                                        </div>
+                                    <% } %>
+
+                                    <form class="forms-sample" enctype="multipart/form-data" method="post">
                                         <input type="text" class="form-control" id="exampleInputName1" value="<%= data._id %>" name="id" style="display: none">
                                         <div class="form-group">
                                             <label for="exampleInputName1">Name</label>

@@ -52,10 +52,10 @@ router.get('/user/:id/delete', (req, res) => {
 })
 
 router.get('/user/:id/edit', (req, res) => {
-    controller.showEditUserForm(req, res);
+    controller.showUpdateUserForm(req, res);
 })
 
-router.post('/user/edit', upload.none() , (req, res) => {
+router.post('/user/:id/edit', upload.none() , (req, res) => {
     controller.updateUser(req, res);
 })
 
