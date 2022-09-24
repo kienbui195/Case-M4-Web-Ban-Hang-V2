@@ -5,6 +5,8 @@ import session from "express-session";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import flush from "connect-flash";
+import fileUpload from 'express-fileupload';
+
 
 const app = express();
 const port = 8000;
@@ -23,6 +25,9 @@ app.use(session({
     saveUninitialized: false
 }));
 app.use(flush());
+app.use(fileUpload({
+    createParentPath: true
+}));
 
 app.use('/', router);
 

@@ -1,6 +1,11 @@
 import { checkRegisterUser } from "../functions/validateForm";
 import { UserModel } from "../schemas/userLogin.model";
 import flash from "connect-flash";
+import {UploadedFile} from "express-fileupload";
+import passport from "passport";
+import { resolve } from "path";
+import {ProductModel} from "../schemas/product.model";
+
 
 class Controller {
 
@@ -16,12 +21,69 @@ class Controller {
         res.render('dashboard');
     }
 
-    showProductsListPage(req: any, res: any) {
-        res.render('productsList');
+    showContactPage(req: any, res: any) {
+        res.render('contact');
+    }
+
+    showAboutPage(req: any, res: any) {
+        res.render('about');
+    }
+
+    async showProductsListPage(req: any, res: any) {
+        let products = await ProductModel.find();
+        res.render('productsList', {products: products});
+    }
+
+    async showEditProductPage(req: any, res: any) {
+        let updateProduct = await ProductModel.findOne({_id: req.params.id});
+        res.render('updateProduct', {updateProduct: updateProduct});
+    }
+
+    async updateProduct(req: any, res: any) {
+        let newFiles = req.files;
+        let newProduct = req.body;
+        if(newFiles){
+            let image = newFiles.image as UploadedFile;
+            await image.mv('./src/public/images/upload/' + image.name);
+            newProduct.image = 'images/upload/' + image.name;
+            await ProductModel.findOneAndUpdate({_id:newProduct._id}, newProduct);
+            res.redirect('/products/list');
+        }else{
+            await ProductModel.findOneAndUpdate({_id:newProduct._id}, newProduct);
+            res.redirect('/products/list');
+        }
+    }
+
+    async deleteProduct(req: any, res: any) {
+        await ProductModel.findOneAndDelete({_id:req.params.id});
+        res.redirect('/products/list');
     }
 
     showAddProductsPage(req: any, res: any) {
         res.render('addProduct');
+    }
+
+    async showShopPage(req: any, res: any) {
+        let products = await ProductModel.find();
+        res.render('shop', {products:products});
+    }
+
+    async createProduct(req: any, res: any) {
+        let files = req.files;
+        if(files){
+            let newProduct = req.body;
+            if(files.image && newProduct.name){
+                let image = files.image as UploadedFile;
+                await image.mv('./src/public/images/upload/' + image.name);
+                newProduct.image = 'images/upload/' + image.name;
+                await ProductModel.create(newProduct);
+                res.redirect('/products/list');
+            }else{
+                res.render('404page');
+            }
+        }else{
+            res.render('404page');
+        }
     }
         
     async getDataRegister(req: any, res: any) {
