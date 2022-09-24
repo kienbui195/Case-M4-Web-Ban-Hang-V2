@@ -7,7 +7,6 @@ import cookieParser from "cookie-parser";
 import flush from "connect-flash";
 import fileUpload from 'express-fileupload';
 
-
 const app = express();
 const port = 8000;
 const DB_URL = 'mongodb://localhost:27017/caseM4';

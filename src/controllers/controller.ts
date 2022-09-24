@@ -79,10 +79,12 @@ class Controller {
                 await ProductModel.create(newProduct);
                 res.redirect('/products/list');
             }else{
-                res.render('404page');
+                res.locals.message = 'errorCreate';
+                res.render('addProduct');
             }
-        }else{
-            res.render('404page');
+        } else {
+            res.locals.message = 'errorCreate';
+            res.render('addProduct');
         }
     }
         
