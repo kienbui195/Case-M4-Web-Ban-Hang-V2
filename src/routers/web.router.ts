@@ -80,11 +80,11 @@ router.get('/shop', (req, res) => {
 })
 
 router.get('/user/:id/edit', (req, res) => {
-    controller.showUpdateUserForm(req, res);
+    controller.showUpdateUserForm(req, res).catch(err => res.render('404page'));
 })
 
 router.post('/user/:id/edit', upload.none() , (req, res) => {
-    controller.updateUser(req, res);
+    controller.updateUser(req, res).catch(err => res.render('404page'));
 })
 
 export default router;

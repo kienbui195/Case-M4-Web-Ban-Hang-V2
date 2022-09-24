@@ -46,21 +46,28 @@
                                     <p class="card-description">
                                         Please enter your product information
                                     </p>
+
+                                    <% if (locals.message) { %>
+                                        <div class="alert alert-danger">
+                                            <strong>Error</strong> Some field is empty!
+                                        </div>
+                                    <% } %>
+
                                     <form class="forms-sample" method="post" action="/products/add" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="exampleInputName1">Name</label>
                                             <input type="text" class="form-control" id="exampleInputName1" name="name"
-                                                   placeholder="Product name">
+                                                   placeholder="Product name" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail3">Price</label>
                                             <input type="number" class="form-control" id="exampleInputEmail3" name="price"
-                                                   placeholder="2000$">
+                                                   placeholder="2000$" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword4">Quantity</label>
                                             <input type="number" class="form-control" id="exampleInputPassword4" name="quantity"
-                                                   placeholder="100...">
+                                                   placeholder="100..." required>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleSelectGender">Category</label>
