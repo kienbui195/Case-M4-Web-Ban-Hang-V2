@@ -47,9 +47,13 @@
                                         Please enter your product information
                                     </p>
 
-                                    <% if (locals.message) { %>
+                                    <% if (message == 'errorCreate') { %>
                                         <div class="alert alert-danger">
-                                            <strong>Error</strong> Some field is empty!
+                                            <strong>Error!</strong> Some field is empty!
+                                        </div>
+                                    <% } else if (message == 'duplicateCreate') { %>
+                                        <div class="alert alert-danger">
+                                            <strong>Error!</strong> Product Existed!
                                         </div>
                                     <% } %>
 

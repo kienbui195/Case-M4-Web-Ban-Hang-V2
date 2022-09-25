@@ -52,21 +52,21 @@
                                         <div class="form-group">
                                             <label for="exampleInputName1">Name</label>
                                             <input type="text" class="form-control" id="exampleInputName1" name="name"
-                                                   value="<%=updateProduct.name%>">
+                                                   value="<%=updateProduct.name%>" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail3">Price</label>
                                             <input type="number" class="form-control" id="exampleInputEmail3" name="price"
-                                                   value="<%=updateProduct.price%>">
+                                                   value="<%=updateProduct.price%>" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword4">Quantity</label>
                                             <input type="number" class="form-control" id="exampleInputPassword4" name="quantity"
-                                                   value="<%=updateProduct.quantity%>">
+                                                   value="<%=updateProduct.quantity%>" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleSelectGender">Category</label>
-                                            <select class="form-control" id="exampleSelectGender" name="category">
+                                            <select class="form-control" id="exampleSelectGender" name="category" required>
                                                 <option value="men">Men</option>
                                                 <option value="women">Women</option>
                                                 <option value="women">Accessories</option>
@@ -74,7 +74,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>File upload</label>
-                                            <input type="file" name="image" class="file-upload-default">
+                                            <input type="file" name="image" class="file-upload-default"                                 >
                                             <div class="input-group col-xs-12">
                                                 <input type="text" class="form-control file-upload-info" disabled placeholder="<%=updateProduct.image%>>">
                                                 <span class="input-group-append">
@@ -85,7 +85,7 @@
                                         <div class="form-group">
                                             <label for="exampleTextarea1">Description</label>
                                             <input type="text" class="form-control" id="exampleTextarea1" name="description"
-                                                   value="<%=updateProduct.description%>">
+                                                   value="<%=updateProduct.description%>" required>
                                         </div>
                                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                         <a href="/products/list" class="btn btn-light">Cancel</a>
