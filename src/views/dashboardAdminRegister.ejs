@@ -49,16 +49,12 @@
                                     </p>
 
                                     <!--Notice-->
-                                    <div class="card">
-                                        <% if(locals.message == 'success'){ %>
-                                            <div class="alert alert-success" role="alert">
-                                            <strong>Success!</strong> Registion Success!
-                                            </div>
-                                        <% } else if (locals.message == 'fail') { %>
+                                    <div class="card">   
+                                        <%  if (message == 'fail') { %>
                                             <div class="alert alert-danger" role="alert">
-                                            <strong>Fail!</strong> Registion Fail! Your Accout Existed! Please register a new Accout or Login!
+                                            <strong>Error!</strong> Registion Fail! Your Accout Existed! Please register a new Accout or Login!
                                             </div>
-                                        <% } else if (locals.message == 'error') { %>
+                                        <% } else if (message == 'error') { %>
                                             <div class="alert alert-danger" role="alert">
                                             <strong>Fail!</strong> Registion Fail! Enter password must have at least 6 characters with at least 1 special character, 1 uppercase letter and at least 1 number!
                                             </div>

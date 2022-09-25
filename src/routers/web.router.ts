@@ -39,7 +39,7 @@ router.post('/products/add', (req, res) => {
     controller.createProduct(req, res).catch(err => res.render('404page'));
 })
 
-router.post('/register', upload.none(), (req, res, next) => {
+router.post('/register', (req, res, next) => {
     controller.getDataRegister(req, res).catch(err => res.render('404page'));
 });
 
@@ -67,7 +67,7 @@ router.get('/products/delete/:id', (req, res) =>{
     controller.deleteProduct(req, res).catch(err => res.render)
 })
 
-router.post('/users/add', upload.none(), (req, res) => {
+router.post('/users/add', (req, res) => {
     controller.createAdminAccount(req, res).catch(err => res.render('404page'));
 });
 
@@ -83,7 +83,7 @@ router.get('/user/:id/edit', (req, res) => {
     controller.showUpdateUserForm(req, res).catch(err => res.render('404page'));
 })
 
-router.post('/user/:id/edit', upload.none() , (req, res) => {
+router.post('/user/:id/edit' , (req, res) => {
     controller.updateUser(req, res).catch(err => res.render('404page'));
 })
 

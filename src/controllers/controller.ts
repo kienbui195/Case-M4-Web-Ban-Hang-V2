@@ -2,10 +2,7 @@ import { checkRegisterUser } from "../functions/validateForm";
 import { UserModel } from "../schemas/userLogin.model";
 import flash from "connect-flash";
 import {UploadedFile} from "express-fileupload";
-import passport from "passport";
-import { resolve } from "path";
 import {ProductModel} from "../schemas/product.model";
-
 
 class Controller {
 
@@ -31,12 +28,12 @@ class Controller {
 
     async showProductsListPage(req: any, res: any) {
         let products = await ProductModel.find();
-        res.render('productsList', {products: products});
+        res.render('productsList', {products: products, message: req.flash('message')});
     }
 
     async showEditProductPage(req: any, res: any) {
         let updateProduct = await ProductModel.findOne({_id: req.params.id});
-        res.render('updateProduct', {updateProduct: updateProduct});
+        res.render('updateProduct', {updateProduct: updateProduct, message: req.flash('message')});
     }
 
     async updateProduct(req: any, res: any) {
@@ -46,21 +43,24 @@ class Controller {
             let image = newFiles.image as UploadedFile;
             await image.mv('./src/public/images/upload/' + image.name);
             newProduct.image = 'images/upload/' + image.name;
-            await ProductModel.findOneAndUpdate({_id:newProduct._id}, newProduct);
+            await ProductModel.findOneAndUpdate({ _id: newProduct._id }, newProduct);
+            req.flash('message', 'successUpdate');
             res.redirect('/products/list');
         }else{
-            await ProductModel.findOneAndUpdate({_id:newProduct._id}, newProduct);
+            await ProductModel.findOneAndUpdate({ _id: newProduct._id }, newProduct);
+            req.flash('message', 'successUpdate');
             res.redirect('/products/list');
         }
     }
 
     async deleteProduct(req: any, res: any) {
-        await ProductModel.findOneAndDelete({_id:req.params.id});
+        await ProductModel.findOneAndDelete({ _id: req.params.id });
+        req.flash('message', 'successDelete');
         res.redirect('/products/list');
     }
 
     showAddProductsPage(req: any, res: any) {
-        res.render('addProduct');
+        res.render('addProduct',{message: req.flash('message')});
     }
 
     async showShopPage(req: any, res: any) {
@@ -72,19 +72,27 @@ class Controller {
         let files = req.files;
         if(files){
             let newProduct = req.body;
-            if(files.image && newProduct.name){
-                let image = files.image as UploadedFile;
-                await image.mv('./src/public/images/upload/' + image.name);
-                newProduct.image = 'images/upload/' + image.name;
-                await ProductModel.create(newProduct);
-                res.redirect('/products/list');
+            if (files.image && newProduct.name) {
+                let product = await ProductModel.findOne({ category: newProduct.category });
+                if (!product) {
+                    let image = files.image as UploadedFile;
+                    await image.mv('./src/public/images/upload/' + image.name);
+                    newProduct.image = 'images/upload/' + image.name;
+                    await ProductModel.create(newProduct);
+                    req.flash('message', 'successCreate');
+                    res.redirect('/products/list');
+                } else {
+                    req.flash('message', 'duplicateCreate');
+                    res.redirect('/products/add');
+                }
+                
             }else{
-                res.locals.message = 'errorCreate';
-                res.render('addProduct');
+                req.flash('message', 'errorCreate');
+                res.redirect('/products/add');
             }
         } else {
-            res.locals.message = 'errorCreate';
-            res.render('addProduct');
+            req.flash('message', 'errorCreate');
+            res.redirect('/products/add');
         }
     }
         
@@ -134,17 +142,17 @@ class Controller {
                 req.flash('message','successRegister');
                 res.redirect('/users/list');
             } else {
-                res.locals.message = 'fail';
-                res.render('dashboardAdminRegister');
+                req.flash('message', 'fail');
+                res.redirect('/users/add');
             }
         } else {
-            res.locals.message = 'error';
-            res.render('dashboardAdminRegister');
+            req.flash('message', 'error');
+            res.redirect('/users/add');
         }
     }
 
     showFormCreateAdminAccount(req: any, res: any) {
-        res.render('dashboardAdminRegister');
+        res.render('dashboardAdminRegister', {message: req.flash('message')});
     }
 
     async deleteUser(req: any, res: any) {

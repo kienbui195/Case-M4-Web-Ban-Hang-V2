@@ -41,6 +41,21 @@
                     <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
+
+                                <% if (message == 'successCreate') { %>
+                                    <div class="alert alert-success">
+                                        <strong>Create Product Success!</strong>
+                                    </div>
+                                <% } else if (message == 'successDelete') { %>
+                                    <div class="alert alert-success">
+                                        <strong>Delete Product Success!</strong>
+                                    </div>
+                                <% } else if (message == 'successUpdate') { %>
+                                    <div class="alert alert-success">
+                                        <strong>Update Product Success!</strong>
+                                    </div>
+                                <% } %>
+
                                 <h4 class="card-title">Products List</h4>
                                 <p class="card-description">
                                     Danh sách <code>Sản phẩm hiện có</code>
