@@ -1,4 +1,3 @@
-
 import express from "express";
 import Controller from "../controllers/controller";
 import multer from "multer";
@@ -95,9 +94,12 @@ router.post('/products/search', (req, res) => {
     controller.searchProduct(req, res).catch(err => res.render('404page'));
 });
 
+router.post('/users/searchProducts', (req, res) => {
+    controller.searchAdminProducts(req, res).catch(err => res.render('404page'));
+});
 
 router.get('/*', (req, res) => {
     res.render('404page');
-})
+});
 
 export default router;
