@@ -200,6 +200,15 @@ class Controller {
         }
     }
 
+    async searchAdminProducts(req: any, res: any) { 
+        let products = await ProductModel.find({ name: {$regex: `${req.body.keyword}`, $options: 'i'} });
+        if (products.length === 0) {
+            res.render('searchAdminProduct');
+        } else { 
+            res.render('productsList', { products: products, message: req.flash('message')});
+        }
+    }
+
     logout(req: any, res: any, next: any) {
         req.logout((err: any) =>{
             if (err) { return next(err); }

@@ -41,21 +41,6 @@
                     <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-
-                                <% if (message == 'successCreate') { %>
-                                    <div class="alert alert-success">
-                                        <strong>Create Product Success!</strong>
-                                    </div>
-                                <% } else if (message == 'successDelete') { %>
-                                    <div class="alert alert-success">
-                                        <strong>Delete Product Success!</strong>
-                                    </div>
-                                <% } else if (message == 'successUpdate') { %>
-                                    <div class="alert alert-success">
-                                        <strong>Update Product Success!</strong>
-                                    </div>
-                                <% } %>
-
                                 <h4 class="card-title">Products List</h4>
                                 <p class="card-description">
                                     Danh sách <code>Sản phẩm hiện có</code>
@@ -87,18 +72,9 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <% products.forEach((item,index)=>{ %>
                                         <tr>
-                                            <td><%= index+1%></td>
-                                            <td><%=item.name%></td>
-                                            <td><%=item.category%></td>
-                                            <td><%=item.price%></td>
-                                            <td><%=item.quantity%></td>
-                                            <td><%=item.description%></td>
-                                            <td><a href="/products/edit/<%=item._id%>" type="button" class="btn btn-primary btn-rounded btn-fw">Edit</a></td>
-                                            <td><a href="/products/delete/<%=item._id%>" type="button" class="btn btn-danger btn-rounded btn-fw" onclick="return confirm(`Are you sure delete this item?`)">Delete</a></td>
+                                            <td colspan="8" style="text-align: center">Not Found</td>
                                         </tr>
-                                        <%})%>
                                         </tbody>
                                     </table>
                                 </div>
@@ -128,7 +104,7 @@
 <script src="/vendor/datatables.net-bs4/dataTables.bootstrap4.js"></script>
 <script src="/js/dataTables.select.min.js"></script>
 <!-- JavaScript Bundle with Popper -->
-s
+
 <!-- End plugin js for this page -->
 <!-- inject:js -->
 <script src="/js/off-canvas.js"></script>
