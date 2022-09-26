@@ -1,8 +1,9 @@
 import { checkRegisterUser } from "../functions/validateForm";
 import { UserModel } from "../schemas/userLogin.model";
 import flash from "connect-flash";
-import {UploadedFile} from "express-fileupload";
-import {ProductModel} from "../schemas/product.model";
+import { UploadedFile } from "express-fileupload";
+import { ProductModel } from "../schemas/product.model";
+import bcrynt from 'bcrypt';
 
 class Controller {
 
@@ -28,25 +29,25 @@ class Controller {
 
     async showProductsListPage(req: any, res: any) {
         let products = await ProductModel.find();
-        res.render('productsList', {products: products, message: req.flash('message')});
+        res.render('productsList', { products: products, message: req.flash('message') });
     }
 
     async showEditProductPage(req: any, res: any) {
-        let updateProduct = await ProductModel.findOne({_id: req.params.id});
-        res.render('updateProduct', {updateProduct: updateProduct, message: req.flash('message')});
+        let updateProduct = await ProductModel.findOne({ _id: req.params.id });
+        res.render('updateProduct', { updateProduct: updateProduct, message: req.flash('message') });
     }
 
     async updateProduct(req: any, res: any) {
         let newFiles = req.files;
         let newProduct = req.body;
-        if(newFiles){
+        if (newFiles) {
             let image = newFiles.image as UploadedFile;
             await image.mv('./src/public/images/upload/' + image.name);
             newProduct.image = 'images/upload/' + image.name;
             await ProductModel.findOneAndUpdate({ _id: newProduct._id }, newProduct);
             req.flash('message', 'successUpdate');
             res.redirect('/products/list');
-        }else{
+        } else {
             await ProductModel.findOneAndUpdate({ _id: newProduct._id }, newProduct);
             req.flash('message', 'successUpdate');
             res.redirect('/products/list');
@@ -60,17 +61,17 @@ class Controller {
     }
 
     showAddProductsPage(req: any, res: any) {
-        res.render('addProduct',{message: req.flash('message')});
+        res.render('addProduct', { message: req.flash('message') });
     }
 
     async showShopPage(req: any, res: any) {
         let products = await ProductModel.find();
-        res.render('shop', {products:products});
+        res.render('shop', { products: products });
     }
 
     async createProduct(req: any, res: any) {
         let files = req.files;
-        if(files){
+        if (files) {
             let newProduct = req.body;
             if (files.image && newProduct.name) {
                 let product = await ProductModel.findOne({ category: newProduct.category });
@@ -85,8 +86,8 @@ class Controller {
                     req.flash('message', 'duplicateCreate');
                     res.redirect('/products/add');
                 }
-                
-            }else{
+
+            } else {
                 req.flash('message', 'errorCreate');
                 res.redirect('/products/add');
             }
@@ -95,16 +96,17 @@ class Controller {
             res.redirect('/products/add');
         }
     }
-        
+
     async getDataRegister(req: any, res: any) {
-        if (checkRegisterUser( req.body.passwordRegister )) {
+        if (checkRegisterUser(req.body.passwordRegister)) {
             const user = await UserModel.findOne({ email: req.body.emailRegister });
             if (!user) {
                 const data = req.body;
+                let password = await bcrynt.hash(data.password, 10)
                 const newUser = {
                     name: data.nameRegister,
                     email: data.emailRegister,
-                    password: data.passwordRegister,
+                    password: password,
                     role: "user",
                 }
                 await UserModel.create(newUser);
@@ -118,13 +120,13 @@ class Controller {
             res.locals.message = 'error';
             res.render('login');
         }
-        
+
     }
 
     async showFormUserManager(req: any, res: any) {
         let admin = await UserModel.find({ role: 'admin' });
-        let user = await UserModel.find({ role: 'user'})
-        res.render('dashboardUserAccManager', {admin: admin, user: user, message: req.flash('message')});
+        let user = await UserModel.find({ role: 'user' })
+        res.render('dashboardUserAccManager', { admin: admin, user: user, message: req.flash('message') });
     }
 
     async createAdminAccount(req: any, res: any) {
@@ -132,14 +134,15 @@ class Controller {
             let user = await UserModel.findOne({ email: req.body.adminEmail });
             if (!user) {
                 const data = req.body;
+                let password = await bcrynt.hash(data.adminPassword, 10);
                 const newUser = {
                     name: data.adminName,
                     email: data.adminEmail,
-                    password: data.adminPassword,
+                    password: password,
                     role: "admin",
                 }
                 await UserModel.create(newUser);
-                req.flash('message','successRegister');
+                req.flash('message', 'successRegister');
                 res.redirect('/users/list');
             } else {
                 req.flash('message', 'fail');
@@ -152,7 +155,7 @@ class Controller {
     }
 
     showFormCreateAdminAccount(req: any, res: any) {
-        res.render('dashboardAdminRegister', {message: req.flash('message')});
+        res.render('dashboardAdminRegister', { message: req.flash('message') });
     }
 
     async deleteUser(req: any, res: any) {
@@ -163,31 +166,33 @@ class Controller {
 
     async showUpdateUserForm(req: any, res: any) {
         let user = await UserModel.findOne({ _id: req.params.id });
-        res.render('updateUser', {data: user, message: req.flash('message')});
+        res.render('updateUser', { data: user, message: req.flash('message') });
     }
 
     async updateUser(req: any, res: any) {
         const data = req.body;
         if (checkRegisterUser(data.passwordUpdate)) {
+            let password = await bcrynt.hash(data.passwordUpdate, 10)
             await UserModel.findOneAndUpdate({ _id: data.id }, {
                 name: data.nameUpdate,
-                password: data.passwordUpdate,
+                password: password,
                 role: data.roleUpdate
             });
             req.flash('message', 'successUpdate')
             res.redirect('/users/list');
         } else {
-            req.flash('message','errorUpdate')
+            req.flash('message', 'errorUpdate')
             res.redirect(`/user/${data.id}/edit`);
         }
     }
 
     logout(req: any, res: any, next: any) {
-        req.logout((err: any) =>{
+        req.logout((err: any) => {
             if (err) { return next(err); }
             res.redirect('/login');
-          });
+        });
     }
 }
 
-export default Controller;
+const controller = new Controller();
+export default controller;
