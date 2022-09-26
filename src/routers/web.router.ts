@@ -40,5 +40,8 @@ router.get('/shop', (req, res) => {
     controller.showShopPage(req, res).catch(err => res.render('404page'))
 });
 
+router.get('/products/:id', (req, res) => {
+    controller.detailProduct(req, res).catch(err => res.render('404'));
+})
 
 export default router;
