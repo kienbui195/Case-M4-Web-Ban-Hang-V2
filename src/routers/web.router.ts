@@ -35,6 +35,10 @@ router.get('/products/add', (req, res) => {
     controller.showAddProductsPage(req, res);
 });
 
+router.get('/products/:id', (req, res) => {
+    controller.detailProduct(req, res).catch(err => res.render('404page'));
+})
+
 router.post('/products/add', (req, res) => {
     controller.createProduct(req, res).catch(err => res.render('404page'));
 })

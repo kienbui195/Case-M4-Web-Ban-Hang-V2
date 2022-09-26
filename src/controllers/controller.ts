@@ -59,6 +59,11 @@ class Controller {
         res.redirect('/products/list');
     }
 
+    async detailProduct(req: any, res: any) {
+        let product = await ProductModel.findOne({_id: req.params.id});
+        res.render('detail',{product: product})
+    }
+
     showAddProductsPage(req: any, res: any) {
         res.render('addProduct',{message: req.flash('message')});
     }
