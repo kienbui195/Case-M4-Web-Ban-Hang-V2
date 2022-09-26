@@ -69,9 +69,12 @@
                                             <input type="password" class="form-control" id="exampleInputPassword4" value="<%= data.password %>" name="passwordUpdate" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputPassword5">Role</label>
-                                            <input type="text" class="form-control" id="exampleInputPassword5" value="<%= data.role %>" name="roleUpdate" required>
-                                        </div>
+                                            <label for="exampleFormControlSelect3">Small select</label>
+                                            <select class="form-control form-control-sm" id="exampleFormControlSelect3" name="role">
+                                              <option value="admin" <% if (data.role == 'admin') { %> selected <% } %>>admin</option>
+                                              <option value="user" <% if (data.role == 'user') { %> selected <% } %>>user</option>
+                                            </select>
+                                          </div>
                                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                         <a href="/users/list" class="btn btn-light">Cancel</a>
                                     </form>

@@ -4,11 +4,12 @@ import { Request, Response } from "express";
 import multer from "multer";
 import permission from '../middleware/permission.middleware';
 import passport from "../middleware/passport.middleware";
-import controller from '../controllers/controller'
-import auth from '../middleware/auth.middleware'
-const router = express.Router();
+import controller from '../controllers/controller';
+import auth from '../middleware/auth.middleware';
 
+const router = express.Router();
 const upload = multer();
+ 
 router.get('/', (req, res) => {
     controller.showHomePage(req, res);
 });
