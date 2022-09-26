@@ -60,13 +60,18 @@ class Controller {
         res.redirect('/products/list');
     }
 
+    async detailProduct(req: any, res: any) {
+        let product = await ProductModel.findOne({ _id: req.params.id });
+        res.render('detail', { product: product })
+    }
+
     showAddProductsPage(req: any, res: any) {
         res.render('addProduct', { message: req.flash('message') });
     }
 
     async showShopPage(req: any, res: any) {
         let products = await ProductModel.find();
-        res.render('shop', { products: products });
+        res.render('shop', { products: products, message: req.flash('message') });
     }
 
     async createProduct(req: any, res: any) {
@@ -183,6 +188,28 @@ class Controller {
         } else {
             req.flash('message', 'errorUpdate')
             res.redirect(`/user/${data.id}/edit`);
+        }
+    }
+
+    showFormSearchProduct(req: any, res: any) {
+        res.render('searchProduct', { message: req.flash('message') });
+    }
+
+    async searchProduct(req: any, res: any) {
+        let products = await ProductModel.find({ name: { $regex: `${req.body.keyword}`, $options: 'i' } });
+        if (products.length === 0) {
+            res.render('searchProduct');
+        } else {
+            res.render('shop', { products: products });
+        }
+    }
+
+    async searchAdminProducts(req: any, res: any) {
+        let products = await ProductModel.find({ name: { $regex: `${req.body.keyword}`, $options: 'i' } });
+        if (products.length === 0) {
+            res.render('searchAdminProduct');
+        } else {
+            res.render('productsList', { products: products, message: req.flash('message') });
         }
     }
 

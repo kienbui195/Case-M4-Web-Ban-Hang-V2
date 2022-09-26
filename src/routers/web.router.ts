@@ -1,4 +1,3 @@
-
 import express from "express";
 import Controller from "../controllers/controller";
 import { Request, Response } from "express";
@@ -39,7 +38,7 @@ router.get('/logout', auth, (req, res, next) => {
 
 router.get('/shop', (req, res) => {
     controller.showShopPage(req, res).catch(err => res.render('404page'))
-})
+});
 
 
 export default router;
