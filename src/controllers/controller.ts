@@ -1,6 +1,8 @@
 import { checkRegisterUser } from "../functions/validateForm";
 import { UserModel } from "../schemas/userLogin.model";
-import passport from "passport";
+import flash from "connect-flash";
+import {UploadedFile} from "express-fileupload";
+import {ProductModel} from "../schemas/product.model";
 
 class Controller {
 
@@ -16,12 +18,82 @@ class Controller {
         res.render('dashboard');
     }
 
-    showProductsListPage(req: any, res: any) {
-        res.render('productsList');
+    showContactPage(req: any, res: any) {
+        res.render('contact');
+    }
+
+    showAboutPage(req: any, res: any) {
+        res.render('about');
+    }
+
+    async showProductsListPage(req: any, res: any) {
+        let products = await ProductModel.find();
+        res.render('productsList', {products: products, message: req.flash('message')});
+    }
+
+    async showEditProductPage(req: any, res: any) {
+        let updateProduct = await ProductModel.findOne({_id: req.params.id});
+        res.render('updateProduct', {updateProduct: updateProduct, message: req.flash('message')});
+    }
+
+    async updateProduct(req: any, res: any) {
+        let newFiles = req.files;
+        let newProduct = req.body;
+        if(newFiles){
+            let image = newFiles.image as UploadedFile;
+            await image.mv('./src/public/images/upload/' + image.name);
+            newProduct.image = 'images/upload/' + image.name;
+            await ProductModel.findOneAndUpdate({ _id: newProduct._id }, newProduct);
+            req.flash('message', 'successUpdate');
+            res.redirect('/products/list');
+        }else{
+            await ProductModel.findOneAndUpdate({ _id: newProduct._id }, newProduct);
+            req.flash('message', 'successUpdate');
+            res.redirect('/products/list');
+        }
+    }
+
+    async deleteProduct(req: any, res: any) {
+        await ProductModel.findOneAndDelete({ _id: req.params.id });
+        req.flash('message', 'successDelete');
+        res.redirect('/products/list');
     }
 
     showAddProductsPage(req: any, res: any) {
-        res.render('addProduct');
+        res.render('addProduct',{message: req.flash('message')});
+    }
+
+    async showShopPage(req: any, res: any) {
+        let products = await ProductModel.find();
+        res.render('shop', {products:products});
+    }
+
+    async createProduct(req: any, res: any) {
+        let files = req.files;
+        if(files){
+            let newProduct = req.body;
+            if (files.image && newProduct.name) {
+                let product = await ProductModel.findOne({ category: newProduct.category });
+                if (!product) {
+                    let image = files.image as UploadedFile;
+                    await image.mv('./src/public/images/upload/' + image.name);
+                    newProduct.image = 'images/upload/' + image.name;
+                    await ProductModel.create(newProduct);
+                    req.flash('message', 'successCreate');
+                    res.redirect('/products/list');
+                } else {
+                    req.flash('message', 'duplicateCreate');
+                    res.redirect('/products/add');
+                }
+                
+            }else{
+                req.flash('message', 'errorCreate');
+                res.redirect('/products/add');
+            }
+        } else {
+            req.flash('message', 'errorCreate');
+            res.redirect('/products/add');
+        }
     }
         
     async getDataRegister(req: any, res: any) {
@@ -52,7 +124,7 @@ class Controller {
     async showFormUserManager(req: any, res: any) {
         let admin = await UserModel.find({ role: 'admin' });
         let user = await UserModel.find({ role: 'user'})
-        res.render('dashboardUserAccManager', {admin: admin, user: user});
+        res.render('dashboardUserAccManager', {admin: admin, user: user, message: req.flash('message')});
     }
 
     async createAdminAccount(req: any, res: any) {
@@ -67,20 +139,47 @@ class Controller {
                     role: "admin",
                 }
                 await UserModel.create(newUser);
-                res.locals.message = 'success';
-                res.render('dashboardAdminRegister');
+                req.flash('message','successRegister');
+                res.redirect('/users/list');
             } else {
-                res.locals.message = 'fail';
-                res.render('dashboardAdminRegister');
+                req.flash('message', 'fail');
+                res.redirect('/users/add');
             }
         } else {
-            res.locals.message = 'error';
-            res.render('dashboardAdminRegister');
+            req.flash('message', 'error');
+            res.redirect('/users/add');
         }
     }
 
     showFormCreateAdminAccount(req: any, res: any) {
-        res.render('dashboardAdminRegister');
+        res.render('dashboardAdminRegister', {message: req.flash('message')});
+    }
+
+    async deleteUser(req: any, res: any) {
+        await UserModel.findOneAndDelete({ _id: req.params.id });
+        req.flash('message', 'successDelete');
+        res.redirect('/users/list');
+    }
+
+    async showUpdateUserForm(req: any, res: any) {
+        let user = await UserModel.findOne({ _id: req.params.id });
+        res.render('updateUser', {data: user, message: req.flash('message')});
+    }
+
+    async updateUser(req: any, res: any) {
+        const data = req.body;
+        if (checkRegisterUser(data.passwordUpdate)) {
+            await UserModel.findOneAndUpdate({ _id: data.id }, {
+                name: data.nameUpdate,
+                password: data.passwordUpdate,
+                role: data.roleUpdate
+            });
+            req.flash('message', 'successUpdate')
+            res.redirect('/users/list');
+        } else {
+            req.flash('message','errorUpdate')
+            res.redirect(`/user/${data.id}/edit`);
+        }
     }
 
     logout(req: any, res: any, next: any) {

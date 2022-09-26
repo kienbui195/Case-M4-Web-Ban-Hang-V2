@@ -298,10 +298,11 @@
         </div>
     <% } else if (locals.message == 'error') { %>
         <div class="alert alert-danger" role="alert">
-            <strong>Fail!</strong> Registion Fail! Enter a name with at least 2 characters. Password must have at least 6 characters with at least 1 special character, 1 uppercase letter and at least 1 number!
+            <strong>Fail!</strong> Registion Error! Enter password must have at least 6 characters with at least 1 special character, 1 uppercase letter and at least 1 number!
         </div>
     <% } %>
 
+    <!--Form Login-->
     <div class="formLogin">
         <form method="post" enctype="multipart/form-data" action="/login">
             <div class="cont">
@@ -338,6 +339,8 @@
                 </div>
             </div>
             <div class="form sign-up">
+
+                <!--Form Register-->
                 <h2>Time to feel like home,</h2>
                 <form action="/register" enctype="multipart/form-data" method="post">
                     <label>

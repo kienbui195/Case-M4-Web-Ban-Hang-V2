@@ -43,36 +43,34 @@
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Add new Admin</h4>
+                                    <h4 class="card-title">Update Account</h4>
                                     <p class="card-description">
                                         Please enter your account information
                                     </p>
 
-                                    <!--Notice-->
-                                    <div class="card">   
-                                        <%  if (message == 'fail') { %>
-                                            <div class="alert alert-danger" role="alert">
-                                            <strong>Error!</strong> Registion Fail! Your Accout Existed! Please register a new Accout or Login!
-                                            </div>
-                                        <% } else if (message == 'error') { %>
-                                            <div class="alert alert-danger" role="alert">
-                                            <strong>Fail!</strong> Registion Fail! Enter password must have at least 6 characters with at least 1 special character, 1 uppercase letter and at least 1 number!
-                                            </div>
-                                        <% } %>
-                                    </div>
+                                    <% if (message == 'errorUpdate') { %>
+                                        <div class="alert alert-danger">
+                                            <strong>Error!</strong> Enter password must have at least 6 characters with at least 1 special character, 1 uppercase letter and at least 1 number!
+                                        </div>
+                                    <% } %>
 
                                     <form class="forms-sample" enctype="multipart/form-data" method="post">
+                                        <input type="text" class="form-control" id="exampleInputName1" value="<%= data._id %>" name="id" style="display: none">
                                         <div class="form-group">
                                             <label for="exampleInputName1">Name</label>
-                                            <input type="text" class="form-control" id="exampleInputName1" placeholder="name" name="adminName" required>
+                                            <input type="text" class="form-control" id="exampleInputName1" value="<%= data.name %>" name="nameUpdate" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail3">Email</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail3" placeholder="email" name="adminEmail" required>
+                                            <input type="email" class="form-control" id="exampleInputEmail3" value="<%= data.email %>" name="emailUpdate" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword4">Password</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword4" placeholder="password" name="adminPassword" required>
+                                            <input type="password" class="form-control" id="exampleInputPassword4" value="<%= data.password %>" name="passwordUpdate" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword5">Role</label>
+                                            <input type="text" class="form-control" id="exampleInputPassword5" value="<%= data.role %>" name="roleUpdate" required>
                                         </div>
                                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                         <a href="/users/list" class="btn btn-light">Cancel</a>
