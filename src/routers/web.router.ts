@@ -1,11 +1,14 @@
 import express from "express";
 import Controller from "../controllers/controller";
+import { Request, Response } from "express";
 import multer from "multer";
-
+import permission from '../middleware/permission.middleware';
+import passport from "../middleware/passport.middleware";
+import controller from '../controllers/controller'
+import auth from '../middleware/auth.middleware'
 const router = express.Router();
-const controller = new Controller();
-const upload = multer();    
 
+const upload = multer();
 router.get('/', (req, res) => {
     controller.showHomePage(req, res);
 });
@@ -13,11 +16,14 @@ router.get('/', (req, res) => {
 router.get('/login', (req, res) => {
     controller.showLoginPage(req, res);
 });
-
-router.get('/dashboard', (req, res) => {
-    controller.showDashboardPage(req, res);
-});
-
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+}))
+router.get('/google/login', passport.authenticate('google', { scope: ['profile', 'email'] }))
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+    res.redirect('/')
+})
 router.get('/contact', (req, res) => {
     controller.showContactPage(req, res);
 });
@@ -26,80 +32,13 @@ router.get('/about', (req, res) => {
     controller.showAboutPage(req, res);
 })
 
-router.get('/products/list', (req, res) => {
-    controller.showProductsListPage(req, res).catch(err => res.render('404page'));
-});
-
-router.get('/products/add', (req, res) => {
-    controller.showAddProductsPage(req, res);
-});
-
-router.get('/products/:id', (req, res) => {
-    controller.detailProduct(req, res).catch(err => res.render('404page'));
-})
-
-router.post('/products/add', (req, res) => {
-    controller.createProduct(req, res).catch(err => res.render('404page'));
-})
-
-router.post('/register', (req, res, next) => {
-    controller.getDataRegister(req, res).catch(err => res.render('404page'));
-});
-
-router.get('/logout', (req, res, next) => {
+router.get('/logout', auth, (req, res, next) => {
     controller.logout(req, res, next);
-});
-
-router.get('/users/list', (req, res) => {
-    controller.showFormUserManager(req, res).catch(err => res.render('404page'));
-});
-
-router.get('/users/add', (req, res) => {
-    controller.showFormCreateAdminAccount(req, res);
-});
-
-router.get('/products/edit/:id', (req, res) => {
-    controller.showEditProductPage(req, res).catch(err => res.render('404page'));
-});
-
-router.post('/products/edit', (req, res) => {
-    controller.updateProduct(req, res).catch(err => res.render('404page'));
-});
-
-router.get('/products/delete/:id', (req, res) => {
-    controller.deleteProduct(req, res).catch(err => res.render)
-});
-
-router.post('/users/add', (req, res) => {
-    controller.createAdminAccount(req, res).catch(err => res.render('404page'));
-});
-
-router.get('/user/:id/delete', (req, res) => {
-    controller.deleteUser(req, res).catch(err => res.render('404page'));
 });
 
 router.get('/shop', (req, res) => {
     controller.showShopPage(req, res).catch(err => res.render('404page'))
 });
 
-router.get('/user/:id/edit', (req, res) => {
-    controller.showUpdateUserForm(req, res).catch(err => res.render('404page'));
-});
-
-router.post('/user/:id/edit', (req, res) => {
-    controller.updateUser(req, res).catch(err => res.render('404page'));
-});
-
-router.post('/products/search', (req, res) => {
-    controller.searchProduct(req, res).catch(err => res.render('404page'));
-});
-
-router.post('/users/searchProducts', (req, res) => {
-    controller.searchAdminProducts(req, res).catch(err => res.render('404page'));
-});
-
-router.get('/*', (req, res) => {
-    res.render('404page');
-});
 
 export default router;
