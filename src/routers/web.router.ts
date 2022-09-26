@@ -63,9 +63,9 @@ router.post('/products/edit', (req, res) => {
     controller.updateProduct(req, res).catch(err => res.render('404page'));
 });
 
-router.get('/products/delete/:id', (req, res) =>{
+router.get('/products/delete/:id', (req, res) => {
     controller.deleteProduct(req, res).catch(err => res.render)
-})
+});
 
 router.post('/users/add', (req, res) => {
     controller.createAdminAccount(req, res).catch(err => res.render('404page'));
@@ -77,14 +77,23 @@ router.get('/user/:id/delete', (req, res) => {
 
 router.get('/shop', (req, res) => {
     controller.showShopPage(req, res).catch(err => res.render('404page'))
-})
+});
 
 router.get('/user/:id/edit', (req, res) => {
     controller.showUpdateUserForm(req, res).catch(err => res.render('404page'));
-})
+});
 
-router.post('/user/:id/edit' , (req, res) => {
+router.post('/user/:id/edit', (req, res) => {
     controller.updateUser(req, res).catch(err => res.render('404page'));
+});
+
+router.post('/products/search', (req, res) => {
+    controller.searchProduct(req, res).catch(err => res.render('404page'));
+});
+
+
+router.get('/*', (req, res) => {
+    res.render('404page');
 })
 
 export default router;

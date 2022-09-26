@@ -65,7 +65,7 @@ class Controller {
 
     async showShopPage(req: any, res: any) {
         let products = await ProductModel.find();
-        res.render('shop', {products:products});
+        res.render('shop', {products:products, message: req.flash('message')});
     }
 
     async createProduct(req: any, res: any) {
@@ -179,6 +179,19 @@ class Controller {
         } else {
             req.flash('message','errorUpdate')
             res.redirect(`/user/${data.id}/edit`);
+        }
+    }
+
+    showFormSearchProduct(req: any, res: any) {
+        res.render('searchProduct', { message: req.flash('message') });
+    }
+
+    async searchProduct(req: any, res: any) {
+        let products = await ProductModel.find({ name: {$regex: `${req.body.keyword}`, $options: 'i'} });
+        if (products.length === 0) {
+            res.render('searchProduct');
+        } else { 
+            res.render('shop', { products: products });
         }
     }
 

@@ -7,7 +7,7 @@
                 
                 <!-- Logo desktop -->		
                 <a href="#" class="logo">
-                    <img src="images/icons/logo-01.png" alt="IMG-LOGO">
+                    <img src="/images/icons/logo-01.png" alt="IMG-LOGO">
                 </a>
 
                 <!-- Menu desktop -->
@@ -16,8 +16,8 @@
                         <li class="active-menu">
                             <a href="#">Home</a>
                             <ul class="sub-menu">
-                                <li><a href="/">Homepage 1</a></li>
-                                <li><a href="/dashboard">Homepage 2</a></li>
+                                <li><a href="/">Homepage</a></li>
+                                <li><a href="/dashboard">AdminPage</a></li>
                             </ul>
                         </li>
 
@@ -67,7 +67,7 @@
     <div class="wrap-header-mobile">
         <!-- Logo moblie -->		
         <div class="logo-mobile">
-            <a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+            <a href="index.html"><img src="/images/icons/logo-01.png" alt="IMG-LOGO"></a>
         </div>
 
         <!-- Icon header -->
@@ -100,9 +100,8 @@
             <li>
                 <a href="index.html">Home</a>
                 <ul class="sub-menu-m">
-                    <li><a href="index.html">Homepage 1</a></li>
-                    <li><a href="home-02.html">Homepage 2</a></li>
-                    <li><a href="home-03.html">Homepage 3</a></li>
+                    <li><a href="/">Homepage</a></li>
+                    <li><a href="/dashboard">AdminPage</a></li>
                 </ul>
                 <span class="arrow-main-menu-m">
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -135,14 +134,14 @@
     <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
         <div class="container-search-header">
             <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-                <img src="images/icons/icon-close2.png" alt="CLOSE">
+                <img src="/images/icons/icon-close2.png" alt="CLOSE">
             </button>
 
-            <form class="wrap-search-header flex-w p-l-15">
-                <button class="flex-c-m trans-04">
+            <form class="wrap-search-header flex-w p-l-15" enctype="multipart/form-data" method="post" action="/products/search">
+                <button class="flex-c-m trans-04" type="submit">
                     <i class="zmdi zmdi-search"></i>
                 </button>
-                <input class="plh3" type="text" name="search" placeholder="Search...">
+                <input class="plh3" type="text" name="keyword" placeholder="Search...">
             </form>
         </div>
     </div>
