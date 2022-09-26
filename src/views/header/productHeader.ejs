@@ -16,8 +16,8 @@
                         <li class="active-menu">
                             <a href="#">Home</a>
                             <ul class="sub-menu">
-                                <li><a href="/">Homepage 1</a></li>
-                                <li><a href="/dashboard">Homepage 2</a></li>
+                                <li><a href="/">Homepage</a></li>
+                                <li><a href="/dashboard">AdminPage</a></li>
                             </ul>
                         </li>
 
@@ -70,11 +70,11 @@
                 <img src="/images/icons/icon-close2.png" alt="CLOSE">
             </button>
 
-            <form class="wrap-search-header flex-w p-l-15">
-                <button class="flex-c-m trans-04">
+            <form class="wrap-search-header flex-w p-l-15" enctype="multipart/form-data" method="post" action="/products/search">
+                <button class="flex-c-m trans-04" type="submit">
                     <i class="zmdi zmdi-search"></i>
                 </button>
-                <input class="plh3" type="text" name="search" placeholder="Search...">
+                <input class="plh3" type="text" name="keyword" placeholder="Search...">
             </form>
         </div>
     </div>
