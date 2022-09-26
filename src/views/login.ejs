@@ -250,7 +250,7 @@
         }
 
     </style>
-    <!--===============================================================================================-->	
+    <!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
     <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -262,13 +262,13 @@
         <link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
     <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-    <!--===============================================================================================-->	
+    <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
     <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
     <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-    <!--===============================================================================================-->	
+    <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
@@ -286,7 +286,7 @@
     <%- include('./header/productHeader')%>
 
     <!--Body-->
-    
+
     <!--Notice-->
     <% if(locals.message == 'success'){ %>
         <div class="alert alert-success" role="alert">
@@ -304,7 +304,7 @@
 
     <!--Form Login-->
     <div class="formLogin">
-        <form method="post" enctype="multipart/form-data" action="/login">
+        <form action="/login" method="POST" enctype="multipart/form-data" >
             <div class="cont">
                 <div class="form sign-in">
                     <h2>Welcome back,</h2>
@@ -316,13 +316,12 @@
                         <span>Password</span>
                         <input type="password" name="passwordLogin" />
                     </label>
-                    <p class="forgot-pass">Forgot password?</p>
                     <button type="submit" class="submit" >Sign In</button>
                     <br>
-                    <a type="button" class="fb-btn" href="/login/google" style="margin-top:5px; margin-left: 35%; border-radius: 30px; width: 30%; text-align: center" >Join with <span>Google</span> </a>       
+                    <a type="button" class="fb-btn" href="/google/login" style="margin-top:5px; margin-left: 35%; border-radius: 30px; width: 30%; text-align: center" >Join with <span>Google</span> </a>
                 </div>
         </form>
-       
+
         <div class="sub-cont">
             <div class="img">
                 <div class="img__text m--up">
@@ -357,12 +356,12 @@
                     </label>
                     <button type="submit" class="submit" >Sign Up</button>
                     <br>
-                    <a type="button" class="fb-btn" href="/login/google" style="margin-top:5px; margin-left: 35%; border-radius: 30px; width: 30%; text-align: center" >Join with <span>Google</span> </a>       
-                </form>                
+                    <a type="button" class="fb-btn" href="/login/google" style="margin-top:5px; margin-left: 35%; border-radius: 30px; width: 30%; text-align: center" >Join with <span>Google</span> </a>
+                </form>
             </div>
-        </div> 
+        </div>
     </div>
-     
+
 
     <!--Footer-->
     <%- include('./footer/productFooter') %>
@@ -382,7 +381,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-        <!--===============================================================================================-->	
+        <!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
         <script src="vendor/animsition/js/animsition.min.js"></script>
@@ -432,30 +431,30 @@
             $('.js-addwish-b2').on('click', function(e){
                 e.preventDefault();
             });
-    
+
             $('.js-addwish-b2').each(function(){
                 var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
                 $(this).on('click', function(){
                     swal(nameProduct, "is added to wishlist !", "success");
-    
+
                     $(this).addClass('js-addedwish-b2');
                     $(this).off('click');
                 });
             });
-    
+
             $('.js-addwish-detail').each(function(){
                 var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
-    
+
                 $(this).on('click', function(){
                     swal(nameProduct, "is added to wishlist !", "success");
-    
+
                     $(this).addClass('js-addedwish-detail');
                     $(this).off('click');
                 });
             });
-    
+
             /*---------------------------------------------*/
-    
+
             $('.js-addcart-detail').each(function(){
                 var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
                 $(this).on('click', function(){
@@ -474,7 +473,7 @@
                     scrollingThreshold: 1000,
                     wheelPropagation: false,
                 });
-    
+
                 $(window).on('resize', function(){
                     ps.update();
                 })
