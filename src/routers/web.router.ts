@@ -4,11 +4,12 @@ import { Request, Response } from "express";
 import multer from "multer";
 import permission from '../middleware/permission.middleware';
 import passport from "../middleware/passport.middleware";
-import controller from '../controllers/controller'
-import auth from '../middleware/auth.middleware'
-const router = express.Router();
+import controller from '../controllers/controller';
+import auth from '../middleware/auth.middleware';
 
+const router = express.Router();
 const upload = multer();
+ 
 router.get('/', (req, res) => {
     controller.showHomePage(req, res);
 });
@@ -40,5 +41,8 @@ router.get('/shop', (req, res) => {
     controller.showShopPage(req, res).catch(err => res.render('404page'))
 });
 
+router.get('/products/:id', (req, res) => {
+    controller.detailProduct(req, res).catch(err => res.render('404'));
+})
 
 export default router;

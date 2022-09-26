@@ -39,8 +39,6 @@ app.use(passport.session());
 app.use(passport.authenticate('session'));
 app.use(express.urlencoded({ extended: false }));
 
-
-
 app.use('/', router);
 app.use('/admin', adminRouter)
 app.use('/user', userRouter)

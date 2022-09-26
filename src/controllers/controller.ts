@@ -46,11 +46,11 @@ class Controller {
             newProduct.image = 'images/upload/' + image.name;
             await ProductModel.findOneAndUpdate({ _id: newProduct._id }, newProduct);
             req.flash('message', 'successUpdate');
-            res.redirect('/products/list');
+            res.redirect('/admin/products-list');
         } else {
             await ProductModel.findOneAndUpdate({ _id: newProduct._id }, newProduct);
             req.flash('message', 'successUpdate');
-            res.redirect('/products/list');
+            res.redirect('/admin/products-list');
         }
     }
 
@@ -86,19 +86,19 @@ class Controller {
                     newProduct.image = 'images/upload/' + image.name;
                     await ProductModel.create(newProduct);
                     req.flash('message', 'successCreate');
-                    res.redirect('/products/list');
+                    res.redirect('/admin/products-list');
                 } else {
                     req.flash('message', 'duplicateCreate');
-                    res.redirect('/products/add');
+                    res.redirect('/admin/products-add');
                 }
 
             } else {
                 req.flash('message', 'errorCreate');
-                res.redirect('/products/add');
+                res.redirect('/admin/products-add');
             }
         } else {
             req.flash('message', 'errorCreate');
-            res.redirect('/products/add');
+            res.redirect('/admin/products-add');
         }
     }
 
@@ -181,7 +181,7 @@ class Controller {
             await UserModel.findOneAndUpdate({ _id: data.id }, {
                 name: data.nameUpdate,
                 password: password,
-                role: data.roleUpdate
+                role: data.role
             });
             req.flash('message', 'successUpdate')
             res.redirect('/users/list');
