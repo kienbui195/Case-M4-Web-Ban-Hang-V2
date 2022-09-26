@@ -5,7 +5,6 @@ import multer from "multer";
 import permission from '../middleware/permission.middleware';
 import passport from "../middleware/passport.middleware";
 import controller from '../controllers/controller';
-import auth from '../middleware/auth.middleware';
 
 const router = express.Router();
 const upload = multer();
@@ -33,7 +32,7 @@ router.get('/about', (req, res) => {
     controller.showAboutPage(req, res);
 })
 
-router.get('/logout', auth, (req, res, next) => {
+router.get('/logout', (req, res, next) => {
     controller.logout(req, res, next);
 });
 
@@ -42,7 +41,8 @@ router.get('/shop', (req, res) => {
 });
 
 router.get('/products/:id', (req, res) => {
-    controller.detailProduct(req, res).catch(err => res.render('404'));
+    console.log(1)
+    controller.detailProduct(req, res).catch(err => res.render('404page'));
 })
 
 export default router;
