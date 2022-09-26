@@ -181,7 +181,7 @@ class Controller {
             await UserModel.findOneAndUpdate({ _id: data.id }, {
                 name: data.nameUpdate,
                 password: password,
-                role: data.roleUpdate
+                role: data.role
             });
             req.flash('message', 'successUpdate')
             res.redirect('/users/list');
