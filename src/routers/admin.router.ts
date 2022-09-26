@@ -3,12 +3,13 @@ import Controller from "../controllers/controller";
 import { Request, Response } from "express";
 import multer from "multer";
 import passport from "../middleware/passport.middleware";
-import controller from '../controllers/controller'
-import auth from '../middleware/auth.middleware'
-import permission from '../middleware/permission.middleware'
+import controller from '../controllers/controller';
+import auth from '../middleware/auth.middleware';
+import permission from '../middleware/permission.middleware';
+
 const adminRouter = express.Router();
-adminRouter.use(auth)
-adminRouter.use(permission)
+adminRouter.use(auth);
+adminRouter.use(permission);
 
 adminRouter.get('/dashboard', (req, res) => {
   controller.showDashboardPage(req, res);
@@ -40,7 +41,8 @@ adminRouter.post('/products/edit', (req, res) => {
 
 adminRouter.get('/products/delete/:id', (req, res) => {
   controller.deleteProduct(req, res).catch(err => res.render('404page'))
-})
+});
+
 adminRouter.post('/users/add', (req, res) => {
   controller.createAdminAccount(req, res).catch(err => res.render('404page'));
 });
@@ -57,9 +59,12 @@ adminRouter.post('/user/:id/edit', (req, res) => {
   controller.updateUser(req, res).catch(err => res.render('404page'));
 });
 
+<<<<<<< HEAD
 adminRouter.post('/products/create', (req, res) => {
   controller.createProduct(req, res).catch(err => res.render('404page'));
 });
 
 
+=======
+>>>>>>> adc96486b7101de92182e03b76d3ad4bb071fd75
 export default adminRouter;

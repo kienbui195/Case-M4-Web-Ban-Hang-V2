@@ -40,13 +40,13 @@ app.use(passport.session());
 app.use(passport.authenticate('session'));
 app.use(express.urlencoded({ extended: false }));
 
-
 app.use(router);
-app.use(adminRouter)
-app.use(userRouter)
+app.use(adminRouter);
+app.use(userRouter);
+
 app.get('/*', (req: Request, res: Response) => {
     res.render('404page')
-})
+});
 
 app.listen(port, () => {
     console.log(`running at http://localhost:${port}`);
