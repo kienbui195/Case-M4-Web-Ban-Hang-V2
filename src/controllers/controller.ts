@@ -148,14 +148,14 @@ class Controller {
                 }
                 await UserModel.create(newUser);
                 req.flash('message', 'successRegister');
-                res.redirect('/users/list');
+                res.redirect('/admin/users-list');
             } else {
                 req.flash('message', 'fail');
-                res.redirect('/users/add');
+                res.redirect('/admin/users-add');
             }
         } else {
             req.flash('message', 'error');
-            res.redirect('/users/add');
+            res.redirect('/admin/users-add');
         }
     }
 
