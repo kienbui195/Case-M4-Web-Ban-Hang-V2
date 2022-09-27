@@ -1,5 +1,4 @@
 import express from "express";
-import Controller from "../controllers/controller";
 import { Request, Response } from "express";
 import multer from "multer";
 import passport from "../middleware/passport.middleware";
@@ -37,7 +36,7 @@ router.get('/logout', auth, (req, res, next) => {
 });
 
 router.get('/shop', (req, res) => {
-    controller.showShopPage(req, res).catch(err => res.render('404page'))
+    controller.showShopPage(req, res).catch(err => console.log(err.messages));
 });
 
 router.get('/products/:id', (req, res) => {
@@ -47,4 +46,7 @@ router.post('/register', (req, res, next) => {
     controller.getDataRegister(req, res).catch(err => console.log(err.message));
 });
 
+router.post('/products-search', (req, res) => {
+    controller.searchProduct(req, res).catch(err => console.log(err.messages));
+});
 export default router;

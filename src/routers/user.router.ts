@@ -1,5 +1,4 @@
 import express from "express";
-import Controller from "../controllers/controller";
 import { Request, Response } from "express";
 import multer from "multer";
 import permission from '../middleware/permission.middleware';
