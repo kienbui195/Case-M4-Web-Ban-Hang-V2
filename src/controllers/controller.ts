@@ -240,7 +240,8 @@ class Controller {
     }
 
     async showCartPage(req: any, res: any) {
-        res.render('cart');
+        let online = req.isAuthenticated();
+        res.render('cart', { online: online });
     }
 }
 
