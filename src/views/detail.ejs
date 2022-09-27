@@ -721,7 +721,7 @@
 <!--===============================================================================================-->
 <script src="/vendor/sweetalert/sweetalert.min.js"></script>
 <script>
-    document.getElementById('test').setAttribute('data-notify', '1');
+    document.getElementById('cart').setAttribute('data-notify', '0');
 </script>
 <script>
     function addToCart() {
@@ -729,15 +729,19 @@
         let cartString = localStorage.getItem('cart');
         if(cartString !== null){
             let cart = JSON.parse(cartString);
+            let productNumber = cart.length;
             if(cart.indexOf(productID) === -1){
                 cart.push(productID);
                 localStorage.setItem('cart', JSON.stringify(cart));
+                $('#cart').attr('data-notify', `${productNumber+1}`);
             }else{
                 localStorage.setItem('cart', JSON.stringify(cart));
+                $('#cart').attr('data-notify', `${productNumber}`);
             }
         }else{
             let cart = [productID];
             localStorage.setItem('cart', JSON.stringify(cart));
+            $('#cart').attr('data-notify', '1');
         }
     }
 </script>
