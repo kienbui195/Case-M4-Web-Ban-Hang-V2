@@ -39,8 +39,7 @@ adminRouter.get('/products-edit/:id', (req, res) => {
 adminRouter.post('/products-edit', (req, res) => {
   controller.updateProduct(req, res).catch(err => res.render('404page'));
 });
-
-adminRouter.get('/products/delete/:id', (req, res) => {
+adminRouter.get('/products-delete/:id', (req, res) => {
   controller.deleteProduct(req, res).catch(err => res.render('404page'))
 });
 
