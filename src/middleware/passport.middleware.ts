@@ -1,19 +1,19 @@
-import localStrategy from 'passport-local';
 import googleStrategy from 'passport-google-oauth2';
 import passport from 'passport';
 import bcrynt from 'bcrypt';
 import { UserModel } from '../schemas/userLogin.model';
-const LocalStrategy = localStrategy.Strategy;
+import * as passportLocal from 'passport-local';
+const LocalStrategy = passportLocal.Strategy;
 const GoogleStrategy = googleStrategy.Strategy;
 
-passport.use('local', new LocalStrategy(async (emailLogin: any, passwordLogin: any, done: any) => {
-  console.log('check');
-
-  const user = await UserModel.findOne({ email: emailLogin });
+passport.use(new LocalStrategy(async (username: any, password: any, done: any) => {
+  const user = await UserModel.findOne({ email: username });
   if (!user) {
     return done(null, false);
   } else {
-    let comparePass = await bcrynt.compare(passwordLogin, user.password)
+    let comparePass = await bcrynt.compare(password, user.password)
+    console.log(comparePass);
+
     if (comparePass) {
       return done(null, user);
     } else {
@@ -21,6 +21,7 @@ passport.use('local', new LocalStrategy(async (emailLogin: any, passwordLogin: a
     }
   }
 }));
+
 passport.use(new GoogleStrategy({
   clientID: '961158771642-jept40cgbe39imihk1qef1ifpm0e0gn6.apps.googleusercontent.com',
   clientSecret: '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',
