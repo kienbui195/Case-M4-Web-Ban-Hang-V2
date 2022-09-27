@@ -5,9 +5,8 @@ interface IUser {
     email: string,
     password: string,
     role: string,
-    google: {
-        id: {type: string}
-    }
+    isVerified: boolean,
+    google_id: string
 }
 
 const userSchema = new Schema<IUser>({
@@ -15,9 +14,11 @@ const userSchema = new Schema<IUser>({
     email: String,
     password: String,
     role: String,
-    google: {
-        id: String
-    }
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    google_id: String 
 })
 
 const UserModel = model<IUser>('User', userSchema);
