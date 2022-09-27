@@ -32,7 +32,7 @@ app.use(session({
     secret: 'SECRET',
     resave: false,
     saveUninitialized: true,
-    cookie: ({ maxAge: 60000, secure: false })
+    cookie: ({ maxAge: 1000000, secure: false })
 }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
