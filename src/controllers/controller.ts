@@ -5,6 +5,7 @@ import { UploadedFile } from "express-fileupload";
 import { ProductModel } from "../schemas/product.model";
 import bcrynt from 'bcrypt';
 
+
 class Controller {
 
     showHomePage(req: any, res: any) {
@@ -241,8 +242,11 @@ class Controller {
 
     async showCartPage(req: any, res: any) {
         let online = req.isAuthenticated();
+        let cart = JSON.parse(req.cookies.cart)
+        console.log(cart);
         res.render('cart', { online: online });
     }
+
 }
 
 const controller = new Controller();

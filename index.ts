@@ -3,13 +3,13 @@ import router from "./src/routers/web.router";
 import mongoose from "mongoose";
 import session from "express-session";
 import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
 import flush from "connect-flash";
 import fileUpload from 'express-fileupload';
 import passport from 'passport';
 import adminRouter from './src/routers/admin.router'
 import userRouter from './src/routers/user.router'
 import { Request, Response } from "express";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const port = 8000;
@@ -20,6 +20,7 @@ mongoose.connect(DB_URL)
     .catch(err => console.log(err.message));
 app.set('view engine', 'ejs');
 app.set('views', './src/views');
+app.use(cookieParser())
 app.use(express.static('src/public'));
 app.use(bodyParser.json());
 app.use(express.json());
