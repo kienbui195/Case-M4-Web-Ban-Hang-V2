@@ -47,7 +47,7 @@ adminRouter.post('/users-add', (req, res) => {
   controller.createAdminAccount(req, res).catch(err => res.render('404page'));
 });
 
-adminRouter.get('/user/:id/delete', (req, res) => {
+adminRouter.get('/user-delete/:id', (req, res) => {
   controller.deleteUser(req, res).catch(err => res.render('404page'));
 });
 
