@@ -1,7 +1,5 @@
 import express from "express";
-import Controller from "../controllers/controller";
 import { Request, Response } from "express";
-import multer from "multer";
 import passport from "../middleware/passport.middleware";
 import controller from '../controllers/controller';
 import auth from '../middleware/auth.middleware';
@@ -39,6 +37,7 @@ adminRouter.get('/products-edit/:id', (req, res) => {
 adminRouter.post('/products-edit', (req, res) => {
   controller.updateProduct(req, res).catch(err => res.render('404page'));
 });
+
 adminRouter.get('/products-delete/:id', (req, res) => {
   controller.deleteProduct(req, res).catch(err => res.render('404page'))
 });
