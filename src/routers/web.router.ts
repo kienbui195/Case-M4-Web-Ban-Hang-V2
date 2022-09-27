@@ -42,7 +42,7 @@ router.get('/shop', (req, res) => {
 });
 
 router.get('/products/:id', (req, res) => {
-    controller.detailProduct(req, res).catch(err =>console.log(err.messages));
+    controller.detailProduct(req, res).catch(err => console.log(err.messages));
 });
 
 router.get('/cart', (req, res) => {
