@@ -12,9 +12,8 @@ import { Request, Response } from "express";
 import cookieParser from "cookie-parser";
 
 const app = express();
-const port = 8000;
+const port = process.env.PORT || 8000;
 const DB_URL = 'mongodb://localhost:27017/caseM4';
-
 mongoose.connect(DB_URL)
     .then(() => console.log('DB connected'))
     .catch(err => console.log(err.message));

@@ -44,10 +44,6 @@ router.get('/products/:id', (req, res) => {
     controller.detailProduct(req, res).catch(err => console.log(err.messages));
 });
 
-router.get('/cart', (req, res) => {
-    controller.showCartPage(req, res).catch(err => console.log(err.messages));
-});
-
 router.get('/register', (req, res) => {
     res.render('login');
 })
