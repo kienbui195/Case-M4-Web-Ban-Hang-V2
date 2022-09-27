@@ -38,11 +38,16 @@ router.get('/logout', auth, (req, res, next) => {
 });
 
 router.get('/shop', (req, res) => {
-    controller.showShopPage(req, res).catch(err => res.render('404page'))
+    controller.showShopPage(req, res).catch(err => res.render('404page'));
 });
 
 router.get('/products/:id', (req, res) => {
-    controller.detailProduct(req, res).catch(err => res.render('404'));
-})
+    controller.detailProduct(req, res).catch(err => res.render('404page'));
+});
 
+router.post('/products-search', (req, res) => {
+    controller.searchProduct(req, res).catch(err => res.render('404page'));
+});
+
+  
 export default router;

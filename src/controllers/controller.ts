@@ -79,7 +79,7 @@ class Controller {
         if (files) {
             let newProduct = req.body;
             if (files.image && newProduct.name) {
-                let product = await ProductModel.findOne({ category: newProduct.category });
+                let product = await ProductModel.findOne({ category: newProduct.category, name: newProduct.name });
                 if (!product) {
                     let image = files.image as UploadedFile;
                     await image.mv('./src/public/images/upload/' + image.name);
