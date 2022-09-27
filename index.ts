@@ -7,7 +7,6 @@ import cookieParser from "cookie-parser";
 import flush from "connect-flash";
 import fileUpload from 'express-fileupload';
 import passport from 'passport';
-import morgan from 'morgan';
 import adminRouter from './src/routers/admin.router'
 import userRouter from './src/routers/user.router'
 import { Request, Response } from "express";
@@ -42,14 +41,13 @@ app.use(passport.session());
 app.use(passport.authenticate('session'));
 app.use(express.urlencoded({ extended: false }));
 
-
-app.use(userRouter);
-app.use(adminRouter);
-app.use(router);
+app.use('/', router);
+app.use('/admin', adminRouter)
+app.use('/user', userRouter)
 
 app.get('/*', (req: Request, res: Response) => {
-    res.render('404page');
-});
+    res.render('404page')
+})
 
 app.listen(port, () => {
     console.log(`running at http://localhost:${port}`);
