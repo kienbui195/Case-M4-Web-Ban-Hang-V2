@@ -128,6 +128,9 @@ class Controller {
                 req.flash('message', 'error');
                 res.redirect('/login');
             }
+        } else {
+            req.flash('message', 'fail');
+            res.redirect('/login')
         }
     }
 
@@ -176,23 +179,33 @@ class Controller {
 
     async showUpdateUserForm(req: any, res: any) {
         let user = await UserModel.findOne({ _id: req.params.id });
-        res.render('updateUser', { data: user, message: req.flash('message') });
+        res.render('updateUser', { data: user, message: req.flash('message'), info: req.user.name });
     }
 
     async updateUser(req: any, res: any) {
         const data = req.body;
-        if (checkRegisterUser(data.passwordUpdate)) {
-            let password = await bcrynt.hash(data.passwordUpdate, 10)
+        const unit = await UserModel.findOne({ _id: data.id });
+        if (unit.password == '') {
             await UserModel.findOneAndUpdate({ _id: data.id }, {
                 name: data.nameUpdate,
-                password: password,
                 role: data.role
             });
             req.flash('message', 'successUpdate')
             res.redirect('/admin/users-list');
         } else {
-            req.flash('message', 'errorUpdate')
-            res.redirect(`/admin/user-edit/${data.id}`);
+            if (checkRegisterUser(data.passwordUpdate)) {
+                let password = await bcrynt.hash(data.passwordUpdate, 10)
+                await UserModel.findOneAndUpdate({ _id: data.id }, {
+                    name: data.nameUpdate,
+                    password: password,
+                    role: data.role
+                });
+                req.flash('message', 'successUpdate')
+                res.redirect('/admin/users-list');
+            } else {
+                req.flash('message', 'errorUpdate')
+                res.redirect(`/admin/user-edit/${data.id}`);
+            }
         }
     }
 
