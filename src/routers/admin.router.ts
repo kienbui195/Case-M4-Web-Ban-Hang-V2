@@ -8,8 +8,7 @@ import auth from '../middleware/auth.middleware';
 import permission from '../middleware/permission.middleware';
 
 const adminRouter = express.Router();
-adminRouter.use(auth);
-adminRouter.use(permission);
+
 
 adminRouter.get('/dashboard', (req, res) => {
   controller.showDashboardPage(req, res);
@@ -59,12 +58,9 @@ adminRouter.post('/user/:id/edit', (req, res) => {
   controller.updateUser(req, res).catch(err => res.render('404page'));
 });
 
-<<<<<<< HEAD
 adminRouter.post('/products/create', (req, res) => {
   controller.createProduct(req, res).catch(err => res.render('404page'));
 });
 
 
-=======
->>>>>>> adc96486b7101de92182e03b76d3ad4bb071fd75
 export default adminRouter;

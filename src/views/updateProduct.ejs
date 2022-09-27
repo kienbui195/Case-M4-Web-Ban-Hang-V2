@@ -67,9 +67,9 @@
                                         <div class="form-group">
                                             <label for="exampleSelectGender">Category</label>
                                             <select class="form-control" id="exampleSelectGender" name="category" required>
-                                                <option value="men">Men</option>
-                                                <option value="women">Women</option>
-                                                <option value="women">Accessories</option>
+                                                <option value="men" <% if (updateProduct.category == 'men') { %> selected <% } %> >Men</option>
+                                                <option value="women" <% if (updateProduct.category == 'women') { %> selected <% } %>>Women</option>
+                                                <option value="accessories" <% if (updateProduct.category == 'accessories') { %> selected <% } %>>Accessories</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
