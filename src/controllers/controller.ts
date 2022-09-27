@@ -12,7 +12,7 @@ class Controller {
     }
 
     showLoginPage(req: any, res: any) {
-        res.render('login');
+        res.render('login', { message: req.flash('message')});
     }
 
     showDashboardPage(req: any, res: any) {
@@ -115,15 +115,15 @@ class Controller {
                     role: "user",
                 }
                 await UserModel.create(newUser);
-                res.locals.message = 'success';
-                res.render('login');
+                req.flash('message','success');
+                res.redirect('/login');
             } else {
-                res.locals.message = 'fail';
-                res.render('login');
+                req.flash('message','fail');
+                res.redirect('/login');
             }
         } else {
-            res.locals.message = 'error';
-            res.render('login');
+            req.flash('message','error');
+            res.redirect('/login');
         }
 
     }
