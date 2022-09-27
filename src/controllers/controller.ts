@@ -166,7 +166,7 @@ class Controller {
     async deleteUser(req: any, res: any) {
         await UserModel.findOneAndDelete({ _id: req.params.id });
         req.flash('message', 'successDelete');
-        res.redirect('/users/list');
+        res.redirect('/admin/users-list');
     }
 
     async showUpdateUserForm(req: any, res: any) {
