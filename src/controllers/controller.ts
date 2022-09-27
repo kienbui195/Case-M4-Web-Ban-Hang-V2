@@ -8,7 +8,8 @@ import bcrynt from 'bcrypt';
 class Controller {
 
     showHomePage(req: any, res: any) {
-        res.render('home');
+        let online = req.isAuthenticated();
+        res.render('home', { online: online });
     }
 
     showLoginPage(req: any, res: any) {
@@ -20,11 +21,13 @@ class Controller {
     }
 
     showContactPage(req: any, res: any) {
-        res.render('contact');
+        let online = req.isAuthenticated();
+        res.render('contact', { online: online });
     }
 
     showAboutPage(req: any, res: any) {
-        res.render('about');
+        let online = req.isAuthenticated();
+        res.render('about', { online: online });
     }
 
     async showProductsListPage(req: any, res: any) {
@@ -71,7 +74,8 @@ class Controller {
 
     async showShopPage(req: any, res: any) {
         let products = await ProductModel.find();
-        res.render('shop', { products: products, message: req.flash('message') });
+        let online = req.isAuthenticated();
+        res.render('shop', { products: products, message: req.flash('message'), online: online });
     }
 
     async createProduct(req: any, res: any) {
