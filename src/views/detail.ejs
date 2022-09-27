@@ -113,6 +113,7 @@
             </div>
 
             <div class="col-md-6 col-lg-5 p-b-30">
+                <div id ="product-id" style="display: none"><%=product._id%></div>
                 <div class="p-r-50 p-t-5 p-lr-0-lg">
                     <h4 class="mtext-105 cl2 js-name-detail p-b-14">
                         <%=product.name%>
@@ -126,7 +127,7 @@
                         <%=product.description%>
                     </p>
 
-                    <!--  -->
+                    <!-- Choose Option -->
                     <div class="p-t-33">
                         <div class="flex-w flex-r-m p-b-10">
                             <div class="size-203 flex-c-m respon6">
@@ -180,14 +181,14 @@
                                     </div>
                                 </div>
 
-                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onclick="addToCart()">
                                     Add to cart
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!--  -->
+                    <!-- Icon -->
                     <div class="flex-w flex-m p-l-100 p-t-40 respon7">
                         <div class="flex-m bor9 p-r-10 m-r-11">
                             <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
@@ -727,6 +728,27 @@
     document.getElementById('test').setAttribute('data-notify', '1');
 </script>
 <script>
+    function addToCart() {
+        let productID = $("#product-id").html();
+        let cartString = localStorage.getItem('cart');
+        if(cartString !== null){
+            let cart = JSON.parse(cartString);
+            if(cart.indexOf(productID) === -1){
+                cart.push(productID);
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }else{
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+        }else{
+            let cart = [productID];
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+    }
+</script>
+<script>
+
+</script>
+<script>
     $('.js-addwish-b2, .js-addwish-detail').on('click', function(e){
         e.preventDefault();
     });
@@ -779,6 +801,8 @@
         })
     });
 </script>
+<!--===============================================================================================-->
+
 <!--===============================================================================================-->
 <script src="/js/main.js"></script>
 

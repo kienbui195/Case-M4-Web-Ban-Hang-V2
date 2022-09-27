@@ -219,6 +219,10 @@ class Controller {
             res.redirect('/login');
         });
     }
+
+    async showCartPage(req: any, res: any) {
+        res.render('cart');
+    }
 }
 
 const controller = new Controller();
