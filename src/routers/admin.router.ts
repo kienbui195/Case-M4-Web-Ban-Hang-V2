@@ -10,9 +10,11 @@ const adminRouter = express.Router();
 adminRouter.use(auth);
 adminRouter.use(permission);
 
+
 adminRouter.get('/dashboard', (req, res) => {
     controller.showDashboardPage(req, res);
 });
+
 
 adminRouter.get('/products-list', (req, res) => {
     controller.showProductsListPage(req, res).catch(err => console.log(err.messages));
@@ -57,6 +59,7 @@ adminRouter.get('/user-edit/:id', (req, res) => {
 adminRouter.post('/user-edit/:id', (req, res) => {
     controller.updateUser(req, res).catch(err => console.log(err.messages));
 });
+
 
 adminRouter.post('/products-add', (req, res) => {
     controller.createProduct(req, res).catch(err => console.log(err.messages));
