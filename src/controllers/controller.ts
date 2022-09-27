@@ -166,7 +166,7 @@ class Controller {
     async deleteUser(req: any, res: any) {
         await UserModel.findOneAndDelete({ _id: req.params.id });
         req.flash('message', 'successDelete');
-        res.redirect('/users/list');
+        res.redirect('/admin/users-list');
     }
 
     async showUpdateUserForm(req: any, res: any) {
@@ -184,10 +184,10 @@ class Controller {
                 role: data.role
             });
             req.flash('message', 'successUpdate')
-            res.redirect('/users/list');
+            res.redirect('/admin/users-list');
         } else {
             req.flash('message', 'errorUpdate')
-            res.redirect(`/user/${data.id}/edit`);
+            res.redirect(`/admin/user-edit/${data.id}`);
         }
     }
 
