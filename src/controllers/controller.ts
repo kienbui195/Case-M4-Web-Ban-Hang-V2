@@ -184,10 +184,10 @@ class Controller {
                 role: data.role
             });
             req.flash('message', 'successUpdate')
-            res.redirect('/users/list');
+            res.redirect('/admin/users-list');
         } else {
             req.flash('message', 'errorUpdate')
-            res.redirect(`/user/${data.id}/edit`);
+            res.redirect(`/admin/user-edit/${data.id}`);
         }
     }
 
