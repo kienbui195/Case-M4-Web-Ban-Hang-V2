@@ -9,8 +9,5 @@ import auth from '../middleware/auth.middleware'
 
 const userRouter = express.Router();
 userRouter.use(auth)
-userRouter.post('/register', (req, res, next) => {
-  controller.getDataRegister(req, res).catch(err => res.render('404page'));
-});
 
 export default userRouter;
