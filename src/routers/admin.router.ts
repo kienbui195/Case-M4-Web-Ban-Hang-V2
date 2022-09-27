@@ -10,7 +10,6 @@ const adminRouter = express.Router();
 adminRouter.use(auth);
 adminRouter.use(permission);
 
-
 adminRouter.get('/dashboard', (req, res) => {
     controller.showDashboardPage(req, res);
 });
