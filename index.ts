@@ -7,13 +7,14 @@ import cookieParser from "cookie-parser";
 import flush from "connect-flash";
 import fileUpload from 'express-fileupload';
 import passport from 'passport';
-import morgan from 'morgan';
 import adminRouter from './src/routers/admin.router'
 import userRouter from './src/routers/user.router'
 import { Request, Response } from "express";
+
 const app = express();
 const port = 8000;
 const DB_URL = 'mongodb://localhost:27017/caseM4';
+
 mongoose.connect(DB_URL)
     .then(() => console.log('DB connected'))
     .catch(err => console.log(err.message));
@@ -40,13 +41,13 @@ app.use(passport.session());
 app.use(passport.authenticate('session'));
 app.use(express.urlencoded({ extended: false }));
 
-app.use(adminRouter);
-app.use(userRouter);
-app.use(router);
+app.use('/admin', adminRouter);
+app.use('/user', userRouter);
+app.use('/', router);
 
 app.get('/*', (req: Request, res: Response) => {
     res.render('404page')
-});
+})
 
 app.listen(port, () => {
     console.log(`running at http://localhost:${port}`);

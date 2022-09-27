@@ -46,18 +46,18 @@ class Controller {
             newProduct.image = 'images/upload/' + image.name;
             await ProductModel.findOneAndUpdate({ _id: newProduct._id }, newProduct);
             req.flash('message', 'successUpdate');
-            res.redirect('/products/list');
+            res.redirect('/admin/products-list');
         } else {
             await ProductModel.findOneAndUpdate({ _id: newProduct._id }, newProduct);
             req.flash('message', 'successUpdate');
-            res.redirect('/products/list');
+            res.redirect('/admin/products-list');
         }
     }
 
     async deleteProduct(req: any, res: any) {
         await ProductModel.findOneAndDelete({ _id: req.params.id });
         req.flash('message', 'successDelete');
-        res.redirect('/products/list');
+        res.redirect('/admin/products-list');
     }
 
     async detailProduct(req: any, res: any) {
@@ -86,19 +86,19 @@ class Controller {
                     newProduct.image = 'images/upload/' + image.name;
                     await ProductModel.create(newProduct);
                     req.flash('message', 'successCreate');
-                    res.redirect('/products/list');
+                    res.redirect('/admin/products-list');
                 } else {
                     req.flash('message', 'duplicateCreate');
-                    res.redirect('/products/add');
+                    res.redirect('/admin/products-add');
                 }
 
             } else {
                 req.flash('message', 'errorCreate');
-                res.redirect('/products/add');
+                res.redirect('/admin/products-add');
             }
         } else {
             req.flash('message', 'errorCreate');
-            res.redirect('/products/add');
+            res.redirect('/admin/products-add');
         }
     }
 
@@ -148,14 +148,14 @@ class Controller {
                 }
                 await UserModel.create(newUser);
                 req.flash('message', 'successRegister');
-                res.redirect('/users/list');
+                res.redirect('/admin/users-list');
             } else {
                 req.flash('message', 'fail');
-                res.redirect('/users/add');
+                res.redirect('/admin/users-add');
             }
         } else {
             req.flash('message', 'error');
-            res.redirect('/users/add');
+            res.redirect('/admin/users-add');
         }
     }
 
@@ -218,6 +218,10 @@ class Controller {
             if (err) { return next(err); }
             res.redirect('/login');
         });
+    }
+
+    async showCartPage(req: any, res: any) {
+        res.render('cart');
     }
 }
 
