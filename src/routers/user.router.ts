@@ -7,7 +7,9 @@ import controller from '../controllers/controller'
 import auth from '../middleware/auth.middleware'
 
 const userRouter = express.Router();
+
 userRouter.use(auth)
+
 
 
 export default userRouter;

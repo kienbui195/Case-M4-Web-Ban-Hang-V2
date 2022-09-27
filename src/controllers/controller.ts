@@ -8,7 +8,8 @@ import bcrynt from 'bcrypt';
 class Controller {
 
     showHomePage(req: any, res: any) {
-        res.render('home');
+        let online = req.isAuthenticated();
+        res.render('home', { online: online });
     }
 
     showLoginPage(req: any, res: any) {
@@ -16,25 +17,27 @@ class Controller {
     }
 
     showDashboardPage(req: any, res: any) {
-        res.render('dashboard', {info: req.user.name});
+        res.render('dashboard', { info: req.user.name });
     }
 
     showContactPage(req: any, res: any) {
-        res.render('contact');
+        let online = req.isAuthenticated();
+        res.render('contact', { online: online });
     }
 
     showAboutPage(req: any, res: any) {
-        res.render('about');
+        let online = req.isAuthenticated();
+        res.render('about', { online: online });
     }
 
     async showProductsListPage(req: any, res: any) {
         let products = await ProductModel.find();
-        res.render('productsList', { products: products, message: req.flash('message') , info: req.user.name});
+        res.render('productsList', { products: products, message: req.flash('message'), info: req.user.name });
     }
 
     async showEditProductPage(req: any, res: any) {
         let updateProduct = await ProductModel.findOne({ _id: req.params.id });
-        res.render('updateProduct', { updateProduct: updateProduct, message: req.flash('message') , info: req.user.name});
+        res.render('updateProduct', { updateProduct: updateProduct, message: req.flash('message'), info: req.user.name });
     }
 
     async updateProduct(req: any, res: any) {
@@ -71,7 +74,8 @@ class Controller {
 
     async showShopPage(req: any, res: any) {
         let products = await ProductModel.find();
-        res.render('shop', { products: products, message: req.flash('message') });
+        let online = req.isAuthenticated();
+        res.render('shop', { products: products, message: req.flash('message'), online: online });
     }
 
     async createProduct(req: any, res: any) {
@@ -103,17 +107,12 @@ class Controller {
     }
 
     async getDataRegister(req: any, res: any) {
-        const data = req.body;
-        const user = await UserModel.findOne({ email: data.emailRegister });
-       
-        if (user) {
-            req.flash('message', 'fail');
-            res.redirect('/login');
-        } else {
-            if (checkRegisterUser(data.passwordRegister)) {
-                const password = await bcrynt.hash(data.password, 10);
-                console.log(password);
-                
+        if (checkRegisterUser(req.body.passwordRegister)) {
+            console.log(req.body);
+            const user = await UserModel.findOne({ email: req.body.emailRegister });
+            if (!user) {
+                const data = req.body;
+                let password = await bcrynt.hash(data.passwordRegister, 10);
                 const newUser = {
                     name: data.nameRegister,
                     email: data.emailRegister,
@@ -122,7 +121,7 @@ class Controller {
                     isVerified: false,
                     google_id: '',
                 }
-                
+
                 await UserModel.create(newUser);
                 req.flash('message', 'success');
                 res.redirect('/login');
@@ -136,7 +135,7 @@ class Controller {
     async showFormUserManager(req: any, res: any) {
         let admin = await UserModel.find({ role: 'admin' });
         let user = await UserModel.find({ role: 'user' })
-        res.render('dashboardUserAccManager', { admin: admin, user: user, message: req.flash('message') , info: req.user.name});
+        res.render('dashboardUserAccManager', { admin: admin, user: user, message: req.flash('message'), info: req.user.name });
     }
 
     async createAdminAccount(req: any, res: any) {
@@ -167,7 +166,7 @@ class Controller {
     }
 
     showFormCreateAdminAccount(req: any, res: any) {
-        res.render('dashboardAdminRegister', { message: req.flash('message') , info: req.user.name});
+        res.render('dashboardAdminRegister', { message: req.flash('message'), info: req.user.name });
     }
 
     async deleteUser(req: any, res: any) {
@@ -195,11 +194,11 @@ class Controller {
         } else {
             req.flash('message', 'errorUpdate')
             res.redirect(`/admin/user-edit/${data.id}`);
-        }  
+        }
     }
 
     showFormSearchProduct(req: any, res: any) {
-        res.render('searchProduct', { message: req.flash('message'), info: req.user.name});
+        res.render('searchProduct', { message: req.flash('message'), info: req.user.name });
     }
 
     async searchProduct(req: any, res: any) {

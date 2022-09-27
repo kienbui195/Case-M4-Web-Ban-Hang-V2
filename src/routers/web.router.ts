@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import multer from "multer";
 import passport from "../middleware/passport.middleware";
 import controller from '../controllers/controller';
-
 import auth from '../middleware/auth.middleware';
 import permissionLogin from '../middleware/permissionLogin.middleware'
 
@@ -42,7 +41,7 @@ router.get('/shop', (req, res) => {
 });
 
 router.get('/products/:id', (req, res) => {
-    controller.detailProduct(req, res).catch(err =>console.log(err.messages));
+    controller.detailProduct(req, res).catch(err => console.log(err.messages));
 });
 
 router.get('/cart', (req, res) => {
