@@ -64,8 +64,9 @@ class Controller {
     }
 
     async detailProduct(req: any, res: any) {
+        let online = req.isAuthenticated();
         let product = await ProductModel.findOne({ _id: req.params.id });
-        res.render('detail', { product: product })
+        res.render('detail', { product: product , online: online });
     }
 
     showAddProductsPage(req: any, res: any) {

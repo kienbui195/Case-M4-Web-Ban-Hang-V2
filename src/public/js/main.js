@@ -277,6 +277,15 @@
         $('.js-modal1').removeClass('show-modal1');
     });
 
-
+    $( document ).ready(function() {
+        let cartString = localStorage.getItem('cart');
+        if(cartString !== null){
+            let cart = JSON.parse(cartString);
+            let productNumber = cart.length;
+            $('#cart').attr('data-notify', `${productNumber}`);
+        }else {
+            $('#cart').attr('data-notify', '0');
+        }
+    });
 
 })(jQuery);
