@@ -104,15 +104,17 @@ class Controller {
 
     async getDataRegister(req: any, res: any) {
         if (checkRegisterUser(req.body.passwordRegister)) {
+            console.log(req.body);
             const user = await UserModel.findOne({ email: req.body.emailRegister });
             if (!user) {
                 const data = req.body;
-                let password = await bcrynt.hash(data.password, 10)
+                let password = await bcrynt.hash(data.passwordRegister, 10);
                 const newUser = {
                     name: data.nameRegister,
                     email: data.emailRegister,
                     password: password,
                     role: "user",
+                    google: ''
                 }
                 await UserModel.create(newUser);
                 req.flash('message', 'success')
