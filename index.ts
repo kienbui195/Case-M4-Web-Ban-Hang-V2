@@ -12,9 +12,8 @@ import userRouter from './src/routers/user.router'
 import { Request, Response } from "express";
 
 const app = express();
-const port = 8000;
-const DB_URL = 'mongodb://localhost:27017/caseM4';
-
+const port = process.env.PORT || 8000;
+const DB_URL = 'mongodb+srv://s30.tung@gmail.com:<Phoanh12>@cluster0.pc7muc9.mongodb.net/caseM4';
 mongoose.connect(DB_URL)
     .then(() => console.log('DB connected'))
     .catch(err => console.log(err.message));
