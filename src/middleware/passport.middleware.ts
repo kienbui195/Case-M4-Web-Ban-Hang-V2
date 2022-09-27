@@ -39,7 +39,9 @@ passport.use(new GoogleStrategy({
         email: email,
         google_id: google_id,
         name: nameGoogle,
-        role: 'user'
+        isVerified: true,
+        role: 'user',
+        password: ''
       }
       let newUserGoogle = new UserModel(data);
       newUserGoogle.save();

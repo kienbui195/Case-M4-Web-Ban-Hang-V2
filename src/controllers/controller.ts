@@ -16,7 +16,7 @@ class Controller {
     }
 
     showDashboardPage(req: any, res: any) {
-        res.render('dashboard');
+        res.render('dashboard', { info: req.user.name });
     }
 
     showContactPage(req: any, res: any) {
@@ -29,12 +29,12 @@ class Controller {
 
     async showProductsListPage(req: any, res: any) {
         let products = await ProductModel.find();
-        res.render('productsList', { products: products, message: req.flash('message') });
+        res.render('productsList', { products: products, message: req.flash('message'), info: req.user.name });
     }
 
     async showEditProductPage(req: any, res: any) {
         let updateProduct = await ProductModel.findOne({ _id: req.params.id });
-        res.render('updateProduct', { updateProduct: updateProduct, message: req.flash('message') });
+        res.render('updateProduct', { updateProduct: updateProduct, message: req.flash('message'), info: req.user.name });
     }
 
     async updateProduct(req: any, res: any) {
@@ -66,7 +66,7 @@ class Controller {
     }
 
     showAddProductsPage(req: any, res: any) {
-        res.render('addProduct', { message: req.flash('message') });
+        res.render('addProduct', { message: req.flash('message'), info: req.user.name });
     }
 
     async showShopPage(req: any, res: any) {
@@ -104,47 +104,49 @@ class Controller {
 
     async getDataRegister(req: any, res: any) {
         if (checkRegisterUser(req.body.passwordRegister)) {
+            console.log(req.body);
             const user = await UserModel.findOne({ email: req.body.emailRegister });
             if (!user) {
                 const data = req.body;
-                let password = await bcrynt.hash(data.password, 10)
+                let password = await bcrynt.hash(data.passwordRegister, 10);
                 const newUser = {
                     name: data.nameRegister,
                     email: data.emailRegister,
                     password: password,
                     role: "user",
+                    isVerified: false,
+                    google_id: '',
                 }
-                await UserModel.create(newUser);
-                req.flash('message', 'success')
-                res.redirect('/login')
-            } else {
-                req.flash('message', 'fail')
-                res.redirect('/login')
-            }
-        } else {
-            req.flash('message', 'error')
-            res.redirect('/login')
-        }
 
+                await UserModel.create(newUser);
+                req.flash('message', 'success');
+                res.redirect('/login');
+            } else {
+                req.flash('message', 'error');
+                res.redirect('/login');
+            }
+        }
     }
 
     async showFormUserManager(req: any, res: any) {
         let admin = await UserModel.find({ role: 'admin' });
         let user = await UserModel.find({ role: 'user' })
-        res.render('dashboardUserAccManager', { admin: admin, user: user, message: req.flash('message') });
+        res.render('dashboardUserAccManager', { admin: admin, user: user, message: req.flash('message'), info: req.user.name });
     }
 
     async createAdminAccount(req: any, res: any) {
-        if (checkRegisterUser(req.body.adminPassword)) {
-            let user = await UserModel.findOne({ email: req.body.adminEmail });
+        const data = req.body;
+        if (checkRegisterUser(data.adminPassword)) {
+            let user = await UserModel.findOne({ email: data.adminEmail });
             if (!user) {
-                const data = req.body;
                 let password = await bcrynt.hash(data.adminPassword, 10);
                 const newUser = {
                     name: data.adminName,
                     email: data.adminEmail,
                     password: password,
+                    isVerified: true,
                     role: "admin",
+                    google_id: ''
                 }
                 await UserModel.create(newUser);
                 req.flash('message', 'successRegister');
@@ -160,7 +162,7 @@ class Controller {
     }
 
     showFormCreateAdminAccount(req: any, res: any) {
-        res.render('dashboardAdminRegister', { message: req.flash('message') });
+        res.render('dashboardAdminRegister', { message: req.flash('message'), info: req.user.name });
     }
 
     async deleteUser(req: any, res: any) {
@@ -192,7 +194,7 @@ class Controller {
     }
 
     showFormSearchProduct(req: any, res: any) {
-        res.render('searchProduct', { message: req.flash('message') });
+        res.render('searchProduct', { message: req.flash('message'), info: req.user.name });
     }
 
     async searchProduct(req: any, res: any) {

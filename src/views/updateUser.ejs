@@ -66,7 +66,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword4">Password</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword4" value="<%= data.password %>" name="passwordUpdate" required>
+                                            <input type="password" class="form-control" id="exampleInputPassword4" value="<%= data.password %>" name="passwordUpdate" required 
+                                                        <% if (data.google_id !== '') { %> readonly <% } %> >
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect3">Role</label>
