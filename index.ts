@@ -11,9 +11,11 @@ import morgan from 'morgan';
 import adminRouter from './src/routers/admin.router'
 import userRouter from './src/routers/user.router'
 import { Request, Response } from "express";
+
 const app = express();
 const port = 8000;
 const DB_URL = 'mongodb://localhost:27017/caseM4';
+
 mongoose.connect(DB_URL)
     .then(() => console.log('DB connected'))
     .catch(err => console.log(err.message));
@@ -40,12 +42,13 @@ app.use(passport.session());
 app.use(passport.authenticate('session'));
 app.use(express.urlencoded({ extended: false }));
 
-app.use(router);
-app.use(adminRouter);
+
 app.use(userRouter);
+app.use(adminRouter);
+app.use(router);
 
 app.get('/*', (req: Request, res: Response) => {
-    res.render('404page')
+    res.render('404page');
 });
 
 app.listen(port, () => {

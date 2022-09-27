@@ -89,16 +89,16 @@ class Controller {
                     res.redirect('/products/list');
                 } else {
                     req.flash('message', 'duplicateCreate');
-                    res.redirect('/products/add');
+                    res.redirect('products/add');
                 }
 
             } else {
                 req.flash('message', 'errorCreate');
-                res.redirect('/products/add');
+                res.redirect('products/add');
             }
         } else {
             req.flash('message', 'errorCreate');
-            res.redirect('/products/add');
+            res.redirect('products/add');
         }
     }
 

@@ -58,7 +58,7 @@ adminRouter.post('/user/:id/edit', (req, res) => {
   controller.updateUser(req, res).catch(err => res.render('404page'));
 });
 
-adminRouter.post('/products/create', (req, res) => {
+adminRouter.post('/products/add', (req, res) => {
   controller.createProduct(req, res).catch(err => res.render('404page'));
 });
 
