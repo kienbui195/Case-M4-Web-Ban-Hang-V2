@@ -57,7 +57,7 @@ class Controller {
     async deleteProduct(req: any, res: any) {
         await ProductModel.findOneAndDelete({ _id: req.params.id });
         req.flash('message', 'successDelete');
-        res.redirect('/products/list');
+        res.redirect('/admin/products-list');
     }
 
     async detailProduct(req: any, res: any) {
