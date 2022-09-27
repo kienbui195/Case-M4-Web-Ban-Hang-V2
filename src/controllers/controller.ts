@@ -108,7 +108,6 @@ class Controller {
 
     async getDataRegister(req: any, res: any) {
         if (checkRegisterUser(req.body.passwordRegister)) {
-            console.log(req.body);
             const user = await UserModel.findOne({ email: req.body.emailRegister });
             if (!user) {
                 const data = req.body;
