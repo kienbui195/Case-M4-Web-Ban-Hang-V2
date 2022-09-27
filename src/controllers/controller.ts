@@ -108,9 +108,10 @@ class Controller {
     }
 
     async getDataRegister(req: any, res: any) {
-        if (checkRegisterUser(req.body.passwordRegister)) {
-            const user = await UserModel.findOne({ email: req.body.emailRegister });
-            if (!user) {
+        const user = await UserModel.findOne({ email: req.body.emailRegister });
+
+        if (!user) {
+            if (checkRegisterUser(req.body.passwordRegister)) {
                 const data = req.body;
                 let password = await bcrynt.hash(data.passwordRegister, 10);
                 const newUser = {
@@ -121,7 +122,6 @@ class Controller {
                     isVerified: false,
                     google_id: '',
                 }
-
                 await UserModel.create(newUser);
                 req.flash('message', 'success');
                 res.redirect('/login');
@@ -131,7 +131,7 @@ class Controller {
             }
         } else {
             req.flash('message', 'fail');
-            res.redirect('/login')
+            res.redirect('/login');
         }
     }
 
