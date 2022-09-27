@@ -51,11 +51,11 @@ adminRouter.get('/user-delete/:id', (req, res) => {
   controller.deleteUser(req, res).catch(err => res.render('404page'));
 });
 
-adminRouter.get('/user/:id/edit', (req, res) => {
+adminRouter.get('/user-edit/:id', (req, res) => {
   controller.showUpdateUserForm(req, res).catch(err => res.render('404page'));
 });
 
-adminRouter.post('/user/:id/edit', (req, res) => {
+adminRouter.post('/user-edit/:id', (req, res) => {
   controller.updateUser(req, res).catch(err => res.render('404page'));
 });
 
