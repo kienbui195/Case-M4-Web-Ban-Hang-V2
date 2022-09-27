@@ -9,13 +9,14 @@ import permission from '../middleware/permission.middleware';
 
 const adminRouter = express.Router();
 
-// adminRouter.use(auth)
-// adminRouter.use(permission)
+// adminRouter.use(auth);
+// adminRouter.use(permission);
+
 adminRouter.get('/dashboard', (req, res) => {
   controller.showDashboardPage(req, res);
 });
-adminRouter.get('/products-list', (req, res) => {
 
+adminRouter.get('/products-list', (req, res) => {
   controller.showProductsListPage(req, res).catch(err => res.render('404page'));
 });
 
@@ -40,7 +41,8 @@ adminRouter.post('/products-edit', (req, res) => {
 });
 adminRouter.get('/products-delete/:id', (req, res) => {
   controller.deleteProduct(req, res).catch(err => res.render('404page'))
-})
+});
+
 adminRouter.post('/users-add', (req, res) => {
   controller.createAdminAccount(req, res).catch(err => res.render('404page'));
 });
@@ -64,4 +66,5 @@ adminRouter.post('/products-add', (req, res) => {
 adminRouter.post('/users-searchProducts', (req, res) => {
   controller.searchProduct(req, res)
 })
+
 export default adminRouter;
