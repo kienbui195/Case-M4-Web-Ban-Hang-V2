@@ -3,7 +3,7 @@ import { UserModel } from "../schemas/userLogin.model";
 import flash from "connect-flash";
 import { UploadedFile } from "express-fileupload";
 import { ProductModel } from "../schemas/product.model";
-import {CartModel} from "../schemas/cart.model";
+import { CartModel } from "../schemas/cart.model";
 import bcrynt from 'bcrypt';
 
 
@@ -68,7 +68,7 @@ class Controller {
     async detailProduct(req: any, res: any) {
         let online = req.isAuthenticated();
         let product = await ProductModel.findOne({ _id: req.params.id });
-        res.render('detail', { product: product , online: online });
+        res.render('detail', { product: product, online: online });
     }
 
     showAddProductsPage(req: any, res: any) {
@@ -121,7 +121,7 @@ class Controller {
                     list: []
                 }
                 await CartModel.create(newCart);
-                let cart = await CartModel.findOne({userEmail: data.emailRegister});
+                let cart = await CartModel.findOne({ userEmail: data.emailRegister });
                 const newUser = {
                     name: data.nameRegister,
                     email: data.emailRegister,
@@ -224,9 +224,10 @@ class Controller {
     }
 
     async searchProduct(req: any, res: any) {
+        let online = req.isAuthenticated();
         let products = await ProductModel.find({ name: { $regex: `${req.body.keyword}`, $options: 'i' } });
         if (products.length === 0) {
-            res.render('searchProduct');
+            res.render('searchProduct', { online: online });
         } else {
             res.render('shop', { products: products });
         }
@@ -252,10 +253,10 @@ class Controller {
         let online = req.isAuthenticated();
         let products = [];
         let cartID = req.user.cartID;
-        let cart = await CartModel.findOne({_id: cartID})
+        let cart = await CartModel.findOne({ _id: cartID })
         let listCart = cart.list;
-        for(let i = 0; i < listCart.length; i++) {
-            let product = await ProductModel.findOne({_id: listCart[i]});
+        for (let i = 0; i < listCart.length; i++) {
+            let product = await ProductModel.findOne({ _id: listCart[i] });
             products.push(product);
         }
         console.log(products);
@@ -266,9 +267,9 @@ class Controller {
         let user = req.user;
         if (!user) {
             res.json(0);
-        }else {
+        } else {
             let userCartID = user.cartID;
-            let cart = await CartModel.findOne({ cartID: userCartID});
+            let cart = await CartModel.findOne({ cartID: userCartID });
             let listCart = cart.list
             res.json(listCart.length);
         }
@@ -277,16 +278,16 @@ class Controller {
     async addToCart(req: any, res: any) {
         let user = req.user;
         if (!user) {
-            res.status(401).json({ message: '401'})
-        }else{
+            res.status(401).json({ message: '401' })
+        } else {
             let user = req.user;
             let productID: string = req.params.id;
             let userCartID = user.cartID;
-            let cart = await CartModel.findOne({ cartID: userCartID});
-            let listCart :string[] = cart.list
-            if(listCart.indexOf(productID) === -1){
+            let cart = await CartModel.findOne({ cartID: userCartID });
+            let listCart: string[] = cart.list
+            if (listCart.indexOf(productID) === -1) {
                 listCart.push(productID);
-                await CartModel.findByIdAndUpdate(userCartID, {list: listCart});
+                await CartModel.findByIdAndUpdate(userCartID, { list: listCart });
             }
             let numberOfCart = listCart.length;
             res.json(numberOfCart);
