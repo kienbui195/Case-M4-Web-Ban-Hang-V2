@@ -278,14 +278,17 @@
     });
 
     $( document ).ready(function() {
-        let cartString = localStorage.getItem('cart');
-        if(cartString !== null){
-            let cart = JSON.parse(cartString);
-            let productNumber = cart.length;
-            $('#cart').attr('data-notify', `${productNumber}`);
-        }else {
-            $('#cart').attr('data-notify', '0');
-        }
+        $.ajax({
+            url: '/get-cart-items',
+            type: 'POST',
+            success: function(data){
+                $('#cart').attr('data-notify', `${data}`);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                alert('Error: '+jqXHR.status);
+            }
+        })
     });
 
 })(jQuery);
+

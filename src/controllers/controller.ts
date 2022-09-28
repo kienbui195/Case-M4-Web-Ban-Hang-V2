@@ -3,7 +3,9 @@ import { UserModel } from "../schemas/userLogin.model";
 import flash from "connect-flash";
 import { UploadedFile } from "express-fileupload";
 import { ProductModel } from "../schemas/product.model";
+import {CartModel} from "../schemas/cart.model";
 import bcrynt from 'bcrypt';
+
 
 class Controller {
 
@@ -114,6 +116,12 @@ class Controller {
             if (checkRegisterUser(req.body.passwordRegister)) {
                 const data = req.body;
                 let password = await bcrynt.hash(data.passwordRegister, 10);
+                const newCart = {
+                    userEmail: data.emailRegister,
+                    list: []
+                }
+                await CartModel.create(newCart);
+                let cart = await CartModel.findOne({userEmail: data.emailRegister});
                 const newUser = {
                     name: data.nameRegister,
                     email: data.emailRegister,
@@ -121,6 +129,7 @@ class Controller {
                     role: "user",
                     isVerified: false,
                     google_id: '',
+                    cartID: cart._id
                 }
                 await UserModel.create(newUser);
                 req.flash('message', 'success');
@@ -242,6 +251,19 @@ class Controller {
     async showCartPage(req: any, res: any) {
         let online = req.isAuthenticated();
         res.render('cart', { online: online });
+    }
+
+    async getCartItems(req: any, res: any) {
+        let user = req.user;
+        if (!user) {
+            res.json(0);
+        }else {
+            let userCartID = user.cartID;
+            let cart = await CartModel.findOne({ cartID: userCartID});
+            let listCart = cart.list
+            res.json(listCart.length);
+        }
+
     }
 }
 

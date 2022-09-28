@@ -44,10 +44,6 @@ router.get('/products/:id', (req, res) => {
     controller.detailProduct(req, res).catch(err => console.log(err.messages));
 });
 
-router.get('/cart', (req, res) => {
-    controller.showCartPage(req, res).catch(err => console.log(err.messages));
-});
-
 router.get('/register', (req, res) => {
     res.render('login');
 })
@@ -59,4 +55,9 @@ router.post('/register', (req, res) => {
 router.post('/products-search', (req, res) => {
     controller.searchProduct(req, res).catch(err => console.log(err.messages));
 });
+
+router.post('/get-cart-items', (req, res) => {
+    controller.getCartItems(req, res).catch(err => console.log(err.messages));
+})
+
 export default router;
