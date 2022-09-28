@@ -14,6 +14,14 @@ router.get('/', (req, res) => {
     controller.showHomePage(req, res);
 });
 
+router.get('/verify-account/:email', (req, res) => {
+    controller.showFormVerify(req, res).catch(err => console.log(err.messages));
+});
+
+router.post('/verify-account', (req, res) => {
+    controller.verifiedEmail(req, res).catch(err => console.log(err.messages));
+});
+
 router.get('/login', (req, res) => {
     controller.showLoginPage(req, res);
 });
@@ -44,10 +52,6 @@ router.get('/products/:id', (req, res) => {
     controller.detailProduct(req, res).catch(err => console.log(err.messages));
 });
 
-router.get('/cart', (req, res) => {
-    controller.showCartPage(req, res).catch(err => console.log(err.messages));
-});
-
 router.get('/register', (req, res) => {
     res.render('login');
 })
@@ -59,4 +63,9 @@ router.post('/register', (req, res) => {
 router.post('/products-search', (req, res) => {
     controller.searchProduct(req, res).catch(err => console.log(err.messages));
 });
+
+router.post('/get-cart-items', (req, res) => {
+    controller.getCartItems(req, res).catch(err => console.log(err.messages));
+})
+
 export default router;

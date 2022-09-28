@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" id="">
 <head>
-    <title>Login</title>
+    <title>Verify</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,6 +11,14 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0; 
+        }
+
         div.formLogin *, *:before, *:after {
             box-sizing: border-box;
             margin: 0;
@@ -250,127 +258,178 @@
         }
 
     </style>
+    
     <!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+	<link rel="icon" type="image/png" href="/images/icons/favicon.png"/>
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+        <link rel="stylesheet" type="text/css" href="/fonts/iconic/css/material-design-iconic-font.min.css">
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
+        <link rel="stylesheet" type="text/css" href="/fonts/linearicons-v1.0.0/icon-font.min.css">
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+        <link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css">
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+        <link rel="stylesheet" type="text/css" href="/vendor/css-hamburgers/hamburgers.min.css">
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+        <link rel="stylesheet" type="text/css" href="/vendor/animsition/css/animsition.min.css">
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+        <link rel="stylesheet" type="text/css" href="/vendor/select2/select2.min.css">
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+        <link rel="stylesheet" type="text/css" href="/vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
+        <link rel="stylesheet" type="text/css" href="/vendor/slick/slick.css">
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="vendor/MagnificPopup/magnific-popup.css">
+        <link rel="stylesheet" type="text/css" href="/vendor/MagnificPopup/magnific-popup.css">
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+        <link rel="stylesheet" type="text/css" href="/vendor/perfect-scrollbar/perfect-scrollbar.css">
     <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="css/util.css">
-        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/util.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
     <!--===============================================================================================-->
 </head>
 <body>
     <!--Header-->
-    <%- include('./header/productHeader')%>
+    <!-- Header -->
+    <header class="header-v2">
+    <!-- Header desktop -->
+    <div class="container-menu-desktop trans-03">
+      <div class="wrap-menu-desktop">
+        <nav class="limiter-menu-desktop p-l-45">
+          <!-- Logo desktop -->
+          <a href="/" class="logo">
+            <img src="/images/icons/logo-01.png" alt="IMG-LOGO" />
+          </a>
+  
+          <!-- Menu desktop -->
+          <div class="menu-desktop">
+            <ul class="main-menu">
+              <li class="active-menu">
+                <a href="#">Home</a>
+                <ul class="sub-menu">
+                  <li><a href="/">Homepage</a></li>
+                  <li><a href="/admin/dashboard">AdminPage</a></li>
+                </ul>
+              </li>
+  
+              <li>
+                <a href="/shop">Shop</a>
+              </li>
+  
+              <li class="label1" data-label1="hot">
+                <a href="shoping-cart.html">Features</a>
+              </li>
+  
+              <li>
+                <a href="/about">About</a>
+              </li>
+  
+              <li>
+                <a href="/contact">Contact</a>
+              </li>
+            </ul>
+          </div>
+  
+          <!-- Icon header -->
+          <div class="wrap-icon-header flex-w flex-r-m h-full">
+            <div class="flex-c-m h-full p-r-24">
+              <div
+                class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search"
+              >
+                <i class="zmdi zmdi-search"></i>
+              </div>
+            </div>
+  
+            <div class="flex-c-m h-full p-l-18 p-r-25 bor5">
+                <div
+                        class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart"
+                        id="cart"
+                        data-notify="3"
+                        onclick="cart()"
+                >
+                  <i class="zmdi zmdi-shopping-cart"></i>
+                </div>
+            </div>
+  
+            <div class="flex-c-m h-full p-lr-19">
+              <div
+                class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar"
+              >
+                <i class="zmdi zmdi-menu"></i>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  
+    <!-- Modal Search -->
+    <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+      <div class="container-search-header">
+        <button
+          class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search"
+        >
+          <img src="/images/icons/icon-close2.png" alt="CLOSE" />
+        </button>
+  
+        <form
+          class="wrap-search-header flex-w p-l-15"
+          enctype="multipart/form-data"
+          method="post"
+          action="/products/search"
+        >
+          <button class="flex-c-m trans-04" type="submit">
+            <i class="zmdi zmdi-search"></i>
+          </button>
+          <input
+            class="plh3"
+            type="text"
+            name="keyword"
+            placeholder="Search..."
+          />
+        </form>
+      </div>
+    </div>
+    </header>
+  
+  <script>
+    function cart() {
+      let cart = localStorage.getItem('cart');
+      if (cart !== null) {
+        document.cookie = `cart=${cart}`;
+      }else {
+        document.cookie = "cart=[]";
+      }
+      window.location.href = "http://localhost:8000/user/cart";
+    }
+  </script>
 
     <!--Body-->
 
-    <!--Notice-->
-    <% if(message == 'success'){ %>
-        <div class="alert alert-success" role="alert">
-            <strong>Success!</strong> Registion Success!
-        </div>
-    <% } else if (message == 'fail') { %>
-        <div class="alert alert-danger" role="alert">
-            <strong>Fail!</strong> Registion Fail! Your Accout Existed! Please register a new Accout or Login!
-        </div>
-    <% } else if (message == 'error') { %>
-        <div class="alert alert-danger" role="alert">
-            <strong>Fail!</strong> Registion Error! Enter password must have at least 6 characters with at least 1 special character, 1 uppercase letter and at least 1 number!
-        </div>
-    <% } else if (message == 'successVerify') { %>
-        <div class="alert alert-success" role="alert">
-            <strong>Success!</strong> Verified Success! Please login to use our service!
-        </div>
-    <% } else if (message == 'codeWrong') { %>
-        <div class="alert alert-danger" role="alert">
-            <strong>Error!</strong> Verified Error! Wrong Code!
-        </div>
-    <% } else if (message == 'codeExpired') { %>
-        <div class="alert alert-danger" role="alert">
-            <strong>Fail!</strong> Verified Error! Your Code Expired!
-        </div>
-    <% } %>
+    <!--Form Login--> 
+    <div class="container" style="width: 100%; height: 640px;">
+        <!--Notice-->
+            <% if(message == 'sendEmail'){ %>
+                <div class="alert alert-success" role="alert">
+                    A Email has been sent to your register email!
+                </div>
+            <% } %>
 
-    <!--Form Login-->
-    <div class="formLogin">
-        <form action="/login" method="POST" enctype="multipart/form-data" >
-            <div class="cont">
-                <div class="form sign-in">
-                    <h2>Welcome back,</h2>
-                    <label>
-                        <span>Email</span>
-                        <input type="email" name="username"/>
-                    </label>
-                    <label>
-                        <span>Password</span>
-                        <input type="password" name="password" />
-                    </label>
-                    <button type="submit" class="submit" >Sign In</button>
-                    <br>
-                    <a type="button" class="fb-btn" href="/google/login" style="margin-top:5px; margin-left: 35%; border-radius: 30px; width: 30%; text-align: center" >Join with <span>Google</span> </a>
-                </div>
-        </form>
-
-        <div class="sub-cont">
-            <div class="img">
-                <div class="img__text m--up">
-                    <h2>New here?</h2>
-                    <p>Sign up and discover great amount of new opportunities!</p>
-                </div>
-                <div class="img__text m--in">
-                    <h2>One of us?</h2>
-                    <p>If you already has an account, just sign in. We've missed you!</p>
-                </div>
-                <div class="img__btn">
-                    <span class="m--up">Sign Up</span>
-                    <span class="m--in">Sign In</span>
-                </div>
+        <div class="row">
+            <div class="col-12" style="width: 100%; height: 100px"></div>
+            <div class="col-3"></div>
+            <div class="col-6 card shadow p-3 mb-5 bg-white rounded">
+                <form style="margin-top: 50px; text-align: center; margin-bottom: 50px;" enctype="multipart/form-data" method="POST" action="/verify-account">
+                    <h4 style="text-align:center"><strong>Verify your email</strong></h4>
+                    <input value="<%= email %>" style="display: none;" name="email">
+                    <p style="margin-top: 30px">Enter the verification code in the box below</p>
+                    <input type="number" name="code" class="form-control" aria-describedby="number" placeholder="Enter Code" style="text-align: center;" required>                   
+                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
+                  </form>  
             </div>
-            <div class="form sign-up">
-
-                <!--Form Register-->
-                <h2>Time to feel like home,</h2>
-                <form action="/register" method="POST" enctype="multipart/form-data" >
-                    <label>
-                        <span>Name</span>
-                        <input type="text" name="nameRegister" required />
-                    </label>
-                    <label>
-                        <span>Email</span>
-                        <input type="email" name="emailRegister" required/>
-                    </label>
-                    <label>
-                        <span>Password</span>
-                        <input type="password" name="passwordRegister" required/>
-                    </label>
-                    <button type="submit" class="submit" >Sign Up</button>
-                    <br>
-                    <a type="button" class="fb-btn" href="/google/login" style="margin-top:5px; margin-left: 35%; border-radius: 30px; width: 30%; text-align: center" >Join with <span>Google</span> </a>
-                </form>
-            </div>
+            <div class="col-3"></div>
         </div>
     </div>
 
@@ -394,14 +453,14 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
         <!--===============================================================================================-->
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
-        <script src="vendor/animsition/js/animsition.min.js"></script>
+        <script src="/vendor/animsition/js/animsition.min.js"></script>
     <!--===============================================================================================-->
-        <script src="vendor/bootstrap/js/popper.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/vendor/bootstrap/js/popper.js"></script>
+        <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
-        <script src="vendor/select2/select2.min.js"></script>
+        <script src="/vendor/select2/select2.min.js"></script>
         <script>
             $(".js-select2").each(function(){
                 $(this).select2({
@@ -411,18 +470,18 @@
             })
         </script>
     <!--===============================================================================================-->
-        <script src="vendor/daterangepicker/moment.min.js"></script>
-        <script src="vendor/daterangepicker/daterangepicker.js"></script>
+        <script src="/vendor/daterangepicker/moment.min.js"></script>
+        <script src="/vendor/daterangepicker/daterangepicker.js"></script>
     <!--===============================================================================================-->
-        <script src="vendor/slick/slick.min.js"></script>
-        <script src="js/slick-custom.js"></script>
+        <script src="/vendor/slick/slick.min.js"></script>
+        <script src="/js/slick-custom.js"></script>
     <!--===============================================================================================-->
-        <script src="vendor/parallax100/parallax100.js"></script>
+        <script src="/vendor/parallax100/parallax100.js"></script>
         <script>
             $('.parallax100').parallax100();
         </script>
     <!--===============================================================================================-->
-        <script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+        <script src="/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
         <script>
             $('.gallery-lb').each(function() { // the containers for all your galleries
                 $(this).magnificPopup({
@@ -436,9 +495,9 @@
             });
         </script>
     <!--===============================================================================================-->
-        <script src="vendor/isotope/isotope.pkgd.min.js"></script>
+        <script src="/vendor/isotope/isotope.pkgd.min.js"></script>
     <!--===============================================================================================-->
-        <script src="vendor/sweetalert/sweetalert.min.js"></script>
+        <script src="/vendor/sweetalert/sweetalert.min.js"></script>
         <script>
             $('.js-addwish-b2').on('click', function(e){
                 e.preventDefault();
@@ -475,7 +534,7 @@
             });
         </script>
     <!--===============================================================================================-->
-        <script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
         <script>
             $('.js-pscroll').each(function(){
                 $(this).css('position','relative');
@@ -492,6 +551,6 @@
             });
         </script>
     <!--===============================================================================================-->\
-    <script src="js/main.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>
