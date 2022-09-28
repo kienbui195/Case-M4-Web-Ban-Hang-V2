@@ -5,9 +5,19 @@ import { UploadedFile } from "express-fileupload";
 import { ProductModel } from "../schemas/product.model";
 import {CartModel} from "../schemas/cart.model";
 import bcrynt from 'bcrypt';
-
+import VerifiedEmail from "../VerifiedMail/mail.setup";
+import { TokenModel } from "../schemas/token.schema";
 
 class Controller {
+
+    async randomToken() {
+        let otp = '';
+        const random = '1234567890';
+        for (let i = 0; i < 6; i++){
+        otp += random[Math.floor(Math.random() * random.length)];
+        }
+        return otp;
+    }
 
     showHomePage(req: any, res: any) {
         let online = req.isAuthenticated();
@@ -116,6 +126,7 @@ class Controller {
             if (checkRegisterUser(req.body.passwordRegister)) {
                 const data = req.body;
                 let password = await bcrynt.hash(data.passwordRegister, 10);
+                let otp = await this.randomToken();
                 const newCart = {
                     userEmail: data.emailRegister,
                     list: []
@@ -132,14 +143,47 @@ class Controller {
                     cartID: cart._id
                 }
                 await UserModel.create(newUser);
-                req.flash('message', 'success');
-                res.redirect('/login');
+                const token = {
+                    email: data.emailRegister,
+                    token: otp
+                }
+                await TokenModel.create(token);
+                VerifiedEmail(req, res, otp);
+                req.flash('message', 'sendEmail');
+                res.render('verify', { message: req.flash('message'), email: data.emailRegister });
             } else {
                 req.flash('message', 'error');
                 res.redirect('/login');
             }
         } else {
             req.flash('message', 'fail');
+            res.redirect('/login');
+        }
+    }
+
+    async showFormVerify(req: any, res: any) {
+        let deleteToken =  () => {
+             TokenModel.findOneAndDelete({email: req.params.email})
+        }
+        setTimeout(deleteToken, 10000);
+        res.render('verify', { message: req.flash('message') });
+    }
+
+    async verifiedEmail(req: any, res: any) {
+        let data = req.body;
+        let token = await TokenModel.findOne({ email: data.email });
+        if (token) {
+            if (req.body.code == token.token) {
+                await UserModel.findOneAndUpdate({ email: data.email }, { isVerified: true });
+                await TokenModel.findOneAndDelete({ email: data.email });
+                req.flash('message', 'successVerify');
+                res.redirect('/login');
+            } else {
+                req.flash('message', 'codeWrong');
+                res.redirect('/login');
+            }
+        } else {
+            req.flash('message', 'codeExpired');
             res.redirect('/login');
         }
     }
