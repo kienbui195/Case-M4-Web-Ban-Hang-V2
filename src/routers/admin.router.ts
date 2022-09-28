@@ -1,6 +1,4 @@
 import express from "express";
-import { Request, Response } from "express";
-import passport from "../middleware/passport.middleware";
 import controller from '../controllers/controller';
 import auth from '../middleware/auth.middleware';
 import permission from '../middleware/permission.middleware';

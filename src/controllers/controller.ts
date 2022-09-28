@@ -1,11 +1,10 @@
 import { checkRegisterUser } from "../functions/validateForm";
 import { UserModel } from "../schemas/userLogin.model";
-import flash from "connect-flash";
 import { UploadedFile } from "express-fileupload";
 import { ProductModel } from "../schemas/product.model";
 import {CartModel} from "../schemas/cart.model";
 import {OrderModel} from "../schemas/order.model";
-import bcrynt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import VerifiedEmail from "../VerifiedMail/mail.setup";
 import { TokenModel } from "../schemas/token.schema";
 
@@ -125,7 +124,7 @@ class Controller {
         if (!user) {
             if (checkRegisterUser(req.body.passwordRegister)) {
                 const data = req.body;
-                let password = await bcrynt.hash(data.passwordRegister, 10);
+                let password = await bcrypt.hash(data.passwordRegister, 10);
                 let otp = await this.randomToken();
                 const newCart = {
                     userEmail: data.emailRegister,
@@ -203,7 +202,7 @@ class Controller {
         if (checkRegisterUser(data.adminPassword)) {
             let user = await UserModel.findOne({ email: data.adminEmail });
             if (!user) {
-                let password = await bcrynt.hash(data.adminPassword, 10);
+                let password = await bcrypt.hash(data.adminPassword, 10);
                 const newUser = {
                     name: data.adminName,
                     email: data.adminEmail,
@@ -252,7 +251,7 @@ class Controller {
             res.redirect('/admin/users-list');
         } else {
             if (checkRegisterUser(data.passwordUpdate)) {
-                let password = await bcrynt.hash(data.passwordUpdate, 10)
+                let password = await bcrypt.hash(data.passwordUpdate, 10)
                 await UserModel.findOneAndUpdate({ _id: data.id }, {
                     name: data.nameUpdate,
                     password: password,
