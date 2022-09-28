@@ -13,8 +13,8 @@ class Controller {
     async randomToken() {
         let otp = '';
         const random = '1234567890';
-        for (let i = 0; i < 6; i++){
-        otp += random[Math.floor(Math.random() * random.length)];
+        for (let i = 0; i < 6; i++) {
+            otp += random[Math.floor(Math.random() * random.length)];
         }
         return otp;
     }
@@ -121,7 +121,6 @@ class Controller {
 
     async getDataRegister(req: any, res: any) {
         const user = await UserModel.findOne({ email: req.body.emailRegister });
-
         if (!user) {
             if (checkRegisterUser(req.body.passwordRegister)) {
                 const data = req.body;
@@ -162,8 +161,8 @@ class Controller {
     }
 
     async showFormVerify(req: any, res: any) {
-        let deleteToken =  () => {
-             TokenModel.findOneAndDelete({email: req.params.email})
+        let deleteToken = () => {
+            TokenModel.findOneAndDelete({ email: req.params.email })
         }
         setTimeout(deleteToken, 10000);
         res.render('verify', { message: req.flash('message') });
