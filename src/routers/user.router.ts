@@ -9,11 +9,13 @@ import router from "./web.router";
 
 const userRouter = express.Router();
 
-userRouter.use(auth)
 
-userRouter.get('/cart', (req, res) => {
-    console.log(req.user)
+userRouter.get('/cart',auth, (req, res) => {
     controller.showCartPage(req, res).catch(err => console.log(err.messages));
+});
+
+userRouter.post('/add-to-cart/:id', (req, res)=>{
+    controller.addToCart(req, res).catch(err => console.log(err.messages));
 });
 
 export default userRouter;
