@@ -250,7 +250,16 @@ class Controller {
 
     async showCartPage(req: any, res: any) {
         let online = req.isAuthenticated();
-        res.render('cart', { online: online });
+        let products = [];
+        let cartID = req.user.cartID;
+        let cart = await CartModel.findOne({_id: cartID})
+        let listCart = cart.list;
+        for(let i = 0; i < listCart.length; i++) {
+            let product = await ProductModel.findOne({_id: listCart[i]});
+            products.push(product);
+        }
+        console.log(products);
+        res.render('cart', { online: online, products: products });
     }
 
     async getCartItems(req: any, res: any) {
@@ -263,7 +272,25 @@ class Controller {
             let listCart = cart.list
             res.json(listCart.length);
         }
+    }
 
+    async addToCart(req: any, res: any) {
+        let user = req.user;
+        if (!user) {
+            res.status(401).json({ message: '401'})
+        }else{
+            let user = req.user;
+            let productID: string = req.params.id;
+            let userCartID = user.cartID;
+            let cart = await CartModel.findOne({ cartID: userCartID});
+            let listCart :string[] = cart.list
+            if(listCart.indexOf(productID) === -1){
+                listCart.push(productID);
+                await CartModel.findByIdAndUpdate(userCartID, {list: listCart});
+            }
+            let numberOfCart = listCart.length;
+            res.json(numberOfCart);
+        }
     }
 }
 

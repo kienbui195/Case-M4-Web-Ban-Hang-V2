@@ -102,12 +102,6 @@
 
 <script>
   function cart() {
-    let cart = localStorage.getItem('cart');
-    if (cart !== null) {
-      document.cookie = `cart=${cart}`;
-    }else {
-      document.cookie = "cart=[]";
-    }
     window.location.href = "http://localhost:8000/user/cart";
   }
 </script>
