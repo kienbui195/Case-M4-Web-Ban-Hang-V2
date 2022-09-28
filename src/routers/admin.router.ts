@@ -66,4 +66,8 @@ adminRouter.post('/users-searchProducts', (req, res) => {
   controller.searchAdminProducts(req, res).catch(err => console.log(err.messages));
 });
 
+adminRouter.get('/orders-list', (req, res) => {
+    controller.showOrderListPage(req, res).catch(err => console.log(err.messages));
+})
+
 export default adminRouter; 

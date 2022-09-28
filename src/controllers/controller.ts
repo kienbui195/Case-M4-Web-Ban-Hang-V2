@@ -363,8 +363,10 @@ class Controller {
             }else if(result[i][0] === 'total_money'){
                 total = result[i][1];
             } else {
+                let product = await ProductModel.findOne({_id: result[i][0]});
                 let order = {
                     product_id: result[i][0],
+                    product_name: product.name,
                     quantity: +result[i][1]
                 }
                 list.push(order);
@@ -373,6 +375,7 @@ class Controller {
 
         let order = {
             userID: req.user._id,
+            userName: req.user.name,
             list: list,
             date: date,
             address: address,
@@ -386,6 +389,11 @@ class Controller {
         await CartModel.findByIdAndUpdate(userCartID, {list: []});
 
         res.redirect('/');
+    }
+
+    async showOrderListPage(req, res) {
+        let orders: any = await OrderModel.find();
+        res.render('ordersList',{info: req.user.name, orders: orders});
     }
 }
 
