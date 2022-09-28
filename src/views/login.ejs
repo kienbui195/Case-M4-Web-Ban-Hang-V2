@@ -288,11 +288,8 @@
     <!--Body-->
 
     <!--Notice-->
-    <% if(message == 'success'){ %>
-        <div class="alert alert-success" role="alert">
-            <strong>Success!</strong> Registion Success!
-        </div>
-    <% } else if (message == 'fail') { %>
+    <% if (message) { %>
+    <% if (message == 'fail') { %>
         <div class="alert alert-danger" role="alert">
             <strong>Fail!</strong> Registion Fail! Your Accout Existed! Please register a new Accout or Login!
         </div>
@@ -312,7 +309,7 @@
         <div class="alert alert-danger" role="alert">
             <strong>Fail!</strong> Verified Error! Your Code Expired!
         </div>
-    <% } %>
+    <% }} %>
 
     <!--Form Login-->
     <div class="formLogin">
