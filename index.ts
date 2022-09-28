@@ -10,7 +10,7 @@ import adminRouter from './src/routers/admin.router'
 import userRouter from './src/routers/user.router'
 import { Request, Response } from "express";
 import cookieParser from "cookie-parser";
-
+import back from "./src/middleware/back.middleware";
 const app = express();
 const port = process.env.PORT || 8000;
 const DB_URL = 'mongodb://localhost:27017/caseM4';
@@ -27,7 +27,7 @@ app.use(flush());
 app.use(fileUpload({
     createParentPath: true
 }));
-
+app.use(back)
 app.use(session({
     secret: 'SECRET',
     resave: false,

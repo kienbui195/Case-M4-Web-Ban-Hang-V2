@@ -6,9 +6,19 @@ import { ProductModel } from "../schemas/product.model";
 import {CartModel} from "../schemas/cart.model";
 import {OrderModel} from "../schemas/order.model";
 import bcrynt from 'bcrypt';
-
+import VerifiedEmail from "../VerifiedMail/mail.setup";
+import { TokenModel } from "../schemas/token.schema";
 
 class Controller {
+
+    async randomToken() {
+        let otp = '';
+        const random = '1234567890';
+        for (let i = 0; i < 6; i++) {
+            otp += random[Math.floor(Math.random() * random.length)];
+        }
+        return otp;
+    }
 
     showHomePage(req: any, res: any) {
         let online = req.isAuthenticated();
@@ -69,7 +79,7 @@ class Controller {
     async detailProduct(req: any, res: any) {
         let online = req.isAuthenticated();
         let product = await ProductModel.findOne({ _id: req.params.id });
-        res.render('detail', { product: product , online: online });
+        res.render('detail', { product: product, online: online });
     }
 
     showAddProductsPage(req: any, res: any) {
@@ -112,17 +122,17 @@ class Controller {
 
     async getDataRegister(req: any, res: any) {
         const user = await UserModel.findOne({ email: req.body.emailRegister });
-
         if (!user) {
             if (checkRegisterUser(req.body.passwordRegister)) {
                 const data = req.body;
                 let password = await bcrynt.hash(data.passwordRegister, 10);
+                let otp = await this.randomToken();
                 const newCart = {
                     userEmail: data.emailRegister,
                     list: []
                 }
                 await CartModel.create(newCart);
-                let cart = await CartModel.findOne({userEmail: data.emailRegister});
+                let cart = await CartModel.findOne({ userEmail: data.emailRegister });
                 const newUser = {
                     name: data.nameRegister,
                     email: data.emailRegister,
@@ -133,14 +143,51 @@ class Controller {
                     cartID: cart._id
                 }
                 await UserModel.create(newUser);
-                req.flash('message', 'success');
-                res.redirect('/login');
+                const token = {
+                    email: data.emailRegister,
+                    token: otp
+                }
+                await TokenModel.create(token);
+                VerifiedEmail(req, res, otp);
+                req.flash('message', 'sendEmail');
+                res.render('verify', { message: req.flash('message'), email: data.emailRegister });
             } else {
                 req.flash('message', 'error');
                 res.redirect('/login');
             }
         } else {
             req.flash('message', 'fail');
+            res.redirect('/login');
+        }
+    }
+
+    async showFormVerify(req: any, res: any) {
+        let deleteToken = () => {
+            TokenModel.findOneAndDelete({ email: req.params.email })
+        }
+        setTimeout(deleteToken, 30000);
+        res.render('verify', { message: req.flash('message') });
+    }
+
+    async verifiedEmail(req: any, res: any) {
+        let data = req.body;
+        let token = await TokenModel.findOne({ email: data.email });
+        if (token) {
+            if (req.body.code == token.token) {
+                await UserModel.findOneAndUpdate({ email: data.email }, { isVerified: true });
+                await TokenModel.findOneAndDelete({ email: data.email });
+                req.flash('message', 'successVerify');
+                res.redirect('/login');
+            } else {
+                await UserModel.findOneAndDelete({ email: data.email });
+                await TokenModel.findOneAndDelete({ email: data.email });
+                req.flash('message', 'codeWrong');
+                res.redirect('/login');
+            }
+        } else {
+            await UserModel.findOneAndDelete({ email: data.email });
+            await TokenModel.findOneAndDelete({ email: data.email });
+            req.flash('message', 'codeExpired');
             res.redirect('/login');
         }
     }
@@ -225,9 +272,10 @@ class Controller {
     }
 
     async searchProduct(req: any, res: any) {
+        let online = req.isAuthenticated();
         let products = await ProductModel.find({ name: { $regex: `${req.body.keyword}`, $options: 'i' } });
         if (products.length === 0) {
-            res.render('searchProduct');
+            res.render('searchProduct', { online: online });
         } else {
             res.render('shop', { products: products });
         }
@@ -253,10 +301,10 @@ class Controller {
         let online = req.isAuthenticated();
         let products = [];
         let cartID = req.user.cartID;
-        let cart = await CartModel.findOne({_id: cartID})
+        let cart = await CartModel.findOne({ _id: cartID })
         let listCart = cart.list;
-        for(let i = 0; i < listCart.length; i++) {
-            let product = await ProductModel.findOne({_id: listCart[i]});
+        for (let i = 0; i < listCart.length; i++) {
+            let product = await ProductModel.findOne({ _id: listCart[i] });
             products.push(product);
         }
         res.render('cart', { online: online, products: products });
@@ -266,9 +314,9 @@ class Controller {
         let user = req.user;
         if (!user) {
             res.json(0);
-        }else {
+        } else {
             let userCartID = user.cartID;
-            let cart = await CartModel.findOne({ cartID: userCartID});
+            let cart = await CartModel.findOne({ cartID: userCartID });
             let listCart = cart.list
             res.json(listCart.length);
         }
@@ -277,16 +325,16 @@ class Controller {
     async addToCart(req: any, res: any) {
         let user = req.user;
         if (!user) {
-            res.status(401).json({ message: '401'})
-        }else{
+            res.status(401).json({ message: '401' })
+        } else {
             let user = req.user;
             let productID: string = req.params.id;
             let userCartID = user.cartID;
-            let cart = await CartModel.findOne({ cartID: userCartID});
-            let listCart :string[] = cart.list
-            if(listCart.indexOf(productID) === -1){
+            let cart = await CartModel.findOne({ cartID: userCartID });
+            let listCart: string[] = cart.list
+            if (listCart.indexOf(productID) === -1) {
                 listCart.push(productID);
-                await CartModel.findByIdAndUpdate(userCartID, {list: listCart});
+                await CartModel.findByIdAndUpdate(userCartID, { list: listCart });
             }
             let numberOfCart = listCart.length;
             res.json(numberOfCart);
