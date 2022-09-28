@@ -177,7 +177,7 @@ class Controller {
                 await UserModel.findOneAndUpdate({ email: data.email }, { isVerified: true });
                 await TokenModel.findOneAndDelete({ email: data.email });
                 req.flash('message', 'successVerify');
-                res.render('login' , { message: req.flash('message')});
+                res.render('login',{ message: req.flash('message')});
             } else {
                 await UserModel.findOneAndDelete({ email: data.email });
                 await TokenModel.findOneAndDelete({ email: data.email });
