@@ -165,7 +165,7 @@ class Controller {
         let deleteToken =  () => {
              TokenModel.findOneAndDelete({email: req.params.email})
         }
-        setTimeout(deleteToken, 10000);
+        setTimeout(deleteToken, 20000);
         res.render('verify', { message: req.flash('message') });
     }
 
