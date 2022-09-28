@@ -55,4 +55,9 @@ router.post('/register', (req, res) => {
 router.post('/products-search', (req, res) => {
     controller.searchProduct(req, res).catch(err => console.log(err.messages));
 });
+
+router.post('/get-cart-items', (req, res) => {
+    controller.getCartItems(req, res).catch(err => console.log(err.messages));
+})
+
 export default router;

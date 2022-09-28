@@ -12,6 +12,7 @@ const userRouter = express.Router();
 userRouter.use(auth)
 
 userRouter.get('/cart', (req, res) => {
+    console.log(req.user)
     controller.showCartPage(req, res).catch(err => console.log(err.messages));
 });
 
