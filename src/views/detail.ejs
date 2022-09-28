@@ -726,7 +726,17 @@
 /*---------------Add to Cart------------*/
 <script>
     function addToCart() {
-
+        let productID = $("#product-id").html();
+        $.ajax({
+            url: '/user/add-to-cart/'+productID,
+            method: 'POST',
+            success: function(data){
+                $('#cart').attr('data-notify', `${data}`);
+            },
+            error: function(error){
+               window.location.href = 'http://localhost:8000/login'
+            }
+        })
 
         // let productID = $("#product-id").html();
         // let cartString = localStorage.getItem('cart');
