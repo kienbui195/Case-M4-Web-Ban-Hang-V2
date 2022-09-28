@@ -9,11 +9,9 @@ import passport from 'passport';
 import adminRouter from './src/routers/admin.router'
 import userRouter from './src/routers/user.router'
 import { Request, Response } from "express";
-<<<<<<< HEAD
 import cookieParser from "cookie-parser";
-=======
 import back from "./src/middleware/back.middleware";
->>>>>>> 2a7fc92 (update)
+
 
 const app = express();
 const port = process.env.PORT || 8000;
