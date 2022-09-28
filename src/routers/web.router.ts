@@ -1,9 +1,7 @@
 import express from "express";
-import { Request, Response } from "express";
 import multer from "multer";
 import passport from "../middleware/passport.middleware";
 import controller from '../controllers/controller';
-import auth from '../middleware/auth.middleware';
 import permissionLogin from '../middleware/permissionLogin.middleware'
 
 
