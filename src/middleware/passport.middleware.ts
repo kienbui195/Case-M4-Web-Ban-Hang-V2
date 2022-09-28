@@ -12,8 +12,6 @@ passport.use(new LocalStrategy(async (username: any, password: any, done: any) =
     return done(null, false);
   } else {
     let comparePass = await bcrynt.compare(password, user.password)
-    console.log(comparePass);
-
     if (comparePass) {
       return done(null, user);
     } else {
