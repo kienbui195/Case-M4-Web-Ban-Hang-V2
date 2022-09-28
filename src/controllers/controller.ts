@@ -165,7 +165,7 @@ class Controller {
         let deleteToken =  () => {
              TokenModel.findOneAndDelete({email: req.params.email})
         }
-        setTimeout(deleteToken, 20000);
+        setTimeout(deleteToken, 30000);
         res.render('verify', { message: req.flash('message') });
     }
 
@@ -179,10 +179,14 @@ class Controller {
                 req.flash('message', 'successVerify');
                 res.redirect('/login');
             } else {
+                await UserModel.findOneAndDelete({ email: data.email });
+                await TokenModel.findOneAndDelete({ email: data.email });
                 req.flash('message', 'codeWrong');
                 res.redirect('/login');
             }
         } else {
+            await UserModel.findOneAndDelete({ email: data.email });
+            await TokenModel.findOneAndDelete({ email: data.email });
             req.flash('message', 'codeExpired');
             res.redirect('/login');
         }
