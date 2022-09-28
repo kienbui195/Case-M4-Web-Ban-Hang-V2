@@ -3,7 +3,8 @@ import { UserModel } from "../schemas/userLogin.model";
 import flash from "connect-flash";
 import { UploadedFile } from "express-fileupload";
 import { ProductModel } from "../schemas/product.model";
-import { CartModel } from "../schemas/cart.model";
+import {CartModel} from "../schemas/cart.model";
+import {OrderModel} from "../schemas/order.model";
 import bcrynt from 'bcrypt';
 import VerifiedEmail from "../VerifiedMail/mail.setup";
 import { TokenModel } from "../schemas/token.schema";
@@ -306,7 +307,6 @@ class Controller {
             let product = await ProductModel.findOne({ _id: listCart[i] });
             products.push(product);
         }
-        console.log(products);
         res.render('cart', { online: online, products: products });
     }
 
@@ -339,6 +339,54 @@ class Controller {
             let numberOfCart = listCart.length;
             res.json(numberOfCart);
         }
+    }
+
+    async checkOut(req: any, res: any) {
+        let obj = req.body
+        let result = Object.entries(obj);
+
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm:any = today.getMonth() + 1; // Months start at 0!
+        let dd:any = today.getDate();
+        if (dd < 10){dd = '0' + dd}
+        if (mm < 10){mm = '0' + mm}
+        const date = dd + '/' + mm + '/' + yyyy;
+
+        let address,phone, total:any
+        let list:any = [];
+
+        for(let i = 0; i < result.length; i++) {
+            if(result[i][0] === 'address') {
+                address = result[i][1];
+            }else if(result[i][0] === 'phone') {
+                phone = result[i][1];
+            }else if(result[i][0] === 'total_money'){
+                total = result[i][1];
+            } else {
+                let order = {
+                    product_id: result[i][0],
+                    quantity: +result[i][1]
+                }
+                list.push(order);
+            }
+        }
+
+        let order = {
+            userID: req.user._id,
+            list: list,
+            date: date,
+            address: address,
+            phone: phone,
+            total: total
+        }
+
+        await OrderModel.create(order);
+
+        let userCartID = req.user.cartID;
+        await CartModel.findByIdAndUpdate(userCartID, {list: []});
+
+        res.redirect('/');
     }
 }
 

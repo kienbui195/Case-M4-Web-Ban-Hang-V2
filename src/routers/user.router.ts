@@ -18,4 +18,8 @@ userRouter.post('/add-to-cart/:id', (req, res)=>{
     controller.addToCart(req, res).catch(err => console.log(err.messages));
 });
 
+userRouter.post('/check-out', (req, res)=>{
+    controller.checkOut(req, res).catch(err => console.log(err.messages));
+})
+
 export default userRouter;
