@@ -1,6 +1,6 @@
 import googleStrategy from 'passport-google-oauth2';
 import passport from 'passport';
-import bcrynt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import { UserModel } from '../schemas/userLogin.model';
 import * as passportLocal from 'passport-local';
 const LocalStrategy = passportLocal.Strategy;
@@ -11,7 +11,7 @@ passport.use(new LocalStrategy(async (username: any, password: any, done: any) =
   if (!user) {
     return done(null, false);
   } else {
-    let comparePass = await bcrynt.compare(password, user.password)
+    let comparePass = await bcrypt.compare(password, user.password)
     if (comparePass) {
       return done(null, user);
     } else {

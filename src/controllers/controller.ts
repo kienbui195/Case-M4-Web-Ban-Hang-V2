@@ -1,11 +1,10 @@
 import { checkRegisterUser } from "../functions/validateForm";
 import { UserModel } from "../schemas/userLogin.model";
-import flash from "connect-flash";
 import { UploadedFile } from "express-fileupload";
 import { ProductModel } from "../schemas/product.model";
 import {CartModel} from "../schemas/cart.model";
 import {OrderModel} from "../schemas/order.model";
-import bcrynt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import VerifiedEmail from "../VerifiedMail/mail.setup";
 import { TokenModel } from "../schemas/token.schema";
 
@@ -125,7 +124,7 @@ class Controller {
         if (!user) {
             if (checkRegisterUser(req.body.passwordRegister)) {
                 const data = req.body;
-                let password = await bcrynt.hash(data.passwordRegister, 10);
+                let password = await bcrypt.hash(data.passwordRegister, 10);
                 let otp = await this.randomToken();
                 const newCart = {
                     userEmail: data.emailRegister,
@@ -177,7 +176,7 @@ class Controller {
                 await UserModel.findOneAndUpdate({ email: data.email }, { isVerified: true });
                 await TokenModel.findOneAndDelete({ email: data.email });
                 req.flash('message', 'successVerify');
-                res.redirect('/login');
+                res.render('login',{ message: req.flash('message')});
             } else {
                 await UserModel.findOneAndDelete({ email: data.email });
                 await TokenModel.findOneAndDelete({ email: data.email });
@@ -203,7 +202,7 @@ class Controller {
         if (checkRegisterUser(data.adminPassword)) {
             let user = await UserModel.findOne({ email: data.adminEmail });
             if (!user) {
-                let password = await bcrynt.hash(data.adminPassword, 10);
+                let password = await bcrypt.hash(data.adminPassword, 10);
                 const newUser = {
                     name: data.adminName,
                     email: data.adminEmail,
@@ -252,7 +251,7 @@ class Controller {
             res.redirect('/admin/users-list');
         } else {
             if (checkRegisterUser(data.passwordUpdate)) {
-                let password = await bcrynt.hash(data.passwordUpdate, 10)
+                let password = await bcrypt.hash(data.passwordUpdate, 10)
                 await UserModel.findOneAndUpdate({ _id: data.id }, {
                     name: data.nameUpdate,
                     password: password,
@@ -364,8 +363,10 @@ class Controller {
             }else if(result[i][0] === 'total_money'){
                 total = result[i][1];
             } else {
+                let product = await ProductModel.findOne({_id: result[i][0]});
                 let order = {
                     product_id: result[i][0],
+                    product_name: product.name,
                     quantity: +result[i][1]
                 }
                 list.push(order);
@@ -374,6 +375,7 @@ class Controller {
 
         let order = {
             userID: req.user._id,
+            userName: req.user.name,
             list: list,
             date: date,
             address: address,
@@ -387,6 +389,11 @@ class Controller {
         await CartModel.findByIdAndUpdate(userCartID, {list: []});
 
         res.redirect('/');
+    }
+
+    async showOrderListPage(req, res) {
+        let orders: any = await OrderModel.find();
+        res.render('ordersList',{info: req.user.name, orders: orders});
     }
 }
 

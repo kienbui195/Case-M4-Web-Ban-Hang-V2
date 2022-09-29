@@ -17,15 +17,36 @@
       <a
         class="nav-link"
         data-toggle="collapse"
-        href="#tables"
+        href="#orders"
         aria-expanded="false"
-        aria-controls="tables"
+        aria-controls="orders"
+      >
+        <i class="icon-bag menu-icon"></i>
+        <span class="menu-title">Orders Page</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="orders" >
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/orders-list">List Orders</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a
+              class="nav-link"
+              data-toggle="collapse"
+              href="#products"
+              aria-expanded="false"
+              aria-controls="products"
       >
         <i class="icon-grid-2 menu-icon"></i>
         <span class="menu-title">Products Page</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="tables">
+      <div class="collapse" id="products">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
             <a class="nav-link" href="/admin/products-add">Add Products</a>
@@ -36,19 +57,20 @@
         </ul>
       </div>
     </li>
+
     <li class="nav-item">
       <a
         class="nav-link"
         data-toggle="collapse"
-        href="#auth"
+        href="#users"
         aria-expanded="false"
-        aria-controls="auth"
+        aria-controls="users"
       >
         <i class="icon-head menu-icon"></i>
         <span class="menu-title">Account Pages</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="auth">
+      <div class="collapse" id="users">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
             <a class="nav-link" href="/admin/users-add"> Add Account </a>

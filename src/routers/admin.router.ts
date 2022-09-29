@@ -1,6 +1,4 @@
 import express from "express";
-import { Request, Response } from "express";
-import passport from "../middleware/passport.middleware";
 import controller from '../controllers/controller';
 import auth from '../middleware/auth.middleware';
 import permission from '../middleware/permission.middleware';
@@ -67,5 +65,9 @@ adminRouter.post('/products-add', (req, res) => {
 adminRouter.post('/users-searchProducts', (req, res) => {
   controller.searchAdminProducts(req, res).catch(err => console.log(err.messages));
 });
+
+adminRouter.get('/orders-list', (req, res) => {
+    controller.showOrderListPage(req, res).catch(err => console.log(err.messages));
+})
 
 export default adminRouter; 
