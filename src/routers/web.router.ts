@@ -51,11 +51,12 @@ router.get('/products/:id', (req, res) => {
 });
 
 router.get('/register', (req, res) => {
-    res.render('login');
+    res.redirect('/login');
 })
 
 router.post('/register', (req, res) => {
-    controller.getDataRegister(req, res).catch(err => console.log(err.message));
+    controller.getDataRegister(req, res)
+        .catch(err => console.log(err.message))
 });
 
 router.post('/products-search', (req, res) => {
