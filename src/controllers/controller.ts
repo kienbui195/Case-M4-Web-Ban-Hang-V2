@@ -267,7 +267,8 @@ class Controller {
     }
 
     showFormSearchProduct(req: any, res: any) {
-        res.render('searchProduct', { message: req.flash('message'), info: req.user.name });
+        let online = req.isAuthenticated();
+        res.render('searchProduct', { message: req.flash('message'), info: req.user.name, online : online });
     }
 
     async searchProduct(req: any, res: any) {
@@ -276,16 +277,16 @@ class Controller {
         if (products.length === 0) {
             res.render('searchProduct', { online: online });
         } else {
-            res.render('shop', { products: products });
+            res.render('shop', { products: products, online: online });
         }
     }
 
     async searchAdminProducts(req: any, res: any) {
         let products = await ProductModel.find({ name: { $regex: `${req.body.keyword}`, $options: 'i' } });
         if (products.length === 0) {
-            res.render('searchAdminProduct');
+            res.render('searchAdminProduct', { info: req.user.name } );
         } else {
-            res.render('productsList', { products: products, message: req.flash('message') });
+            res.render('productsList', { products: products, message: req.flash('message'), info: req.user.name});
         }
     }
 
