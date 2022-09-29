@@ -388,7 +388,7 @@ class Controller {
         let userCartID = req.user.cartID;
         await CartModel.findByIdAndUpdate(userCartID, {list: []});
 
-        res.redirect('/');
+        setTimeout(() => res.redirect('/'), 1000);
     }
 
     async showOrderListPage(req, res) {
