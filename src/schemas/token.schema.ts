@@ -2,12 +2,12 @@ import { Schema, model } from "mongoose";
 
 interface IToken {
     email: string,
-    token: number
+    token: number,
 }
 
 const tokenSchema = new Schema<IToken>({
     email: String,
-    token: Number
+    token: Number,
 })
 
 const TokenModel = model<IToken>('token', tokenSchema);

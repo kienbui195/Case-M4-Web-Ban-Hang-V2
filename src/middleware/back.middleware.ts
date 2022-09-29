@@ -9,7 +9,9 @@ const back = (req: Request, res: Response, next: NextFunction) => {
     && oldUrl != '/get-cart-items'
     && oldUrl.includes('verify') == false
     && oldUrl.includes('login') == false
-    && oldUrl != '/register') {
+    && oldUrl != '/register'
+    && oldUrl.includes('/register') == false
+    && oldUrl.includes('add-to-cart') == false) {
     if (oldUrl == undefined) {
       next();
     } else {

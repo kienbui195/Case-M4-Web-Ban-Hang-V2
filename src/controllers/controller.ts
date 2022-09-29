@@ -7,6 +7,7 @@ import {OrderModel} from "../schemas/order.model";
 import bcrypt from 'bcrypt';
 import VerifiedEmail from "../VerifiedMail/mail.setup";
 import { TokenModel } from "../schemas/token.schema";
+import { resolve } from "path";
 
 class Controller {
 
@@ -108,7 +109,6 @@ class Controller {
                     req.flash('message', 'duplicateCreate');
                     res.redirect('/admin/products-add');
                 }
-
             } else {
                 req.flash('message', 'errorCreate');
                 res.redirect('/admin/products-add');
@@ -148,8 +148,8 @@ class Controller {
                 }
                 await TokenModel.create(token);
                 VerifiedEmail(req, res, otp);
-                req.flash('message', 'sendEmail');
-                res.render('verify', { message: req.flash('message'), email: data.emailRegister });
+                res.redirect(`/verify-account/${data.emailRegister}`);
+                
             } else {
                 req.flash('message', 'error');
                 res.redirect('/login');
@@ -161,18 +161,20 @@ class Controller {
     }
 
     async showFormVerify(req: any, res: any) {
-        let deleteToken = () => {
-            TokenModel.findOneAndDelete({ email: req.params.email })
-        }
-        setTimeout(deleteToken, 30000);
-        res.render('verify', { message: req.flash('message') });
+        let email = req.params.email;
+        let user = await UserModel.findOne({ email: email });
+        setTimeout(async () => {
+            await TokenModel.findOneAndDelete({ email: email });
+            await UserModel.findOneAndDelete({ email: email, isVerified: false });
+        }, 32000)
+        res.render('verify', { message: req.flash('message'), user: user });
     }
 
     async verifiedEmail(req: any, res: any) {
         let data = req.body;
         let token = await TokenModel.findOne({ email: data.email });
         if (token) {
-            if (req.body.code == token.token) {
+            if (data.code == token.token) {
                 await UserModel.findOneAndUpdate({ email: data.email }, { isVerified: true });
                 await TokenModel.findOneAndDelete({ email: data.email });
                 req.flash('message', 'successVerify');
