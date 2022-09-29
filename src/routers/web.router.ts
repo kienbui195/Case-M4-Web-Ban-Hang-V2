@@ -13,11 +13,11 @@ router.get('/', (req, res) => {
 });
 
 router.get('/verify-account/:email', (req, res) => {
-    controller.showFormVerify(req, res).catch(err => console.log(err.messages));
+    controller.showFormVerify(req, res).catch(err => res.render('404page'));
 });
 
 router.post('/verify-account', (req, res) => {
-    controller.verifiedEmail(req, res).catch(err => console.log(err.messages));
+    controller.verifiedEmail(req, res).catch(err => res.render('404page'));
 });
 
 router.get('/login', (req, res) => {
@@ -43,11 +43,11 @@ router.get('/logout', (req, res, next) => {
 });
 
 router.get('/shop', (req, res) => {
-    controller.showShopPage(req, res).catch(err => console.log(err.messages));
+    controller.showShopPage(req, res).catch(err => res.render('404page'));
 });
 
 router.get('/products/:id', (req, res) => {
-    controller.detailProduct(req, res).catch(err => console.log(err.messages));
+    controller.detailProduct(req, res).catch(err => res.render('404page'));
 });
 
 router.get('/register', (req, res) => {
@@ -60,11 +60,11 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/products-search', (req, res) => {
-    controller.searchProduct(req, res).catch(err => console.log(err.messages));
+    controller.searchProduct(req, res).catch(err => res.render('404page'));
 });
 
 router.post('/get-cart-items', (req, res) => {
-    controller.getCartItems(req, res).catch(err => console.log(err.messages));
+    controller.getCartItems(req, res).catch(err => res.render('404page'));
 })
 
 export default router;
