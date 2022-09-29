@@ -3,6 +3,7 @@ import passport from 'passport';
 import bcrypt from 'bcrypt';
 import { UserModel } from '../schemas/userLogin.model';
 import * as passportLocal from 'passport-local';
+import {CartModel} from "../schemas/cart.model";
 const LocalStrategy = passportLocal.Strategy;
 const GoogleStrategy = googleStrategy.Strategy;
 
@@ -33,14 +34,22 @@ passport.use(new GoogleStrategy({
       let nameGoogle = profile._json.name;
       let google_id = profile._json.sub;
       let email = profile._json.email;
+      const newCart = {
+        userEmail: email,
+        list: []
+      }
+      await CartModel.create(newCart);
+      let cart = await CartModel.findOne({ userEmail: email });
       let data = {
         email: email,
         google_id: google_id,
         name: nameGoogle,
         isVerified: true,
         role: 'user',
-        password: ''
+        password: '',
+        cartID: cart._id
       }
+
       let newUserGoogle = new UserModel(data);
       newUserGoogle.save();
       cb(null, newUserGoogle);
