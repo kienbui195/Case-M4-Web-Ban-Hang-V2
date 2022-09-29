@@ -59,7 +59,7 @@ router.post('/register', (req, res) => {
         .catch(err => console.log(err.message))
 });
 
-router.post('/products-search', (req, res) => {
+router.post('/products-search', (req, res) => { 
     controller.searchProduct(req, res).catch(err => res.render('404page'));
 });
 

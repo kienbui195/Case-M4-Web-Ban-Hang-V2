@@ -10,7 +10,8 @@ const back = (req: Request, res: Response, next: NextFunction) => {
     && oldUrl.includes('verify') == false
     && oldUrl.includes('login') == false
     && oldUrl != '/register'
-    && oldUrl.includes('/register') == false) {
+    && oldUrl.includes('/register') == false
+    && oldUrl.includes('add-to-cart') == false) {
     if (oldUrl == undefined) {
       next();
     } else {
