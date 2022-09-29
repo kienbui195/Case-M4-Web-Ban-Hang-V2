@@ -10,7 +10,11 @@ const back = (req: Request, res: Response, next: NextFunction) => {
     && oldUrl.includes('verify') == false
     && oldUrl.includes('login') == false
     && oldUrl != '/register') {
-    localStorage.setItem('oldUrl', oldUrl)
+    if (oldUrl == undefined) {
+      next();
+    } else {
+      localStorage.setItem('oldUrl', oldUrl)
+    }
   }
   next();
 }
