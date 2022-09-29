@@ -14,7 +14,7 @@ adminRouter.get('/dashboard', (req, res) => {
 
 
 adminRouter.get('/products-list', (req, res) => {
-    controller.showProductsListPage(req, res).catch(err => console.log(err.messages));
+    controller.showProductsListPage(req, res).catch(err => res.render('404page'));
 });
 
 adminRouter.get('/products-add', (req, res) => {
@@ -22,7 +22,7 @@ adminRouter.get('/products-add', (req, res) => {
 });
 
 adminRouter.get('/users-list', (req, res) => {
-    controller.showFormUserManager(req, res).catch(err => console.log(err.messages));
+    controller.showFormUserManager(req, res).catch(err => res.render('404page'));
 });
 
 adminRouter.get('/users-add', (req, res) => {
@@ -30,44 +30,44 @@ adminRouter.get('/users-add', (req, res) => {
 });
 
 adminRouter.get('/products-edit/:id', (req, res) => {
-    controller.showEditProductPage(req, res).catch(err => console.log(err.messages));
+    controller.showEditProductPage(req, res).catch(err => res.render('404page'));
 });
 
 adminRouter.post('/products-edit', (req, res) => {
-    controller.updateProduct(req, res).catch(err => console.log(err.messages));
+    controller.updateProduct(req, res).catch(err => res.render('404page'));
 });
 
 adminRouter.get('/products-delete/:id', (req, res) => {
-    controller.deleteProduct(req, res).catch(err => console.log(err.messages));
+    controller.deleteProduct(req, res).catch(err => res.render('404page'));
 });
 
 adminRouter.post('/users-add', (req, res) => {
-    controller.createAdminAccount(req, res).catch(err => console.log(err.messages));
+    controller.createAdminAccount(req, res).catch(err => res.render('404page'));
 });
 
 adminRouter.get('/user-delete/:id', (req, res) => {
-    controller.deleteUser(req, res).catch(err => console.log(err.messages));
+    controller.deleteUser(req, res).catch(err => res.render('404page'));
 });
 
 adminRouter.get('/user-edit/:id', (req, res) => {
-    controller.showUpdateUserForm(req, res).catch(err => console.log(err.messages));
+    controller.showUpdateUserForm(req, res).catch(err => res.render('404page'));
 });
 
 adminRouter.post('/user-edit/:id', (req, res) => {
-    controller.updateUser(req, res).catch(err => console.log(err.messages));
+    controller.updateUser(req, res).catch(err => res.render('404page'));
 });
 
 
 adminRouter.post('/products-add', (req, res) => {
-    controller.createProduct(req, res).catch(err => console.log(err.messages));
+    controller.createProduct(req, res).catch(err => res.render('404page'));
 });
 
 adminRouter.post('/users-searchProducts', (req, res) => {
-  controller.searchAdminProducts(req, res).catch(err => console.log(err.messages));
+  controller.searchAdminProducts(req, res).catch(err => res.render('404page'));
 });
 
 adminRouter.get('/orders-list', (req, res) => {
-    controller.showOrderListPage(req, res).catch(err => console.log(err.messages));
+    controller.showOrderListPage(req, res).catch(err => res.render('404page'));
 })
 
 export default adminRouter; 
